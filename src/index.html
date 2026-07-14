@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Global CO₂ Storage Atlas</title>
+<link rel="stylesheet" href="vendor/leaflet.css">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div id="app">
+  <aside id="sidebar">
+    <header>
+      <h1>Global CO₂ Storage Atlas</h1>
+      <p class="subtitle">Where the world can store CO₂ — by injection into sedimentary
+      reservoirs, and by in-situ mineralization in reactive rock.</p>
+    </header>
+
+    <section id="stats" class="stat-row" aria-label="Global storage potential"></section>
+
+    <section id="layers">
+      <h2>Layers</h2>
+      <label class="layer-toggle"><input type="checkbox" id="ly-basins" checked>
+        <span class="swatch seq"></span> Injection capacity by basin <small>(Gt CO₂)</small></label>
+      <label class="layer-toggle sub"><input type="checkbox" id="ly-injection">
+        <span class="swatch seq"></span> Country-level view <small>(alternative)</small></label>
+      <label class="layer-toggle sub"><input type="checkbox" id="ly-natcarb">
+        <span class="swatch" style="background:var(--inj-deep)"></span> US saline formations <small>(NATCARB detail)</small></label>
+      <label class="layer-toggle sub"><input type="checkbox" id="ly-eustorage">
+        <span class="swatch" style="background:var(--inj-deep)"></span> EU storage units <small>(CO2StoP detail)</small></label>
+      <label class="layer-toggle"><input type="checkbox" id="ly-ism" checked>
+        <span class="swatch multi"></span> In-situ mineralization formations</label>
+      <label class="layer-toggle sub"><input type="checkbox" id="ly-ism-other" checked>
+        <span class="swatch" style="background:var(--oph-other)"></span> Other mapped ophiolites <small>(uncharacterized)</small></label>
+      <label class="layer-toggle"><input type="checkbox" id="ly-projects" checked>
+        <span class="swatch dot"></span> Storage projects <small>(points, by mechanism)</small></label>
+    </section>
+
+    <section id="legend"><h2>Legend</h2><div id="legend-body"></div></section>
+
+    <footer>
+      <button id="btn-method" class="linklike">Methodology &amp; sources</button>
+      <p class="fineprint">Capacity tiers (theoretical / effective / practical) are not
+      comparable and never summed. Built July 2026.</p>
+    </footer>
+  </aside>
+  <div id="map"></div>
+
+  <aside id="detail" hidden>
+    <div class="detail-head"><h2 id="detail-title"></h2>
+      <button id="detail-close" aria-label="Close">×</button></div>
+    <div id="detail-body"></div>
+  </aside>
+
+  <div id="method-modal" hidden>
+    <div class="modal-card">
+      <div class="detail-head"><h2>Methodology</h2>
+        <button id="method-close" aria-label="Close">×</button></div>
+      <div id="method-body"></div>
+    </div>
+  </div>
+</div>
+<script src="vendor/leaflet.js"></script>
+<script src="data_bundle.js"></script>
+<script src="../data/geo/geometry_injection.js"></script>
+<script src="../data/geo/geometry_basins.js"></script>
+<script src="../data/geo/geometry_eu_storage.js"></script>
+<script src="../data/geo/geometry_ism.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

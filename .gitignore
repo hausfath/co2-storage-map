@@ -1,0 +1,10 @@
+.DS_Store
+__pycache__/
+# Frontier-internal documents -- never publish
+[[]Frontier[]]*.docx
+data/research/frontier_storage_pov.txt
+# Bulky raw downloads (rebuildable; sources + URLs in data/research/geodata_sources.json)
+data/raw/
+# Internal planning docs -- not for the public repo
+PLAN.md
+to_do.md
