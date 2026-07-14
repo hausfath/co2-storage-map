@@ -19,7 +19,7 @@
   --rift: #d03b3b;       /* rift / arc volcanic basalt */
   --oph-other: #b0a9d6;  /* uncharacterized mapped ophiolite */
   --proj-geo: #256abf;
-  --proj-ism: #4a3aa7;
+  --proj-ism: #d55181;
 }
 @media (prefers-color-scheme: dark) {
   :root {
@@ -28,7 +28,7 @@
     --hairline: #2c2c2a;
     --oph: #9085e9; --flood: #d95926; --offsh: #1baf7a; --rift: #e66767;
     --oph-other: #4c4470;
-    --proj-geo: #3987e5; --proj-ism: #9085e9;
+    --proj-geo: #3987e5; --proj-ism: #d55181;
   }
 }
 
