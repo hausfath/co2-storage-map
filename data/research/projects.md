@@ -13,26 +13,27 @@ Source files merged: `bicrs_storage_sites_seed.json` (~81 sites), `bicrs_storage
 on in-situ mineralization (ISM) and North America / Europe / MEA 2025-26 status
 updates captured in `projects_checkpoint.json`. Final deduplicated file: `projects.json`.
 
-## Total: 84 unique projects
+## Total: 99 unique projects (post 2026-07 audit; was 84)
 
 ### By mechanism
-- **Geologic** (dedicated saline/depleted-O&G, excl. EOR): 69
-- **Mineralization** (in-situ basalt/peridotite/serpentinite): 15
+- **Geologic** (dedicated saline/depleted-O&G, excl. EOR): 82
+- **Mineralization** (in-situ basalt/peridotite/serpentinite): 17
 
 ### By status
 | Status | Count |
 |---|---|
-| operational | 23 |
-| in_permitting | 17 |
-| construction | 14 |
-| planned | 13 |
-| approved | 6 |
-| pilot | 6 |
-| pilot_concluded | 5 |
+| operational | 24 |
+| in_permitting | 23 |
+| planned | 16 |
+| construction | 15 |
+| approved | 8 |
+| pilot | 7 |
+| pilot_concluded | 6 |
 
 ### By mechanism × status
-- Geologic: operational 21, in_permitting 15, construction 12, planned 12, approved 6, pilot_concluded 2, pilot 1
-- Mineralization: pilot 5, pilot_concluded 3, construction 2, in_permitting 2, operational 2, planned 1
+See `projects.json` for individual figures; the 2026-07 audit added 15 new projects,
+mostly to `in_permitting`/`planned` (Europe gap-fill) and two new `pilot`/`pilot_concluded`
+mineralization entries (Saudi Arabia, India).
 
 ### Operational capacity (Mtpa, among projects with a reported nameplate/injection rate)
 - **Geologic operational: ~20.2 Mtpa** across 21 sites (Sleipner, Snøhvit, Northern Lights Ph.1,
@@ -47,9 +48,9 @@ updates captured in `projects_checkpoint.json`. Final deduplicated file: `projec
   at meaningful volume as of mid-2026.
 
 ### By country (top entries)
-USA 17, CAN 8, CHN 6, AUS 5, ISL 5, NOR 5, JPN 4, MYS 4, ARE 4, GBR 4, IDN 2, IND 2,
-OMN 2, KEN 2, NLD 2, DNK 2, +TLS/KOR/THA/TWN 1 each, plus others in seed data not
-re-verified this round (SAU, QAT, DZA, ITA, ZAF).
+USA 17, CAN 9, NOR 8, GBR 7, CHN 6, AUS 5, ISL 5, JPN 4, MYS 4, ARE 4, IDN 3, IND 3,
+OMN 2, KEN 2, NLD 2, DNK 2, SAU 2, +TLS/KOR/THA/TWN/NZL/DZA/ITA/QAT/ZAF/GRC/BRA/HRV/HUN/BGR
+1 each (last five countries — GRC, BRA, HRV, HUN, BGR — newly added in the 2026-07 audit).
 
 ## Notable 2025-26 developments captured this round
 
@@ -128,3 +129,112 @@ Climate News, MIT Technology Review trade coverage 2025-26.
   Aramco Uthmaniyah, and Core Energy Michigan are all large-volume CO₂-EOR operations
   intentionally excluded per the dedicated-storage-only scope; flagging here so totals
   aren't mistaken for undercounting.
+
+## 2026-07 audit additions
+
+A colleague-flagged gap check (Greek Prinos project) triggered a systematic sweep for
+missing dedicated-storage projects (excl. EOR/ECBM) across Europe, MEA, the Americas,
+Asia-Pacific, and in-situ mineralization (ISM). 15 new projects added, bringing the
+total from 84 to 99. Full detail is in each project's `notes` field in `projects.json`;
+summary below.
+
+**Confirmed originally missing, now added — Prinos (the flagged item):**
+- **Prinos CO2 Storage (EnEarth/Energean, Greece)** — depleted Prinos/Epsilon oil
+  fields + underlying saline sand, offshore Gulf of Kavala, N. Aegean; EU PCI; 25-yr
+  storage permit granted by HEREMA Feb 2026; FEED to Kent; Phase 1 ~1 Mtpa (2025-28)
+  rising to ~2.8-3 Mtpa by 2029; status `in_permitting`, first injection realistically
+  2026-27. No second Greek storage site was found (checked and excluded).
+
+**Europe (8 added):**
+- **Morecambe Net Zero** (Spirit Energy/Centrica, UK, East Irish Sea) — depleted
+  North/South Morecambe gas fields, license CS010; Assess Phase June 2026; 3 Mtpa;
+  `in_permitting`.
+- **Bacton Thames Net Zero** (Eni UK, Hewett Field, North Sea) — 6→10 Mtpa; cooperation
+  agreement/pre-FEED stage; `planned`.
+- **Errai CCS** (Horisont Energi/Neptune Energy, Norway) — onshore Gismarvik terminal +
+  North Sea license; 4-8 Mtpa; flagged schedule risk (original 2026 target has slipped);
+  `in_permitting`.
+- **Luna** and **Havstjerne** CO2 storage licenses (Norway, North Sea) — both distinct
+  from the already-tracked Smeaheia license; Harbour Energy-linked; 5 Mtpa and 7 Mtpa
+  targets respectively; both `in_permitting`, no FID.
+- **Croatia Geothermal CCS** (Bočkovac, Osijek-Baranja) — EU PCI-listed, paired with
+  geothermal plant, ~0.6 Mtpa; early feasibility, `planned`.
+- **Danube Removals CCS** (Pannonia Bio, Hungary) — Hungary's first dedicated storage
+  project, biogenic CO2 into Pannonian Basin saline aquifer; ~0.5 Mtpa; `construction`,
+  targeting Sept 2027 start.
+- **ANRAV CCS** (Heidelberg Materials Devnya / Galata Field, Bulgaria) — EU PCI-listed;
+  cement-plant capture to depleted offshore Black Sea gas field; ~0.8 Mtpa; `planned`.
+- **Medway Hub** (Synergia Energy, Camelot License CS019, UK southern North Sea) —
+  genuine named site (depleted Camelot field, 70-100 Mt potential, up to 6.5 Mtpa) but
+  added with a caveat: anchor partner Wintershall Dea exited the JV in Nov 2024 and
+  Synergia is still seeking a replacement partner as of mid-2026; `in_permitting`.
+
+**Americas (2 added):**
+- **Deep Sky Alpha** (Innisfail, Alberta, Canada) — North America's first DAC-fed
+  dedicated saline-storage site; operational since Aug 2025, ~3,000 t/yr; distinct
+  from the already-tracked Deep Sky/Carbfix Thetford Mines (Quebec) mineralization
+  pilot — Alpha is geologic saline storage, not ISM.
+- **Petrobras São Tomé CCS Pilot** (Cabiúnas/Barra do Furado, Rio de Janeiro, Brazil) —
+  Brazil's first dedicated (non-EOR, non-pre-salt) saline storage pilot, ~0.1 Mtpa;
+  `approved`, targeting ~2028 start.
+
+**Asia-Pacific (1 added):**
+- **Repsol Sakakemang CCS** (South Sumatra, Indonesia) — high-CO2 gas field injecting
+  into adjacent depleted Dayung/Gelam fields; genuinely distinct operator/block from
+  BP Tangguh and ExxonMobil/Pertamina Sunda-Asri; ~1.5-2 Mtpa; `approved`, targeting
+  ~2028.
+
+**In-situ mineralization (2 added):**
+- **KAUST/Aramco Jizan Basalt Mineralization Pilot** (Saudi Arabia) — first Arabian
+  Peninsula basalt ISM field pilot, Carbfix-like method; 131 t injected, ~70% mineralized;
+  results published Nature Apr 2026; `pilot_concluded`, no scale-up site yet.
+- **IISER Bhopal/CSIR-NGRI Deccan Traps CO2 Injection Well** (India, DeCarbFaroe
+  programme) — billed as India's first dedicated CO2-storage well, basalt ISM research
+  well launched Aug 2025; `pilot`, coordinates approximate (exact site not disclosed).
+
+**Checked but deliberately NOT added (with reason):**
+- **Callisto** (Italy/France) — folds into the already-tracked Ravenna CCS hub;
+  no independently sited French storage location identified.
+- **Pycasso** (SW France, Lacq) — officially abandoned/cancelled due to local
+  opposition; no site was ever finalized.
+- **GeoZero/Lacq** — no live project found; only a long-closed 2010-2013 Total
+  Lacq/Rousse pilot exists historically.
+- **ECO2CEE / Poland-Baltic hub** — this is CO2 transshipment-terminal
+  infrastructure (Port of Gdańsk), not a storage site; Baltic sub-sea storage is
+  currently blocked by the Helsinki Convention.
+- **"CO2 Highway"/Norne** — "CO2 Highway Europe" is a pipeline concept feeding the
+  already-tracked Smeaheia license, not a separate storage site; "Norne Carbon
+  Storage Hub" is actually a Port of Aalborg, Denmark reception project with no
+  storage site finalized yet.
+- **Pilot STRATEGY** (EU Horizon project) — pure research/characterization program
+  across 5 basins; no committed injection site.
+- **Second Greek storage site** — none found beyond Prinos.
+- Saudi Jubail: verified existing entry, no second distinct Saudi site found; SABIC
+  Jubail carbon capture is utilization (CO2 sold), not storage — excluded.
+- **Oman Marsa LNG** — low-carbon-design LNG plant (electrification + solar), no
+  CO2 capture/storage component.
+- **Egypt** — only real named project (Eni/Meleiha) is EOR-adjacent and still
+  pilot/study-stage; other Egyptian sites are academic modeling papers only.
+- **Morocco, Nigeria** — no genuinely sited, non-EOR, past-feasibility-stage project
+  found (Nigeria has a March 2025 IFC/World Bank storage-potential atlas identifying
+  candidate sites, but none has reached FID).
+- **Kenya third project** — none found beyond the two already tracked.
+- **Argentina/YPF** — only an MOU-stage siting study (Bahía Blanca) with no named
+  site.
+- **Trinidad and Tobago** — only atlas/feasibility-mapping work, no sited project.
+- **Colombia, Mexico, Chile** — academic capacity assessments or pre-siting
+  intentions only.
+- **Japan Chubu (Ise Bay) and Kinki (Southern Offshore Malay Peninsula) JOGMEC
+  projects** — real CO2-source-region studies, but their overseas storage
+  destinations ("Oceania," "southern offshore Malay Peninsula"/possible Duyong,
+  Malaysia) are not yet sited with coordinates; worth revisiting once a storage
+  location crystallizes.
+- **Vietnam** — only basin-scale capacity estimates and a stated strategic
+  intent (PVEP, 2026); no named site or operator commitment.
+- **India additional site ("Juna"/Mumbai High)** — no "Juna" project found; Mumbai
+  High is discussed only as an EOR candidate, excluded per scope.
+- **New Carbfix/44.01/Cella/CO2Lock sites** — none found beyond what's already
+  tracked; Carbfix's "Steingerður"/Silverstone permit (2025) is the same Hellisheiði
+  site already in inventory, not a new location. A DNV-led "CO2RockLock" joint
+  industry project (2026) is a research/knowledge-gap study, not a field site —
+  excluded.

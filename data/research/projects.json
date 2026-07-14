@@ -221,7 +221,7 @@
     "start_year": 2025,
     "onshore_offshore": "onshore (Gansu)",
     "source": "SASAC, ScienceDirect Sept 2025",
-    "notes": "World's largest coal-fired capture demo (1.5 Mtpa), operational Sept 2025; storage split geologic/EOR/green-fuel still emerging \u2014 verify dedicated-storage share."
+    "notes": "World's largest coal-fired capture demo (1.5 Mtpa), operational Sept 2025; storage split geologic/EOR/green-fuel still emerging — verify dedicated-storage share."
   },
   {
     "name": "Sinopec Shengli Offshore CCS Phase 2 (Bohai)",
@@ -365,7 +365,7 @@
     "start_year": 2025,
     "onshore_offshore": "onshore (Gujarat)",
     "source": "Down to Earth 2025-26",
-    "notes": "India's first full-scale CCS pilot; ~100 t/day into two depleted wells at Gandhar oilfield; also tests EOR \u2014 verify dedicated-storage share."
+    "notes": "India's first full-scale CCS pilot; ~100 t/day into two depleted wells at Gandhar oilfield; also tests EOR — verify dedicated-storage share."
   },
   {
     "name": "NTPC Pakri Barwadih CO2 Storage Appraisal",
@@ -432,7 +432,7 @@
     "notes": "Prime NZ candidate pending CCS legislation (expected 2026); no sanctioned project yet."
   },
   {
-    "name": "Carbfix Hellishei\u00f0i (CarbFix1/CarbFix2 + Orca/Mammoth DAC injection)",
+    "name": "Carbfix Hellisheiði (CarbFix1/CarbFix2 + Orca/Mammoth DAC injection)",
     "mechanism": "mineralization",
     "storage_type": "basalt",
     "country": "ISL",
@@ -445,10 +445,10 @@
     "start_year": 2012,
     "onshore_offshore": "onshore",
     "source": "Carbfix.com; Matter et al. 2016 Science; Wikipedia Carbfix",
-    "notes": "World's first and longest-running dedicated ISM site. CarbFix1 pilot began 2012 (geothermal-plant CO2/H2S co-injected dissolved in water into basalt at ~400-800m, Hellishei\u00f0i geothermal plant); CarbFix2 scaled to capture ~12,000 t CO2/yr from the plant since 2014. Also hosts injection for Climeworks' Orca (4kt/yr, since 2021) and Mammoth (36kt/yr capacity, since 2024) DAC plants. >95% mineralization within ~2 years. Cumulative Carbfix-wide (geothermal + DAC) injected ~110,000+ t CO2 by 2025-26."
+    "notes": "World's first and longest-running dedicated ISM site. CarbFix1 pilot began 2012 (geothermal-plant CO2/H2S co-injected dissolved in water into basalt at ~400-800m, Hellisheiði geothermal plant); CarbFix2 scaled to capture ~12,000 t CO2/yr from the plant since 2014. Also hosts injection for Climeworks' Orca (4kt/yr, since 2021) and Mammoth (36kt/yr capacity, since 2024) DAC plants. >95% mineralization within ~2 years. Cumulative Carbfix-wide (geothermal + DAC) injected ~110,000+ t CO2 by 2025-26."
   },
   {
-    "name": "Carbfix Helguv\u00edk / CO2 Seastone (seawater dissolution pilot)",
+    "name": "Carbfix Helguvík / CO2 Seastone (seawater dissolution pilot)",
     "mechanism": "mineralization",
     "storage_type": "basalt",
     "country": "ISL",
@@ -460,11 +460,11 @@
     "operator": "Carbfix",
     "start_year": 2023,
     "onshore_offshore": "onshore (coastal)",
-    "source": "Carbfix.com 'Carbfix tests using seawater to mineralize CO2 at Helguv\u00edk'",
-    "notes": "World's first injection of CO2 dissolved in seawater (rather than freshwater) into basaltic subsurface, ~400m depth below sea level, Reykjanesb\u00e6r. Tests imported CO2 (from Switzerland) as a precursor/proof-of-concept for the Coda Terminal import model."
+    "source": "Carbfix.com 'Carbfix tests using seawater to mineralize CO2 at Helguvík'",
+    "notes": "World's first injection of CO2 dissolved in seawater (rather than freshwater) into basaltic subsurface, ~400m depth below sea level, Reykjanesbær. Tests imported CO2 (from Switzerland) as a precursor/proof-of-concept for the Coda Terminal import model."
   },
   {
-    "name": "Carbfix Coda Terminal (Straumsv\u00edk CO2 import & storage hub)",
+    "name": "Carbfix Coda Terminal (Straumsvík CO2 import & storage hub)",
     "mechanism": "mineralization",
     "storage_type": "basalt",
     "country": "ISL",
@@ -477,7 +477,7 @@
     "start_year": 2026,
     "onshore_offshore": "onshore",
     "source": "Carbfix.com Coda Terminal page; EU Innovation Fund award; Carbfix 2026 guidance",
-    "notes": "Large-scale hub to import captured CO2 by ship (from Europe, incl. Switzerland/Dan-Unity partners) and permanently mineralize it in basalt at Straumsv\u00edk near Reykjavik. First commercial imported-CO2 injection targeted mid-2026 (~500,000 t/yr with one ship); full capacity of 3 Mtpa (5 ships) targeted by 2031. On-site 'Silverstone' capture/receiving infrastructure under construction 2025-26."
+    "notes": "Large-scale hub to import captured CO2 by ship (from Europe, incl. Switzerland/Dan-Unity partners) and permanently mineralize it in basalt at Straumsvík near Reykjavik. First commercial imported-CO2 injection targeted mid-2026 (~500,000 t/yr with one ship); full capacity of 3 Mtpa (5 ships) targeted by 2031. On-site 'Silverstone' capture/receiving infrastructure under construction 2025-26."
   },
   {
     "name": "Carbfix Nesjavellir Geothermal Reinjection",
@@ -493,7 +493,7 @@
     "start_year": 2014,
     "onshore_offshore": "onshore",
     "source": "Carbfix.com operations overview",
-    "notes": "Second Carbfix geothermal-plant reinjection site (Nesjavellir geothermal power station), smaller scale than Hellishei\u00f0i; part of Carbfix's four current Icelandic injection sites (Hellishei\u00f0i, Nesjavellir, Orca, Helguv\u00edk)."
+    "notes": "Second Carbfix geothermal-plant reinjection site (Nesjavellir geothermal power station), smaller scale than Hellisheiði; part of Carbfix's four current Icelandic injection sites (Hellisheiði, Nesjavellir, Orca, Helguvík)."
   },
   {
     "name": "Reykjanes Ridge Sub-Seabed Basalt Pilot",
@@ -637,7 +637,7 @@
     "start_year": 2025,
     "onshore_offshore": "onshore",
     "source": "Newswire 'Deep Sky completes Quebec's first geological injection of captured carbon'; Deep Sky blog",
-    "notes": "Quebec's first geological CO2 injection using the Carbfix mineralization method, at the historic Thetford Mines asbestos/serpentinite belt. First North American mineralization injection by Deep Sky. Companion pre-feasibility study underway at B\u00e9cancour industrial park (SPIPB) for a larger sedimentary/mineral storage site."
+    "notes": "Quebec's first geological CO2 injection using the Carbfix mineralization method, at the historic Thetford Mines asbestos/serpentinite belt. First North American mineralization injection by Deep Sky. Companion pre-feasibility study underway at Bécancour industrial park (SPIPB) for a larger sedimentary/mineral storage site."
   },
   {
     "name": "CO2 Lock SAM Project (Brucite-Serpentinite, Central BC)",
@@ -688,7 +688,7 @@
     "notes": "Utsira Sand saline aquifer, ~800-1000m depth. First industrial-scale dedicated CO2 storage project globally. >26 Mt cumulative by 2026 at ~1.0 Mtpa."
   },
   {
-    "name": "Sn\u00f8hvit CO2 Storage",
+    "name": "Snøhvit CO2 Storage",
     "mechanism": "geologic",
     "storage_type": "saline",
     "country": "NOR",
@@ -701,7 +701,7 @@
     "start_year": 2008,
     "onshore_offshore": "offshore",
     "source": "Global CCS Institute; Equinor",
-    "notes": "CO2 from Sn\u00f8hvit LNG plant injected into Tub\u00e5en/St\u00f8 Fm saline aquifer, Barents Sea. Storage zone changed from Tub\u00e5en to St\u00f8 Fm in 2011 after pressure issues."
+    "notes": "CO2 from Snøhvit LNG plant injected into Tubåen/Stø Fm saline aquifer, Barents Sea. Storage zone changed from Tubåen to Stø Fm in 2011 after pressure issues."
   },
   {
     "name": "Northern Lights CCS Phase 1",
@@ -813,7 +813,7 @@
     "start_year": 2016,
     "onshore_offshore": "onshore",
     "source": "ADNOC; CSLF project page; JPT/SPE Habshan coverage",
-    "notes": "MENA's first commercial CCUS project; captures up to 0.8 Mtpa CO2 from Emirates Steel Arkan, currently used for enhanced oil recovery at ADNOC onshore fields (EOR-adjacent \u2014 not pure dedicated storage). ADNOC exploring conversion to a dedicated Transport & Storage Company (T&SCo) model similar to Northern Lights. See also Habshan CCUS (separate entry) for ADNOC's first dedicated geological (non-EOR) storage project."
+    "notes": "MENA's first commercial CCUS project; captures up to 0.8 Mtpa CO2 from Emirates Steel Arkan, currently used for enhanced oil recovery at ADNOC onshore fields (EOR-adjacent — not pure dedicated storage). ADNOC exploring conversion to a dedicated Transport & Storage Company (T&SCo) model similar to Northern Lights. See also Habshan CCUS (separate entry) for ADNOC's first dedicated geological (non-EOR) storage project."
   },
   {
     "name": "ADNOC Habshan CCUS (Bab Far North Field)",
@@ -877,7 +877,7 @@
     "start_year": 2026,
     "onshore_offshore": "offshore",
     "source": "Carbon Herald; NS Energy; EU CINEA project fiche",
-    "notes": "Depleted Nini West oil field, Danish North Sea. 2023 pilot injected ~4,100 t CO2 shipped from INEOS Antwerp (world's first cross-border offshore CCS value chain). Full storage license approved; ramp-up to commercial operation from mid-2026 at initial 0.4 Mtpa, expanding to 4-8 Mtpa by 2030 \u2014 set to be Denmark's and the EU's first full-scale operational CO2 storage site."
+    "notes": "Depleted Nini West oil field, Danish North Sea. 2023 pilot injected ~4,100 t CO2 shipped from INEOS Antwerp (world's first cross-border offshore CCS value chain). Full storage license approved; ramp-up to commercial operation from mid-2026 at initial 0.4 Mtpa, expanding to 4-8 Mtpa by 2030 — set to be Denmark's and the EU's first full-scale operational CO2 storage site."
   },
   {
     "name": "Acorn CCS (Scotland / North Sea)",
@@ -1053,7 +1053,7 @@
     "start_year": 2027,
     "onshore_offshore": "onshore",
     "source": "Inside Climate News Mar 2026 'Summit Sold Its Midwest Pipeline as a Carbon Solution. Now It'll Be Used for Fossil Fuels'; PGJ Apr 2026; South Dakota Searchlight",
-    "notes": "~2,500-mile pipeline linking ~57 Midwest ethanol plants (IA/MN/NE/ND/SD) to North Dakota sequestration site. MAJOR 2026 STATUS CHANGE: North Dakota judge revoked Summit's underground CO2 storage permit in March 2026; South Dakota banned eminent domain for CO2 pipelines (2025); company pivoted messaging toward enhanced oil recovery (EOR) use rather than pure dedicated storage, undercutting original sequestration framing. Sequestration component now uncertain/contested as of mid-2026 \u2014 flagged as at-risk/EOR-adjacent."
+    "notes": "~2,500-mile pipeline linking ~57 Midwest ethanol plants (IA/MN/NE/ND/SD) to North Dakota sequestration site. MAJOR 2026 STATUS CHANGE: North Dakota judge revoked Summit's underground CO2 storage permit in March 2026; South Dakota banned eminent domain for CO2 pipelines (2025); company pivoted messaging toward enhanced oil recovery (EOR) use rather than pure dedicated storage, undercutting original sequestration framing. Sequestration component now uncertain/contested as of mid-2026 — flagged as at-risk/EOR-adjacent."
   },
   {
     "name": "Alberta Carbon Trunk Line (ACTL)",
@@ -1069,7 +1069,7 @@
     "start_year": 2020,
     "onshore_offshore": "onshore",
     "source": "Seed data; Wolf Midstream/Enhance updates",
-    "notes": "Captures CO2 from NWR Sturgeon Refinery and Nutrien Redwater Fertilizer, transports via trunk line to Clive/central Alberta oilfields \u2014 primarily EOR use currently (flagged EOR-adjacent), ~1.6 Mtpa transported vs. 14.6 Mtpa pipeline capacity; included per task instructions for status tracking."
+    "notes": "Captures CO2 from NWR Sturgeon Refinery and Nutrien Redwater Fertilizer, transports via trunk line to Clive/central Alberta oilfields — primarily EOR use currently (flagged EOR-adjacent), ~1.6 Mtpa transported vs. 14.6 Mtpa pipeline capacity; included per task instructions for status tracking."
   },
   {
     "name": "Aquistore CO2 Storage Project (Saskatchewan)",
@@ -1117,7 +1117,7 @@
     "start_year": 2025,
     "onshore_offshore": "onshore",
     "source": "1PointFive/Oxy Apr 2025 Class VI permit PR; OGJ; Carbon Capture Magazine",
-    "notes": "World's largest DAC facility (500kt/yr capacity design, up to 1 Mtpa scalable), Penwell TX. EPA issued 3 Class VI permits Apr 2025 (BRP CCS1-3 wells, ~722,000 t/yr saline storage capacity at ~4,400 ft depth) \u2014 first-ever Class VI permits issued for a DAC project. Became commercially operational 2025; amendments to permits under public comment (deadline Jul 2026)."
+    "notes": "World's largest DAC facility (500kt/yr capacity design, up to 1 Mtpa scalable), Penwell TX. EPA issued 3 Class VI permits Apr 2025 (BRP CCS1-3 wells, ~722,000 t/yr saline storage capacity at ~4,400 ft depth) — first-ever Class VI permits issued for a DAC project. Became commercially operational 2025; amendments to permits under public comment (deadline Jul 2026)."
   },
   {
     "name": "South Texas DAC Hub (King Ranch, 1PointFive/Occidental/ADNOC XRG)",
@@ -1348,7 +1348,7 @@
     "mechanism": "geologic",
     "storage_type": "depleted_og",
     "country": "GRC",
-    "lat": 40.80,
+    "lat": 40.8,
     "lon": 24.49,
     "status": "in_permitting",
     "capacity_mtpa": 1.0,
@@ -1438,5 +1438,149 @@
     "onshore_offshore": "onshore",
     "source": "Repsol/SKK Migas POD approval Jan 2024; PT Synergy Engineering FEED 2024; Indonesian upstream trade press EPC tender coverage 2025",
     "notes": "High-CO2 (~26%) Sakakemang/Kali Berau Dalam gas field, South Sumatra; captured CO2 to be injected into depleted gas reservoirs at the adjacent Dayung and Gelam fields (Corridor Block, operated by ConocoPhillips), with saline aquifers evaluated as backup storage. Genuinely distinct from BP Tangguh UCC and ExxonMobil/Pertamina Sunda-Asri (different operator/block). Plan of Development approved Jan 2024; FEED completed 2024; EPC tender process ongoing through 2025-26; targeting ~1.5-2 Mtpa injection (~30 Mt cumulative through ~2040), first gas/CCS online targeted ~2028."
+  },
+  {
+    "name": "Morecambe Net Zero (Spirit Energy/Centrica, East Irish Sea)",
+    "mechanism": "geologic",
+    "storage_type": "depleted_og",
+    "country": "GBR",
+    "lat": 54.05,
+    "lon": -3.7,
+    "status": "in_permitting",
+    "capacity_mtpa": 3.0,
+    "cumulative_stored_mt": null,
+    "operator": "Spirit Energy (Centrica)",
+    "start_year": 2030,
+    "onshore_offshore": "offshore",
+    "source": "worldoil.com; centrica.com storage license CS010 updates 2025-26",
+    "notes": "Depleted North and South Morecambe gas fields, East Irish Sea off Lancashire/Cumbria; storage license CS010, total storage potential ~1 billion tonnes. Entered NSTA \"Assess Phase\" June 2026 (3D seismic complete) — a genuine, distinct UK cluster candidate alongside HyNet/Liverpool Bay and Acorn. Injection can only begin after gas production ends, targeted toward end of decade (~2029-30)."
+  },
+  {
+    "name": "Bacton Thames Net Zero (Eni UK, Hewett Field, North Sea)",
+    "mechanism": "geologic",
+    "storage_type": "depleted_og",
+    "country": "GBR",
+    "lat": 52.98,
+    "lon": 1.75,
+    "status": "planned",
+    "capacity_mtpa": 6.0,
+    "cumulative_stored_mt": null,
+    "operator": "Eni UK (convening cooperation agreement)",
+    "start_year": 2030,
+    "onshore_offshore": "offshore",
+    "source": "energycentral.com; nstauthority.co.uk cooperation-agreement announcements 2025-26",
+    "notes": "Depleted Hewett gas field, ~25km off the Norfolk coast, southern North Sea, linked to the Bacton gas terminal/Thames Estuary industrial cluster. Cooperation agreement/pre-FEED stage as of mid-2026, convened by Eni UK; initial phase targeting 6 Mtpa rising to 10 Mtpa; target start ~2030."
+  },
+  {
+    "name": "Errai CCS (Horisont Energi/Neptune Energy, Norway)",
+    "mechanism": "geologic",
+    "storage_type": "saline",
+    "country": "NOR",
+    "lat": 59.35,
+    "lon": 5.55,
+    "status": "in_permitting",
+    "capacity_mtpa": 4.0,
+    "cumulative_stored_mt": null,
+    "operator": "Horisont Energi / Neptune Energy",
+    "start_year": null,
+    "onshore_offshore": "onshore terminal (Gismarvik, Haugaland Næringspark, Rogaland) / offshore North Sea storage license",
+    "source": "horisontenergi.no; ogj.com; Errai Project of Mutual Interest (PMI) award Aug 2025",
+    "notes": "North Sea CO2 storage license paired with an onshore receiving terminal at Gismarvik, Haugaland Næringspark (coordinates are for the onshore terminal; offshore reservoir location not fully public). Target capacity 4-8 Mtpa with E.ON as an anchor customer. Awarded EU/regional \"Project of Mutual Interest\" status Aug 2025, but the original ~2026 injection target has clearly slipped based on available mid-2026 coverage; treated here as planned/in-permitting with schedule uncertainty rather than a firm 2026-27 date."
+  },
+  {
+    "name": "Luna CO2 Storage License (Norway, North Sea)",
+    "mechanism": "geologic",
+    "storage_type": "saline",
+    "country": "NOR",
+    "lat": 60.4,
+    "lon": 3.0,
+    "status": "in_permitting",
+    "capacity_mtpa": 5.0,
+    "cumulative_stored_mt": null,
+    "operator": "Harbour Energy (formerly Wintershall Dea) / CapeOmega",
+    "start_year": null,
+    "onshore_offshore": "offshore",
+    "source": "carbonherald.com; ocean-energyresources.com Norwegian CO2 storage license coverage 2025-26",
+    "notes": "Norwegian North Sea CO2 storage exploration license, ~120km west of Bergen, distinct from Equinor's Smeaheia license (already tracked). Targeting up to 5 Mtpa; exploration/licensing-phase as of mid-2026, no FID yet. Coordinates approximate."
+  },
+  {
+    "name": "Havstjerne CO2 Storage License (Norway, North Sea)",
+    "mechanism": "geologic",
+    "storage_type": "saline",
+    "country": "NOR",
+    "lat": 58.0,
+    "lon": 4.0,
+    "status": "in_permitting",
+    "capacity_mtpa": 7.0,
+    "cumulative_stored_mt": null,
+    "operator": "Harbour Energy (60%, having taken over Wintershall Dea's stake) / Altera Infrastructure",
+    "start_year": null,
+    "onshore_offshore": "offshore",
+    "source": "alterainfra.com; carbonherald.com Norwegian CO2 storage license coverage 2025-26",
+    "notes": "Norwegian North Sea CO2 storage exploration license, ~135km SW of Stavanger, distinct from Smeaheia and Luna. Test well drilled with reportedly promising injectivity results; targeting up to 7 Mtpa. Still in exploration/licensing phase as of mid-2026, no FID yet. Coordinates approximate."
+  },
+  {
+    "name": "Croatia Geothermal CCS (Bočkovac, Osijek-Baranja)",
+    "mechanism": "geologic",
+    "storage_type": "saline",
+    "country": "HRV",
+    "lat": 45.35,
+    "lon": 18.35,
+    "status": "planned",
+    "capacity_mtpa": 0.6,
+    "cumulative_stored_mt": null,
+    "operator": "Croatian Hydrocarbon Agency (Agencija za ugljikovodike, AZU)",
+    "start_year": null,
+    "onshore_offshore": "onshore",
+    "source": "azu.hr; ccs4cee.eu; EU PCI list (GT CCS Croatia)",
+    "notes": "EU PCI-listed CO2 storage project paired with a geothermal plant at Bočkovac, Osijek-Baranja County, eastern Croatia, onshore saline aquifer. Captures CO2 from the Našice cement plant (CO2NTESSA project) plus emitters near the Hungary/Croatia border. Early feasibility stage as of mid-2026 with EU Innovation Fund early support secured; Phase 1 capacity ~0.6 Mtpa; no FID or start date yet. Coordinates approximate (Bočkovac village area)."
+  },
+  {
+    "name": "Danube Removals CCS (Pannonia Bio, Hungary)",
+    "mechanism": "geologic",
+    "storage_type": "saline",
+    "country": "HUN",
+    "lat": 46.81,
+    "lon": 18.93,
+    "status": "construction",
+    "capacity_mtpa": 0.5,
+    "cumulative_stored_mt": null,
+    "operator": "MOL Group infrastructure / Pannonia Bio (capture)",
+    "start_year": 2027,
+    "onshore_offshore": "onshore",
+    "source": "European Commission Innovation Fund factsheet (Danube Removals)",
+    "notes": "Hungary's first dedicated CO2 storage project; captures biogenic CO2 (~500,000+ t/yr) from Pannonia Bio's yeast-fermentation/anaerobic-digestion plant at Dunaföldvár, injecting into an onshore saline aquifer of the Pannonian Basin. EU Innovation Fund-supported; under construction/approved as of mid-2026, targeting operation start Sept 30 2027."
+  },
+  {
+    "name": "ANRAV CCS (Heidelberg Materials Devnya / Galata Field, Bulgaria)",
+    "mechanism": "geologic",
+    "storage_type": "depleted_og",
+    "country": "BGR",
+    "lat": 43.2,
+    "lon": 28.3,
+    "status": "planned",
+    "capacity_mtpa": 0.8,
+    "cumulative_stored_mt": null,
+    "operator": "Heidelberg Materials (Devnya Cement Plant, capture) / storage partner TBD",
+    "start_year": 2028,
+    "onshore_offshore": "offshore (Black Sea)",
+    "source": "heidelbergmaterials.com; anrav.bg; EU PCI list; €190M EU Innovation Fund award",
+    "notes": "EU PCI-listed cement-CCS project; captures CO2 at Heidelberg Materials' Devnya cement plant near Varna for storage in the depleted Galata gas field, offshore Black Sea. ANRAV.beta pilot capture unit has been running at Devnya since Oct 2023; full-chain (capture + offshore storage) still in planning/permitting as of mid-2026, targeting operation as early as 2028. Capacity ~0.8 Mtpa capture rate."
+  },
+  {
+    "name": "Medway Hub (Synergia Energy, Camelot License CS019, Southern North Sea)",
+    "mechanism": "geologic",
+    "storage_type": "depleted_og",
+    "country": "GBR",
+    "lat": 53.3,
+    "lon": 2.7,
+    "status": "in_permitting",
+    "capacity_mtpa": 6.5,
+    "cumulative_stored_mt": null,
+    "operator": "Synergia Energy (Wintershall Dea withdrew from the JV Nov 2024 following its acquisition by Harbour Energy; Synergia now seeking a new partner)",
+    "start_year": 2032,
+    "onshore_offshore": "offshore",
+    "source": "oedigital.com; enerdata.net Medway Hub / CS019 Camelot coverage 2024-26",
+    "notes": "Depleted Camelot gas field plus associated saline aquifers, southern North Sea (storage license CS019); total storage potential estimated 70-100 Mt, target injection rate up to 6.5 Mtpa. Pre-FEED complete, but flagged higher-risk: anchor partner Wintershall Dea exited the JV in Nov 2024 amid the Harbour Energy acquisition, leaving Synergia Energy searching for a replacement partner as of mid-2026. Genuine named site and license, but commercial progress stalled pending new JV; target first injection ~2032."
   }
 ]
