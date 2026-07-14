@@ -12,8 +12,15 @@
   <aside id="sidebar">
     <header>
       <h1>Global CO₂ Storage Atlas</h1>
-      <p class="subtitle">Where the world can store CO₂ — by injection into sedimentary
-      reservoirs, and by in-situ mineralization in reactive rock.</p>
+      <p class="subtitle">This tool highlights where the world can store CO₂ — through
+      <a href="https://www.globalccsinstitute.com/why-ccs/what-is-ccs/" target="_blank" rel="noopener">injection
+      into sedimentary reservoirs</a> and by
+      <a href="https://www.carbfix.com/the-science" target="_blank" rel="noopener">in-situ mineralization
+      (ISM)</a> in reactive rock. The ideal storage site depends on transport distance and
+      cost from the CO₂ source, permitting and development time, and cost per ton stored.
+      Injection storage will likely remain cheaper, but in many parts of the world it isn't
+      an option — and ISM is. Carbon removal at scale needs a diversity of storage sites
+      around the globe.</p>
     </header>
 
     <section id="stats" class="stat-row" aria-label="Global storage potential"></section>
@@ -21,19 +28,15 @@
     <section id="layers">
       <h2>Layers</h2>
       <label class="layer-toggle"><input type="checkbox" id="ly-basins" checked>
-        <span class="swatch seq"></span> Injection capacity by basin <small>(Gt CO₂)</small></label>
+        <span class="swatch seq"></span> CO₂ injection storage <small>(basins, Gt CO₂)</small></label>
       <label class="layer-toggle sub"><input type="checkbox" id="ly-injection">
-        <span class="swatch seq"></span> Country-level view <small>(alternative)</small></label>
-      <label class="layer-toggle sub"><input type="checkbox" id="ly-natcarb">
-        <span class="swatch" style="background:var(--inj-deep)"></span> US saline formations <small>(NATCARB detail)</small></label>
-      <label class="layer-toggle sub"><input type="checkbox" id="ly-eustorage">
-        <span class="swatch" style="background:var(--inj-deep)"></span> EU storage units <small>(CO2StoP detail)</small></label>
+        <span class="swatch seq"></span> View by country instead</label>
+      <label class="layer-toggle sub"><input type="checkbox" id="ly-detail">
+        <span class="swatch" style="background:var(--inj-deep)"></span> Detailed formations <small>(US &amp; EU)</small></label>
       <label class="layer-toggle"><input type="checkbox" id="ly-ism" checked>
         <span class="swatch multi"></span> In-situ mineralization formations</label>
-      <label class="layer-toggle sub"><input type="checkbox" id="ly-ism-other" checked>
-        <span class="swatch" style="background:var(--oph-other)"></span> Other mapped ophiolites <small>(uncharacterized)</small></label>
       <label class="layer-toggle"><input type="checkbox" id="ly-projects">
-        <span class="swatch dot"></span> Storage projects <small>(points, by mechanism)</small></label>
+        <span class="swatch dot"></span> Storage sites <small>(operating &amp; proposed)</small></label>
     </section>
 
     <section id="legend"><h2>Legend</h2><div id="legend-body"></div></section>

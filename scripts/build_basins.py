@@ -140,7 +140,9 @@ def main():
             continue
 
         cap = b.get("capacity_gt") or {}
-        soft = bool(re.search(r"theoretical|prospective|aggregated", b.get("tier") or "", re.I))
+        tier_s = b.get("tier") or ""
+        soft = (bool(re.search(r"theoretical|prospective", tier_s, re.I))
+                and not re.search(r"practic|effective|technical", tier_s, re.I))
         props = {"basin": b["basin"],
                  "countries": b.get("countries"),
                  "cap_low_gt": cap.get("low"), "cap_mid_gt": cap.get("mid"),

@@ -14,8 +14,8 @@
     "Geometry: Natural Earth, NETL NATCARB, Ernst & Youbi LIPs, PLATES/UTIG ophiolites");
 
   // ---------- injection choropleth ----------
-  const BINS = [1, 10, 50, 150, 500, 3000];            // Gt CO2 (preferred estimate)
-  const RAMP = ["--inj-1", "--inj-2", "--inj-3", "--inj-4", "--inj-5", "--inj-6", "--inj-7"];
+  const BINS = [150, 500];                             // Gt CO2 (preferred estimate)
+  const RAMP = ["--inj-2", "--inj-4", "--inj-6"];
   function injColor(gt) {
     if (gt == null) return null;
     let i = 0;
@@ -31,10 +31,12 @@
   const injLayer = L.geoJSON(window.GEO_COUNTRIES, {
     filter: (f) => f.properties.cap_pref_gt != null,
     style: (f) => {
-      const soft = /theoretical|prospective/i.test(f.properties.tier || "");
-      return { color: soft ? css("--inj-5") : css("--land-line"), weight: soft ? 1 : 0.6,
-               dashArray: soft ? "4 3" : null,
-               fillColor: injColor(f.properties.cap_pref_gt), fillOpacity: soft ? 0.55 : 0.85 };
+      const t = f.properties.tier || "";
+      const soft = /theoretical|prospective/i.test(t) && !/practic|effective|technical/i.test(t);
+      if (soft) return { color: css("--inj-4"), weight: 0.8, dashArray: "3 3",
+                         fillColor: css("--inj-1"), fillOpacity: 0.3 };
+      return { color: css("--land-line"), weight: 0.6,
+               fillColor: injColor(f.properties.cap_pref_gt), fillOpacity: 0.85 };
     },
     onEachFeature: (f, ly) => {
       const p = f.properties;
@@ -47,12 +49,11 @@
   const basinsLayer = L.geoJSON(window.GEO_BASINS, {
     style: (f) => {
       const p = f.properties;
-      if (p.cap_mid_gt == null)
+      if (p.cap_mid_gt == null || p.soft_tier)
         return { color: css("--inj-4"), weight: 0.8, dashArray: "3 3",
-                 fillColor: css("--inj-1"), fillOpacity: 0.25 };
-      return { color: p.soft_tier ? css("--inj-5") : css("--land-line"),
-               weight: p.soft_tier ? 1 : 0.6, dashArray: p.soft_tier ? "4 3" : null,
-               fillColor: injColor(p.cap_mid_gt), fillOpacity: p.soft_tier ? 0.55 : 0.8 };
+                 fillColor: css("--inj-1"), fillOpacity: 0.3 };
+      return { color: css("--land-line"), weight: 0.6,
+               fillColor: injColor(p.cap_mid_gt), fillOpacity: 0.8 };
     },
     onEachFeature: (f, ly) => {
       const p = f.properties;
@@ -90,8 +91,8 @@
   };
   function ismStyle(f) {
     const p = f.properties;
-    if (!p.matched) return { color: css("--oph-other"), weight: 0.5,
-                             fillColor: css("--oph-other"), fillOpacity: 0.45 };
+    if (!p.matched) return { color: css("--oph"), weight: 0.5,
+                             fillColor: css("--oph"), fillOpacity: 0.4 };
     const c = css(CAT[p.category].v);
     return { color: c, weight: 1, fillColor: c, fillOpacity: 0.55 };
   }
@@ -131,7 +132,7 @@
       });
       m.bindTooltip(`<b>${p.name}</b>${p.status.replace(/_/g, " ")}` +
         `${p.capacity_mtpa ? ` · ${p.capacity_mtpa} Mtpa` : ""}` +
-        `<small>${p.mechanism === "mineralization" ? "In-situ mineralization" : "Geologic injection"}` +
+        `<small>${p.mechanism === "mineralization" ? "In-situ mineralization" : "CO₂ injection"}` +
         ` — ${p.storage_type}</small>`, { sticky: true });
       m.on("click", (e) => { showProject(p); L.DomEvent.stop(e); });
       g.addLayer(m);
@@ -151,39 +152,47 @@
   function short(tier) { return (tier || "").split(/[ (]/)[0] || "estimate"; }
 
   const G = A.global.geologic, M = A.global.mineralization;
+  const nOpGeo = A.projects.filter((p) => p.mechanism === "geologic" && p.status === "operational").length;
+  const nOpIsm = A.projects.filter((p) => p.mechanism === "mineralization" && p.status === "operational").length;
+  const geoTip = "Potential range spans methodological tiers: ~1,290 Gt prudent " +
+    "risk-screened (Gasser et al. 2025) to ~14,300 Gt catalogued resource (OGCI CO2 " +
+    "Storage Resource Catalogue Cycle 5, 2025); theoretical ceilings reach 55,000 Gt " +
+    "(Kearns et al. 2017). Tiers answer different questions and are never summed.";
+  const ismTip = "Theoretical ceiling ~1,000,000 Gt from reactive rock mass " +
+    "(NAS 2019; Kelemen et al.); practical deployment projected at ~1.2-5 Gt/yr by " +
+    "2050 (RMI 2023). Operating figure is current injection capacity.";
   document.getElementById("stats").innerHTML = `
-    <div class="stat-tile geo"><div class="k">Geologic injection</div>
-      <div class="v">${fmtGt(G.low_gt)}–${fmtGt(G.high_gt)} Gt</div>
-      <div class="s">prudent → theoretical global resource<br>
-      ${G.operational_mtpa} Mtpa operating · ${G.n_projects} projects</div></div>
-    <div class="stat-tile ism"><div class="k">In-situ mineralization</div>
-      <div class="v">~${fmtGt(M.theoretical_gt)} Gt</div>
-      <div class="s">theoretical ceiling (rock mass)<br>
-      ${M.operational_mtpa} Mtpa operating · ${M.n_projects} projects</div></div>`;
+    <div class="stat-tile geo"><div class="k">CO₂ injection storage
+        <span class="info" title="${geoTip}">ⓘ</span></div>
+      <div class="v">${G.operational_mtpa} Mtpa</div>
+      <div class="s">operating today across ${nOpGeo} sites<br>
+      potential: <b>1,290–14,300 Gt</b></div></div>
+    <div class="stat-tile ism"><div class="k">In-situ mineralization
+        <span class="info" title="${ismTip}">ⓘ</span></div>
+      <div class="v">${M.operational_mtpa} Mtpa</div>
+      <div class="s">operating today across ${nOpIsm} sites<br>
+      potential: <b>~${fmtGt(M.theoretical_gt)} Gt</b></div></div>`;
 
   // ---------- legend ----------
   function legend() {
     const rows = [];
     if (on("ly-basins") || on("ly-injection")) {
-      rows.push(`<div class="lg-title">Injection capacity (Gt CO₂, ${on("ly-basins") ? "per basin" : "per country"})</div>`);
-      const lab = ["<1", "1–10", "10–50", "50–150", "150–500", "500–3000", ">3000"];
+      rows.push(`<div class="lg-title">CO₂ injection storage (Gt CO₂, ${on("ly-basins") ? "per basin" : "per country"})</div>`);
+      const lab = ["0–150", "150–500", ">500"];
       lab.forEach((l, i) => rows.push(
         `<div class="lg-row"><span class="lg-sw" style="background:${css(RAMP[i])}"></span>${l}</div>`));
-      rows.push(`<div class="lg-row"><span class="lg-sw" style="background:${css("--inj-3")};opacity:.55;border:1.4px dashed ${css("--inj-5")}"></span>theoretical-tier estimate only</div>`);
-      if (on("ly-basins")) rows.push(
-        `<div class="lg-row"><span class="lg-sw" style="background:${css("--inj-1")};opacity:.5;border:1.2px dashed ${css("--inj-4")}"></span>assessed basin, no capacity estimate</div>`);
+      rows.push(`<div class="lg-row"><span class="lg-sw" style="background:${css("--inj-1")};opacity:.5;border:1.2px dashed ${css("--inj-4")}"></span>known basin, capacity unquantified or theoretical only</div>`);
     }
     if (on("ly-ism")) {
       rows.push(`<div class="lg-title">Mineralization formations</div>`);
       Object.values(CAT).forEach((c) => rows.push(
         `<div class="lg-row"><span class="lg-sw" style="background:${css(c.v)}"></span>${c.label}</div>`));
-      if (on("ly-ism-other")) rows.push(
-        `<div class="lg-row"><span class="lg-sw" style="background:${css("--oph-other")}"></span>Mapped ophiolite (uncharacterized)</div>`);
+
     }
     if (on("ly-projects")) {
-      rows.push(`<div class="lg-title">Projects</div>`);
-      rows.push(`<div class="lg-row"><span class="lg-sw round" style="background:${css("--proj-geo")}"></span>Geologic injection project</div>`);
-      rows.push(`<div class="lg-row"><span class="lg-sw round" style="background:${css("--proj-ism")}"></span>In-situ mineralization project</div>`);
+      rows.push(`<div class="lg-title">Storage sites</div>`);
+      rows.push(`<div class="lg-row"><span class="lg-sw round" style="background:${css("--proj-geo")}"></span>CO₂ injection site</div>`);
+      rows.push(`<div class="lg-row"><span class="lg-sw round" style="background:${css("--proj-ism")}"></span>In-situ mineralization site</div>`);
       rows.push(`<div class="lg-row"><span class="lg-sw round" style="background:transparent;border:1.6px solid ${css("--proj-geo")}"></span>Planned / in permitting (hollow)</div>`);
       rows.push(`<div class="lg-row"><small>Size ∝ capacity (Mtpa)</small></div>`);
     }
@@ -256,7 +265,7 @@
   function showProject(p) {
     openDetail(p.name, `
       <dl><dt>Mechanism</dt><dd>${p.mechanism === "mineralization"
-          ? "In-situ mineralization" : "Geologic injection"} (${p.storage_type})</dd>
+          ? "In-situ mineralization" : "CO₂ injection"} (${p.storage_type})</dd>
       <dt>Status</dt><dd>${p.status.replace(/_/g, " ")}</dd>
       <dt>Operator</dt><dd>${p.operator || "–"}</dd>
       <dt>Capacity</dt><dd>${p.capacity_mtpa != null ? p.capacity_mtpa + " Mtpa" : "–"}</dd>
@@ -272,9 +281,9 @@
   function sync() {
     toggle(injLayer, on("ly-injection"));
     toggle(basinsLayer, on("ly-basins"));
-    toggle(natcarbLayer, on("ly-natcarb"));
-    toggle(euStorageLayer, on("ly-eustorage"));
-    toggle(ismOther, on("ly-ism") && on("ly-ism-other"));
+    toggle(natcarbLayer, on("ly-detail"));
+    toggle(euStorageLayer, on("ly-detail"));
+    toggle(ismOther, on("ly-ism"));
     toggle(ismMatched, on("ly-ism"));
     toggle(projLayer, on("ly-projects"));
     legend();
@@ -283,7 +292,7 @@
     if (want && !map.hasLayer(layer)) layer.addTo(map);
     if (!want && map.hasLayer(layer)) map.removeLayer(layer);
   }
-  ["ly-injection", "ly-basins", "ly-natcarb", "ly-eustorage", "ly-ism", "ly-ism-other", "ly-projects"]
+  ["ly-injection", "ly-basins", "ly-detail", "ly-ism", "ly-projects"]
     .forEach((id) => document.getElementById(id).addEventListener("change", sync));
   sync();
 

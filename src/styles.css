@@ -47,10 +47,12 @@ body { font: 14px/1.45 system-ui, -apple-system, "Segoe UI", sans-serif; color: 
 #sidebar h2 { font-size: 12px; text-transform: uppercase; letter-spacing: .06em;
   color: var(--ink-3); margin: 0 0 8px; }
 .subtitle { color: var(--ink-2); margin: 0; font-size: 13px; }
+.subtitle a { color: var(--proj-geo); }
 
 .stat-row { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
 .stat-tile { border: 1px solid var(--hairline); border-radius: 8px; padding: 10px 12px; }
 .stat-tile .k { font-size: 12px; color: var(--ink-2); }
+.stat-tile .info { cursor: help; color: var(--ink-3); font-size: 11px; margin-left: 3px; }
 .stat-tile .v { font-size: 21px; font-weight: 650; margin: 2px 0; }
 .stat-tile .s { font-size: 11px; color: var(--ink-3); }
 .stat-tile.geo .v { color: var(--proj-geo); }
