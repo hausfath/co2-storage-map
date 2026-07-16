@@ -163,12 +163,12 @@
     "2050 (RMI 2023). Operating figure is current injection capacity.";
   document.getElementById("stats").innerHTML = `
     <div class="stat-tile geo"><div class="k">CO₂ injection storage
-        <span class="info" title="${geoTip}">ⓘ</span></div>
+        <span class="info" tabindex="0" data-tip="${geoTip}">ⓘ</span></div>
       <div class="v">${G.operational_mtpa} Mtpa</div>
       <div class="s">operating today across ${nOpGeo} sites<br>
       potential: <b>1,290–14,300 Gt</b></div></div>
     <div class="stat-tile ism"><div class="k">In-situ mineralization
-        <span class="info" title="${ismTip}">ⓘ</span></div>
+        <span class="info" tabindex="0" data-tip="${ismTip}">ⓘ</span></div>
       <div class="v">${M.operational_mtpa} Mtpa</div>
       <div class="s">operating today across ${nOpIsm} sites<br>
       potential: <b>~${fmtGt(M.theoretical_gt)} Gt</b></div></div>`;
