@@ -64,6 +64,7 @@ body { font: 14px/1.45 system-ui, -apple-system, "Segoe UI", sans-serif; color: 
 }
 .stat-tile .info:hover::after, .stat-tile .info:focus::after {
   opacity: 1; visibility: visible; }
+.stat-tile.ism .info::after { left: auto; right: -70px; }
 .stat-tile .v { font-size: 21px; font-weight: 650; margin: 2px 0; }
 .stat-tile .s { font-size: 11px; color: var(--ink-3); }
 .stat-tile.geo .v { color: var(--proj-geo); }
