@@ -333,7 +333,8 @@
     never summed here. Geologic global anchors: ~1,290 Gt prudent (Gasser 2025),
     ~14,300 Gt catalogued (OGCI CSRC Cycle 5), 55,000 Gt theoretical ceiling (Kearns 2017).
     ISM theoretical ceiling ~10⁶ Gt (NAS 2019; Kelemen et al.) — orders of magnitude above
-    any plausible need, but the practical rate is projected at only ~1–5 Gt/yr by 2050.</p>
+    any plausible need, but the practical rate is projected at only ~1.2–5 Gt/yr by 2050
+    (RMI 2023).</p>
     <h3>Why mineralization matters (the complementarity case)</h3>
     <p>ISM-suitable rock sits in geographies that sedimentary basins don't reach —
     ophiolite belts (Oman/UAE, the Balkans, SE Asia, New Caledonia), flood basalts
@@ -342,21 +343,23 @@
     where conventional storage is projected to fall short of demand. Mineral trapping is
     also immediate, easing monitoring burdens and potentially public acceptance.</p>
     <h3>Sources (injection)</h3>
-    <p>OGCI CO₂ Storage Resource Catalogue Cycles 2/4/5; USGS 2013 National Assessment;
+    <p class="method-src">OGCI CO₂ Storage Resource Catalogue Cycles 2/4/5; USGS 2013 National Assessment;
     NETL NATCARB / Carbon Storage Atlas V; Teletzke et al. 2018; Kearns et al. 2017;
     EU GeoCapacity / CO2StoP; national atlases (NPD, UK CO2Stored, Geoscience Australia);
     academic national assessments (China, India, Brazil, Indonesia…). Country colors use
     each country's preferred (most defensible) estimate; click a country for all tiers.</p>
     <h3>Sources (mineralization)</h3>
-    <p>Snæbjörnsdóttir et al. 2020; Kelemen &amp; Matter 2008/2019; McGrail et al.
+    <p class="method-src">Snæbjörnsdóttir et al. 2020; Kelemen &amp; Matter 2008/2019; McGrail et al.
     2006/2017 (Wallula); Goldberg et al. 2008/2010; NAS 2019; PNNL 2024 (Columbia River);
     formation polygons from Ernst &amp; Youbi LIP compilation and the PLATES/UTIG global
     ophiolite dataset; US ultramafics from USGS DS-414.</p>
     <h3>Projects</h3>
-    <p>84 dedicated-storage projects (69 geologic, 15 ISM) with mid-2026 statuses,
-    compiled from the Global CCS Institute, IEA CCUS database, EPA Class VI tracker,
-    operator disclosures, and press. Full citations: <code>data/research/</code> in the
-    repository.</p>`;
+    <p>${A.projects.length} dedicated-storage projects
+    (${A.projects.filter((p) => p.mechanism === "geologic").length} geologic,
+    ${A.projects.filter((p) => p.mechanism === "mineralization").length} ISM) with
+    mid-2026 statuses, compiled from the Global CCS Institute, IEA CCUS database,
+    EPA Class VI tracker, operator disclosures, and press. Full citations:
+    <code>data/research/</code> in the repository.</p>`;
 
   legend();
 

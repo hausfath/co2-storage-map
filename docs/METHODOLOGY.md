@@ -51,7 +51,7 @@ polygon exists (rift/arc volcanics, offshore basalt, harrats). US ultramafics
 (USGS DS-414) downloaded but not yet rendered.
 
 ## Projects layer
-84 dedicated-storage projects (69 geologic, 15 ISM), statuses as of mid-2026,
+99 dedicated-storage projects (82 geologic, 17 ISM), statuses as of mid-2026,
 compiled in `data/research/projects.{json,md}` from GCCSI, IEA CCUS database,
 EPA Class VI tracker, operator disclosures, press. Operational: ~20.2 Mtpa geologic
 vs ~0.05 Mtpa ISM.
