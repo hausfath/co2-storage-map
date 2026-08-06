@@ -127,6 +127,31 @@ footer { margin-top: auto; border-top: 1px solid var(--hairline); padding-top: 1
 #method-body { font-size: 13.5px; color: var(--ink-2); }
 #method-body h3 { color: var(--ink-1); font-size: 14px; margin: 14px 0 4px; }
 
+/* first-visit tour */
+#tour { position: fixed; inset: 0; z-index: 3000; }
+#tour[hidden] { display: none; }
+#tour-spotlight { position: fixed; border-radius: 10px; pointer-events: none;
+  box-shadow: 0 0 0 9999px rgba(0,0,0,.45); transition: all .25s ease; }
+#tour-card { position: fixed; width: 300px; max-width: calc(100vw - 24px);
+  background: var(--panel); border: 1px solid var(--hairline); border-radius: 10px;
+  padding: 14px 16px; box-shadow: 0 6px 24px rgba(0,0,0,.3); transition: all .25s ease;
+  outline: none; }
+#tour-card h3 { margin: 0 0 6px; font-size: 14px; color: var(--ink-1); }
+#tour-card p { margin: 0 0 12px; font-size: 12.5px; line-height: 1.5; color: var(--ink-2); }
+#tour-card .tour-foot { display: flex; align-items: center; gap: 5px; }
+#tour-card .tour-dots { display: flex; gap: 4px; margin-right: auto; }
+#tour-card .tour-dots span { width: 6px; height: 6px; border-radius: 50%;
+  background: var(--hairline); }
+#tour-card .tour-dots span.cur { background: var(--proj-geo); }
+#tour-card button { font: inherit; font-size: 12px; cursor: pointer; border-radius: 6px;
+  padding: 4px 10px; border: 1px solid var(--hairline); background: none; color: var(--ink-2); }
+#tour-card button.primary { background: var(--proj-geo); border-color: var(--proj-geo);
+  color: #fff; }
+@media (max-width: 760px) {
+  #tour-card { left: 12px !important; right: 12px; top: auto !important; bottom: 12px;
+    width: auto; }
+}
+
 .leaflet-container { font: inherit; }
 .leaflet-tooltip { background: var(--panel); color: var(--ink-1);
   border: 1px solid var(--hairline); box-shadow: 0 1px 4px rgba(0,0,0,.15); }

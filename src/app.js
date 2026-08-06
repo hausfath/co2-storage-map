@@ -359,4 +359,92 @@
     repository.</p>`;
 
   legend();
+
+  // ---------- first-visit tour ----------
+  // Step copy pulls the same computed values as the stat tiles; the 55,000 Gt
+  // theoretical ceiling matches the geoTip / methodology text (Kearns 2017).
+  const TOUR = [
+    { el: "#stats", title: "Start with the headline numbers", html:
+      `CO₂ storage to date is almost all injection — <b>${G.operational_mtpa} Mtpa</b> ` +
+      `operating across ${nOpGeo} sites, vs <b>${M.operational_mtpa} Mtpa</b> at ` +
+      `${nOpIsm} in-situ mineralization (ISM) sites. But ISM's theoretical potential ` +
+      `(~${fmtGt(M.theoretical_gt)} Gt) exceeds even the largest theoretical estimates ` +
+      `for injection (~55,000 Gt), and it reaches many regions with no good injection ` +
+      `formations. Carbon removal at scale needs both.` },
+    { el: "#map", title: "Reading the map", html:
+      `<b>Blues</b> are sedimentary basins suited to CO₂ injection — darker means more ` +
+      `assessed capacity, dashed means unquantified. <b>Warm colors and purple</b> are ` +
+      `reactive rock (basalts, ophiolites) suited to ISM.` },
+    { el: "#map", title: "Explore the data", html:
+      `Hover any region for a quick number. Click a basin, formation, or storage site ` +
+      `for capacity estimates, tiers, and sources.` },
+    { el: "#layers", title: "Layers &amp; the fine print", html:
+      `Toggle <b>storage sites</b> to see operating and proposed projects; Advanced has ` +
+      `country-level and saline-aquifer views. Capacity tiers (theoretical / effective / ` +
+      `practical) answer different questions and are never summed — see the ⓘ icons.` },
+  ];
+  const tourWrap = document.createElement("div");
+  tourWrap.id = "tour";
+  tourWrap.hidden = true;
+  tourWrap.innerHTML = `<div id="tour-spotlight"></div>
+    <div id="tour-card" role="dialog" aria-modal="true" aria-label="Introduction tour" tabindex="-1">
+      <h3></h3><p></p>
+      <div class="tour-foot"><div class="tour-dots"></div>
+        <button id="tour-skip">Skip</button><button id="tour-back">Back</button>
+        <button id="tour-next" class="primary">Next</button></div></div>`;
+  document.body.appendChild(tourWrap);
+  const tq = (s) => tourWrap.querySelector(s);
+  let ti = 0;
+  function tourShow(i) {
+    ti = i;
+    const step = TOUR[i];
+    const target = document.querySelector(step.el);
+    target.scrollIntoView({ block: "nearest" });
+    const r = target.getBoundingClientRect();
+    const sp = tq("#tour-spotlight");
+    sp.style.left = r.left - 6 + "px";
+    sp.style.top = r.top - 6 + "px";
+    sp.style.width = r.width + 12 + "px";
+    sp.style.height = r.height + 12 + "px";
+    tq("h3").innerHTML = step.title;
+    tq("p").innerHTML = step.html;
+    tq(".tour-dots").innerHTML = TOUR.map((_, k) =>
+      `<span${k === i ? ' class="cur"' : ""}></span>`).join("");
+    tq("#tour-back").style.visibility = i ? "visible" : "hidden";
+    tq("#tour-next").textContent = i === TOUR.length - 1 ? "Done" : "Next";
+    tourWrap.hidden = false;
+    const card = tq("#tour-card");
+    if (window.innerWidth > 760) {
+      if (step.el === "#map") {
+        card.style.left = Math.round(r.left + r.width / 2 - 150) + "px";
+        card.style.top = Math.round(r.top + 56) + "px";
+      } else {
+        card.style.left = Math.round(Math.min(r.right + 14, window.innerWidth - 314)) + "px";
+        card.style.top = Math.round(Math.max(12,
+          Math.min(r.top, window.innerHeight - card.offsetHeight - 12))) + "px";
+      }
+    }
+    card.focus({ preventScroll: true });
+  }
+  function tourEnd() {
+    tourWrap.hidden = true;
+    try { localStorage.setItem("atlas_tour_seen", "1"); } catch (e) {}
+  }
+  tq("#tour-next").onclick = () => (ti < TOUR.length - 1 ? tourShow(ti + 1) : tourEnd());
+  tq("#tour-back").onclick = () => { if (ti) tourShow(ti - 1); };
+  tq("#tour-skip").onclick = tourEnd;
+  tourWrap.addEventListener("click", (e) => {
+    if (!tq("#tour-card").contains(e.target)) tq("#tour-next").click();
+  });
+  document.addEventListener("keydown", (e) => {
+    if (tourWrap.hidden) return;
+    if (e.key === "Escape") tourEnd();
+    if (e.key === "ArrowRight") tq("#tour-next").click();
+    if (e.key === "ArrowLeft") tq("#tour-back").click();
+  });
+  window.addEventListener("resize", () => { if (!tourWrap.hidden) tourShow(ti); });
+  document.getElementById("btn-tour").onclick = () => tourShow(0);
+  let tourSeen = true;
+  try { tourSeen = !!localStorage.getItem("atlas_tour_seen"); } catch (e) {}
+  if (!tourSeen) setTimeout(() => tourShow(0), 400);
 })();
