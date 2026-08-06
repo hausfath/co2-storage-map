@@ -72,6 +72,12 @@ body { font: 14px/1.45 system-ui, -apple-system, "Segoe UI", sans-serif; color: 
 
 .layer-toggle { display: flex; align-items: center; gap: 8px; padding: 4px 0; cursor: pointer; }
 .layer-toggle.sub { padding-left: 22px; }
+
+#advanced { margin-top: 6px; border-top: 1px solid var(--hairline); padding-top: 6px; }
+#advanced summary { font-size: 11px; text-transform: uppercase; letter-spacing: .06em;
+  color: var(--ink-3); cursor: pointer; user-select: none; padding: 2px 0; }
+#advanced summary:hover { color: var(--ink-2); }
+#advanced .layer-toggle { padding-left: 14px; }
 .layer-toggle small { color: var(--ink-3); }
 .swatch { width: 14px; height: 14px; border-radius: 3px; flex: none;
   border: 1px solid rgba(11,11,11,.15); }

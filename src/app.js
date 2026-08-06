@@ -181,7 +181,10 @@
       const lab = ["0–150", "150–500", ">500"];
       lab.forEach((l, i) => rows.push(
         `<div class="lg-row"><span class="lg-sw" style="background:${css(RAMP[i])}"></span>${l}</div>`));
-      rows.push(`<div class="lg-row"><span class="lg-sw" style="background:${css("--inj-1")};opacity:.5;border:1.2px dashed ${css("--inj-4")}"></span>known basin, capacity unquantified or theoretical only</div>`);
+      rows.push(`<div class="lg-row"><span class="lg-sw" style="background:${css("--inj-1")};opacity:.5;border:1.2px dashed ${css("--inj-4")}"></span>${on("ly-basins") ? "known basin, capacity unquantified or theoretical only" : "theoretical/prospective estimate only"}</div>`);
+    }
+    if (on("ly-detail")) {
+      rows.push(`<div class="lg-row"><span class="lg-sw" style="background:${css("--inj-deep")};opacity:.6"></span>saline aquifers (US &amp; EU detail)</div>`);
     }
     if (on("ly-ism")) {
       rows.push(`<div class="lg-title">Mineralization formations</div>`);
@@ -292,6 +295,13 @@
     if (want && !map.hasLayer(layer)) layer.addTo(map);
     if (!want && map.hasLayer(layer)) map.removeLayer(layer);
   }
+  // basins and country view are alternate renderings of the same data — never both
+  document.getElementById("ly-injection").addEventListener("change", (e) => {
+    if (e.target.checked) document.getElementById("ly-basins").checked = false;
+  });
+  document.getElementById("ly-basins").addEventListener("change", (e) => {
+    if (e.target.checked) document.getElementById("ly-injection").checked = false;
+  });
   ["ly-injection", "ly-basins", "ly-detail", "ly-ism", "ly-projects"]
     .forEach((id) => document.getElementById(id).addEventListener("change", sync));
   sync();
@@ -313,7 +323,9 @@
     reservoirs (deep saline aquifers, depleted oil &amp; gas fields), trapped by caprock and
     mineralizing over ~1,000s of years. <b>In-situ mineralization (ISM)</b>: CO₂ injected
     into reactive mafic/ultramafic rock (basalt, peridotite, serpentinite), converting to
-    solid carbonate within months–years. EOR and ECBM are excluded.</p>
+    solid carbonate within months–years. EOR and ECBM are excluded. The ideal storage site
+    depends on transport distance and cost from the CO₂ source, permitting and development
+    time, and cost per ton stored.</p>
     <h3>Capacity tiers — read before comparing numbers</h3>
     <p><b>Theoretical</b> (full pore volume or full rock stoichiometry),
     <b>effective</b> (screened for injectivity/depth/quality), and <b>practical</b>
