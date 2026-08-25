@@ -30,7 +30,21 @@ USGS OFR 00-047 (China), curated WCSB/Williston (Canada) — then the USGS World
 Resources 2009-11 provinces + Circum-Arctic (CARA 2008) as global backbone. Basins whose
 only estimate is theoretical/prospective/aggregated tier render dashed. ~21 capacity rows
 remain polygon-less (small EU onshore basins covered by the CO2StoP detail layer;
-Japan/Korea offshore areas). Basin polygons simplified at 0.015 deg (~1.5 km; was 0.04).
+Japan/Korea offshore areas; down to 10 rows after the 2026-08 CO2StoP
+reconstruction). Basin polygons simplified at 0.015 deg (~1.5 km; was 0.04).
+
+**European basin reconstruction (2026-08):** 11 European capacity basins absent from
+every open polygon source (Paris, North German, Aquitaine, Polish Lowlands, Baltic,
+Moesian, Transylvanian, Ebro, Pannonian, Celtic Sea, Lusitanian) are drawn as the
+dissolved extent of the CO2StoP formations and storage units assigned to them (by
+name keyword, country, and proximity to the basin center; raw polygons from the
+CO2StoP open-format package, Zenodo 10.5281/zenodo.15837736, saved at
+`data/raw/basins/co2stop_formations.geojson`). Panels label these outlines as
+assessed-extent, not structural boundaries. Guadalquivir has no CO2StoP polygons at
+all and remains unmapped. Williston is drawn as the full cross-border structural
+basin (US Coleman outline + curated Canadian portion) with the US-only capacity
+caveat in its panel, and the WCSB polygon is clipped to meet it at the basin margin
+rather than the national border.
 
 **Merged US/EU formation detail (2026-08):** there is no separate saline-formation
 layer — formation detail is folded into the basin layer to avoid stacked, overlapping

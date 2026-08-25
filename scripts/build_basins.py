@@ -74,6 +74,33 @@ SAU_ALIASES = {
 
 VARIANT_RE = re.compile(r"^(.*?)(?:\s+(Deep|Shallow|Updip|Downdip))?$")
 
+# European capacity basins absent from every polygon source: reconstruct their
+# outline as the dissolved extent of CO2StoP formations/storage units assigned
+# by name keyword, country, and proximity to the basin center. Labeled in the
+# UI as assessed-extent outlines, not structural basin boundaries.
+EU_BASIN_HINTS = {
+    "North German Basin": {"c": (52.9, 10.0), "r": 300, "countries": ["Germany"], "kw": []},
+    "Paris Basin": {"c": (48.6, 2.8), "r": 220, "countries": ["France"], "kw": ["Paris"]},
+    "Aquitaine Basin": {"c": (44.0, 0.2), "r": 180, "countries": ["France"], "kw": ["Aquitaine"]},
+    "Polish Lowlands Basin": {"c": (52.2, 17.0), "r": 300, "countries": ["Poland"], "kw": []},
+    "Baltic Basin": {"c": (56.8, 22.5), "r": 350, "countries": ["Lithuania", "Latvia", "Estonia"], "kw": []},
+    "Transylvanian Basin": {"c": (46.5, 24.3), "r": 130, "countries": ["Romania"], "kw": ["Transylvan"]},
+    "Moesian Platform": {"c": (43.9, 25.8), "r": 250, "countries": ["Romania", "Bulgaria"], "kw": ["Moesian"]},
+    "Ebro Basin": {"c": (41.7, -0.8), "r": 180, "countries": ["Spain"], "kw": ["Ebro"]},
+    "Guadalquivir Basin": {"c": (37.4, -5.3), "r": 150, "countries": ["Spain"], "kw": ["Guadalquivir"]},
+    "Pannonian Basin": {"c": (46.5, 19.5), "r": 320,
+                        "countries": ["Hungary", "Serbia", "Slovakia", "Croatia"], "kw": ["Pannonian"]},
+    "Celtic Sea Basin": {"c": (50.7, -7.0), "r": 250, "countries": ["Ireland"], "kw": ["Celtic"]},
+    "Lusitanian Basin": {"c": (39.4, -9.0), "r": 160, "countries": ["Portugal"], "kw": ["Lusitan"]},
+}
+
+
+def km_dist(a, b):
+    import math
+    dlat = (a[0] - b[0]) * 111.0
+    dlon = (a[1] - b[1]) * 111.0 * math.cos(math.radians((a[0] + b[0]) / 2))
+    return (dlat ** 2 + dlon ** 2) ** 0.5
+
 
 def formation_breakdown(sau_feats):
     """Group a basin's SAUs by formation root; 'X' + 'X Deep' become one entry."""
@@ -272,10 +299,86 @@ def main():
             "_layer": "usgs_saus_new"},
             "geometry": sau_union_geom(sfeats)})
 
-    # EU CO2StoP storage units: attach to the basin polygon that contains them
-    # (listed in the basin's detail panel); draw standalone only where no basin
-    # polygon exists (e.g. Paris Basin), so units are never stacked on basins.
+    # Williston: the WCSB polygon should merge into the Williston structural
+    # basin at its geologic margin, not stop at the 49th parallel. Draw the
+    # full cross-border Williston (US Coleman outline + curated Canadian
+    # portion) and carve it out of the WCSB polygon.
+    wil = next((f for f in feats if f["properties"]["basin"] == "Williston Basin (US)"), None)
+    ca_wil = next((f for f in ca_fc["features"]
+                   if "Williston" in f["properties"]["name"]), None)
+    wcsb = next((f for f in feats
+                 if "Western Canada" in f["properties"]["basin"]), None)
+    if wil and ca_wil and wcsb:
+        full = unary_union([shape(wil["geometry"]), shape(ca_wil["geometry"])])
+        full = full.buffer(0.03).buffer(-0.03)  # close the seam at the border
+        wil["geometry"] = round_geom(mapping(
+            full.simplify(SIMPLIFY_DEG, preserve_topology=True)))
+        wil["properties"]["basin"] = "Williston Basin"
+        wil["properties"]["countries"] = ["USA", "CAN"]
+        wil["properties"]["notes"] = ((wil["properties"].get("notes") or "") +
+            " Outline shows the full cross-border structural basin; the capacity"
+            " estimate covers the US portion only (the Canadian portion in SK/MB"
+            " is assessed within Western Canada Sedimentary Basin totals).").strip()
+        wcsb_geom = shape(wcsb["geometry"]).difference(full).buffer(0)
+        wcsb["geometry"] = round_geom(mapping(wcsb_geom))
+        wcsb["properties"]["notes"] = ((wcsb["properties"].get("notes") or "") +
+            " Southeastern boundary follows the Williston Basin margin (shown"
+            " separately), not the national border.").strip()
+        print("Williston: cross-border merge applied, WCSB clipped")
+
+    # Reconstruct unmatched European basins from CO2StoP formations + units
     eu_fc = load_js_fc(GEO / "geometry_eu_storage.js", r"window\.GEO_EU_STORAGE")
+    co2stop_forms = json.loads((RAW / "co2stop_formations.geojson").read_text())
+    from shapely.validation import make_valid
+    pool = []  # (shapely geom, centroid latlon, country, kind, name)
+    for f in co2stop_forms["features"]:
+        g = make_valid(shape(f["geometry"]))
+        c = g.representative_point()
+        pool.append([g, (c.y, c.x), f["properties"].get("COUNTRY") or "",
+                     "formation", f["properties"].get("Name") or ""])
+    for u in eu_fc["features"]:
+        g = make_valid(shape(u["geometry"]))
+        c = g.representative_point()
+        pool.append([g, (c.y, c.x), u["properties"].get("country") or "",
+                     "unit", u["properties"].get("name") or ""])
+    used = set()
+    by_name = {b["basin"]: b for b in basins}
+    for bname, hint in EU_BASIN_HINTS.items():
+        b = by_name.get(bname)
+        if b is None or bname not in unmatched:
+            continue
+        members = []
+        for i, (g, cen, ctry, kind, name) in enumerate(pool):
+            if i in used:
+                continue
+            kw_hit = any(k.lower() in name.lower() for k in hint["kw"])
+            near = (any(c.lower() in ctry.lower() for c in hint["countries"])
+                    and km_dist(cen, hint["c"]) <= hint["r"])
+            if kw_hit or near:
+                members.append(i)
+        if not members:
+            continue
+        geom = unary_union([pool[i][0] for i in members])
+        geom = geom.buffer(0.06).buffer(-0.06).simplify(SIMPLIFY_DEG, preserve_topology=True)
+        used.update(members)
+        cap = b.get("capacity_gt") or {}
+        tier_s = b.get("tier") or ""
+        soft = (bool(re.search(r"theoretical|prospective", tier_s, re.I))
+                and not re.search(r"practic|effective|technical", tier_s, re.I))
+        feats.append({"type": "Feature", "properties": {
+            "basin": bname, "countries": b.get("countries"),
+            "cap_low_gt": cap.get("low"), "cap_mid_gt": cap.get("mid"),
+            "cap_high_gt": cap.get("high"), "tier": b.get("tier"), "soft_tier": soft,
+            "onshore_offshore": b.get("onshore_offshore"),
+            "src": b.get("source"),
+            "notes": ((b.get("notes") or "") +
+                      " Outline shows the dissolved extent of CO2StoP-assessed"
+                      " formations and storage units grouped to this basin, not a"
+                      " structural basin boundary.").strip(),
+            "_layer": "co2stop_reconstructed"},
+            "geometry": round_geom(mapping(geom))})
+        unmatched.remove(bname)
+        print(f"  reconstructed {bname} from {len(members)} CO2StoP polygons")
     basin_shapes = []
     for f in feats:
         g = shape(f["geometry"])

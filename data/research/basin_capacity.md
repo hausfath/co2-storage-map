@@ -170,7 +170,9 @@ composite/regional names).*
   basins rather than omit them).
 - **10 largest basins by mid estimate** (Gt CO2, approximate, mixed tiers — see each row's
   `tier` field before comparing across basins):
-  1. Niger Delta Basin (NGA) — 10,700 (prospective/theoretical, IFC 2025)
+  1. Niger Delta Basin (NGA) — 6,258 mid (1,595–16,897 across SE cases; prospective,
+     IFC 2025 Table 6.2. Corrected 2026-08: the previously listed 10,700 Gt is
+     Nigeria's NATIONAL five-basin total, kept at country level only)
   2. Gulf Coast Basin (USA) — 1,770 (mid = USGS technical-tier basin share; practicable P50
      is a much more conservative 366)
   3. Songliao Basin (CHN) — 694.5 (theoretical saline)
