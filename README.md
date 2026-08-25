@@ -21,8 +21,8 @@ step — all data is bundled as JavaScript.
   capacity with dashed styling for theoretical-tier-only numbers and for basins
   mapped but not yet assessed. Click any basin for the estimate, tier,
   cross-source range, and citations. A country-level choropleth (45 countries)
-  is available as an alternative view, plus US (USGS 2013 SAUs) and EU (CO2StoP)
-  formation-level detail layers.
+  is available as an alternative view, with US formation detail (USGS 2013 SAUs)
+  and EU storage units (CO2StoP) folded into each basin's detail panel.
 - **In-situ mineralization formations** — a 35-formation global inventory
   (continental flood basalts, ophiolite/peridotite belts, rift and arc
   volcanics, offshore basalt) with literature capacity estimates, drawn from

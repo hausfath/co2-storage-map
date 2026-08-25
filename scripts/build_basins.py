@@ -9,7 +9,8 @@ import json, re, unicodedata
 from pathlib import Path
 
 import geopandas as gpd
-from shapely.geometry import mapping
+from shapely.geometry import mapping, shape
+from shapely.ops import unary_union
 
 ROOT = Path(__file__).resolve().parent.parent
 RAW = ROOT / "data" / "raw" / "basins"
@@ -57,6 +58,54 @@ def load_layers():
     return layers
 
 
+def load_js_fc(path, varname):
+    txt = path.read_text()
+    return json.loads(re.search(varname + r" = (\{.*\});", txt, re.S).group(1))
+
+
+# capacity-table basin name -> USGS SAU basin name (US basins with SAU coverage
+# take their geometry from the dissolved SAU footprints and gain a per-formation
+# breakdown; overlapping stacked SAUs are never drawn individually)
+SAU_ALIASES = {
+    "Gulf Coast Basin": "U.S. Gulf Coast",
+    "San Joaquin Basin / California": "San Joaquin Basin",
+    "Alaska North Slope Basin": "Alaska North Slope",
+}
+
+VARIANT_RE = re.compile(r"^(.*?)(?:\s+(Deep|Shallow|Updip|Downdip))?$")
+
+
+def formation_breakdown(sau_feats):
+    """Group a basin's SAUs by formation root; 'X' + 'X Deep' become one entry."""
+    seen, roots = set(), {}
+    for f in sau_feats:
+        p = f["properties"]
+        code = p.get("sau_code")
+        if code in seen:
+            continue
+        seen.add(code)
+        name = p.get("sau_name") or code or "SAU"
+        m = VARIANT_RE.match(name)
+        root, variant = m.group(1), (m.group(2) or "main")
+        r = roots.setdefault(root, {"formation": root, "variants": []})
+        r["variants"].append({"variant": variant,
+                              "tasr_mean_mt": p.get("tasr_mean_mt"),
+                              "depth_ft": p.get("depth_ml_ft")})
+    out = []
+    for r in roots.values():
+        s = sum(v["tasr_mean_mt"] or 0 for v in r["variants"])
+        r["tasr_mean_mt"] = round(s, 1) if s else None
+        out.append(r)
+    out.sort(key=lambda r: -(r["tasr_mean_mt"] or 0))
+    return out
+
+
+def sau_union_geom(sau_feats):
+    geom = unary_union([shape(f["geometry"]) for f in sau_feats])
+    geom = geom.simplify(SIMPLIFY_DEG, preserve_topology=True).buffer(0)
+    return round_geom(mapping(geom))
+
+
 # Manual overrides: capacity-table basin -> (layer_name, [exact polygon names] or
 # for us_coleman, [tokens contained in the comma-separated province string]).
 ALIASES = {
@@ -92,11 +141,39 @@ def main():
             idx.setdefault(norm(str(row[col])), []).append(i)
         indexed.append((lname, gdf, col, idx))
 
+    # USGS 2013 SAU footprints (dissolved per basin) take priority for US basins
+    sau_fc = load_js_fc(GEO / "geometry_us_saus.js", r"window\.GEO_US_SAUS")
+    sau_groups = {}
+    for f in sau_fc["features"]:
+        sau_groups.setdefault(f["properties"].get("basin") or "?", []).append(f)
+    sau_by_norm = {norm(k): k for k in sau_groups}
+
     feats, unmatched = [], []
     for b in basins:
         cands = [b["basin"]] + (b.get("match_names") or [])
         cand_norms = [norm(c) for c in cands if c]
         hit = None
+        # USGS SAU dissolve first (US only)
+        sau_key = SAU_ALIASES.get(b["basin"])
+        if sau_key is None and "USA" in (b.get("countries") or []):
+            for cn_ in cand_norms:
+                if cn_ in sau_by_norm:
+                    sau_key = sau_by_norm[cn_]
+                    break
+        if sau_key and sau_key in sau_groups:
+            sfeats = sau_groups.pop(sau_key)
+            cap = b.get("capacity_gt") or {}
+            feats.append({"type": "Feature", "properties": {
+                "basin": b["basin"], "countries": b.get("countries"),
+                "cap_low_gt": cap.get("low"), "cap_mid_gt": cap.get("mid"),
+                "cap_high_gt": cap.get("high"), "tier": b.get("tier"),
+                "soft_tier": False,
+                "onshore_offshore": b.get("onshore_offshore"),
+                "src": b.get("source"), "notes": b.get("notes"),
+                "formations": formation_breakdown(sfeats),
+                "_layer": "usgs_saus"},
+                "geometry": sau_union_geom(sfeats)})
+            continue
         # manual alias override first
         if b["basin"] in ALIASES:
             lname_want, wanted = ALIASES[b["basin"]]
@@ -164,6 +241,72 @@ def main():
                 continue
             feats.append({"type": "Feature", "properties": {**props, "_layer": lname},
                           "geometry": round_geom(mapping(geom))})
+
+    # USGS SAU basins with no capacity-table row become new basin features,
+    # with capacity = sum of SAU mean TASR (range = summed P5/P95 — labeled as
+    # such, not a formal percentile aggregation)
+    for bname, sfeats in sorted(sau_groups.items()):
+        seen, p5 = set(), 0.0
+        mean, p95 = 0.0, 0.0
+        for f in sfeats:
+            p = f["properties"]
+            if p.get("sau_code") in seen:
+                continue
+            seen.add(p.get("sau_code"))
+            mean += p.get("tasr_mean_mt") or 0
+            p5 += p.get("tasr_p5_mt") or 0
+            p95 += p.get("tasr_p95_mt") or 0
+        feats.append({"type": "Feature", "properties": {
+            "basin": bname, "countries": ["USA"],
+            "cap_low_gt": round(p5 / 1000, 1) or None,
+            "cap_mid_gt": round(mean / 1000, 1) or None,
+            "cap_high_gt": round(p95 / 1000, 1) or None,
+            "tier": "technically accessible (USGS 2013)", "soft_tier": False,
+            "onshore_offshore": "onshore & state waters (US)",
+            "src": "USGS 2013 National Assessment (DS 774)",
+            "notes": f"Basin total is the sum of mean technically accessible storage "
+                     f"resource (TASR) across {len(seen)} assessed storage assessment "
+                     f"units; the range sums SAU P5/P95 values and is not a formal "
+                     f"percentile.",
+            "formations": formation_breakdown(sfeats),
+            "_layer": "usgs_saus_new"},
+            "geometry": sau_union_geom(sfeats)})
+
+    # EU CO2StoP storage units: attach to the basin polygon that contains them
+    # (listed in the basin's detail panel); draw standalone only where no basin
+    # polygon exists (e.g. Paris Basin), so units are never stacked on basins.
+    eu_fc = load_js_fc(GEO / "geometry_eu_storage.js", r"window\.GEO_EU_STORAGE")
+    basin_shapes = []
+    for f in feats:
+        g = shape(f["geometry"])
+        minx, miny, maxx, maxy = g.bounds
+        if maxx > -35 and minx < 65 and maxy > 30:  # Europe-adjacent only
+            basin_shapes.append((g, f))
+    n_units, n_attached = 0, 0
+    for u in eu_fc["features"]:
+        up = u["properties"]
+        pt = shape(u["geometry"]).representative_point()
+        n_units += 1
+        host = next((f for g, f in basin_shapes if g.contains(pt)), None)
+        rec = {"name": up.get("name"), "country": up.get("country"),
+               "storage_type": up.get("storage_type") or "saline"}
+        if host is not None:
+            host["properties"].setdefault("units", []).append(rec)
+            n_attached += 1
+        else:
+            feats.append({"type": "Feature", "properties": {
+                "basin": up.get("name"), "countries": [up.get("country")],
+                "cap_low_gt": None, "cap_mid_gt": None, "cap_high_gt": None,
+                "tier": None, "soft_tier": False, "unit": True,
+                "onshore_offshore": None,
+                "src": "EU CO2StoP storage unit",
+                "notes": f"CO2StoP storage unit ({rec['storage_type']}); shown "
+                         f"individually because no basin-level assessment polygon "
+                         f"covers this area.",
+                "_layer": "co2stop_unit"},
+                "geometry": u["geometry"]})
+    print(f"EU CO2StoP: {n_attached}/{n_units} units attached to basins, "
+          f"{n_units - n_attached} drawn standalone")
 
     fc = {"type": "FeatureCollection", "features": feats}
     out = ("// Generated by build_basins.py -- assessed basins joined to polygons\n"

@@ -30,17 +30,23 @@ USGS OFR 00-047 (China), curated WCSB/Williston (Canada) — then the USGS World
 Resources 2009-11 provinces + Circum-Arctic (CARA 2008) as global backbone. Basins whose
 only estimate is theoretical/prospective/aggregated tier render dashed. ~21 capacity rows
 remain polygon-less (small EU onshore basins covered by the CO2StoP detail layer;
-Japan/Korea offshore areas). Overlap rule: detail layers (US SAUs, CO2StoP
-EU units) draw above basins; a basin's number is its own assessment, never a sum of
-formations within it. Basin polygons simplified at 0.015 deg (~1.5 km; was 0.04).
+Japan/Korea offshore areas). Basin polygons simplified at 0.015 deg (~1.5 km; was 0.04).
 
-**US detail layer (2026-08):** the NATCARB saline layer (a 10 km regularized grid,
-the cause of the blocky US formation outlines) was replaced by the USGS 2013 National
-Assessment Storage Assessment Unit polygons — 191 SAUs across ~36 basins, queried from
-the USGS ArcGIS StudyAreas services (public domain), with per-SAU technically
-accessible storage resource (TASR, P5/P50/P95/mean Mt CO2) joined from DS 774 Table 1
-(`scripts/build_us_saus.py`). SAU boundaries follow assessed geologic limits
-(reservoir extent, depth cutoff, seal), not survey-grade formation subcrop.
+**Merged US/EU formation detail (2026-08):** there is no separate saline-formation
+layer — formation detail is folded into the basin layer to avoid stacked, overlapping
+polygons. US: basins with USGS 2013 National Assessment coverage take their geometry
+from the dissolved union of that basin's Storage Assessment Unit footprints (191 SAUs
+queried from the USGS ArcGIS StudyAreas services, public domain; capacity from DS 774
+Table 1; `scripts/build_us_saus.py` + `scripts/build_basins.py`), and the basin detail
+panel lists each formation (base + Deep variants grouped, mean TASR, depth, matched
+NETL cost case). The 26 assessed USGS basins with no row in the capacity table are
+added as basins in their own right, colored by the sum of SAU mean TASR (tier
+"technically accessible (USGS 2013)"; their low-high range sums SAU P5/P95 and is not
+a formal percentile). This replaced both the NATCARB 10-km grid (the cause of the
+blocky US outlines) and the Coleman & Cahan outlines for those basins. EU: CO2StoP
+storage units inside a mapped basin are listed in that basin's detail panel; units
+with no covering basin polygon (Paris, Ebro, etc.) draw standalone in deep blue.
+A basin's headline number remains its own assessment, never a sum of formations.
 
 ## Storage costs (detail panels)
 Indicative, storage-only figures shown on click (never a choropleth — precision does

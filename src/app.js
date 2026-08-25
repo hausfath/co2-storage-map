@@ -49,6 +49,9 @@
   const basinsLayer = L.geoJSON(window.GEO_BASINS, {
     style: (f) => {
       const p = f.properties;
+      if (p.unit)  // standalone EU CO2StoP unit (no basin polygon covers it)
+        return { color: css("--inj-deep"), weight: 0.7,
+                 fillColor: css("--inj-deep"), fillOpacity: 0.35 };
       if (p.cap_mid_gt == null || p.soft_tier)
         return { color: css("--inj-4"), weight: 0.8, dashArray: "3 3",
                  fillColor: css("--inj-1"), fillOpacity: 0.3 };
@@ -57,34 +60,13 @@
     },
     onEachFeature: (f, ly) => {
       const p = f.properties;
-      const cap = p.cap_mid_gt != null
-        ? `${fmtGt(p.cap_mid_gt)} Gt CO₂ <small>(${short(p.tier)})</small>`
-        : "assessed extent — no capacity estimate";
+      const cap = p.unit
+        ? "<small>CO2StoP storage unit</small>"
+        : p.cap_mid_gt != null
+          ? `${fmtGt(p.cap_mid_gt)} Gt CO₂ <small>(${short(p.tier)})</small>`
+          : "assessed extent — no capacity estimate";
       ly.bindTooltip(`<b>${p.basin}</b>${cap}`, { sticky: true });
       ly.on("click", (e) => { showBasin(p); L.DomEvent.stop(e); });
-    },
-  });
-
-  // USGS 2013 National Assessment SAU polygons (replaces the NATCARB 10-km grid,
-  // whose regularized cells were the cause of the blocky US formation outlines)
-  const usSausLayer = L.geoJSON(window.GEO_US_SAUS || { type: "FeatureCollection", features: [] }, {
-    style: { color: css("--inj-deep"), weight: 0.7, fillColor: css("--inj-deep"), fillOpacity: 0.35 },
-    onEachFeature: (f, ly) => {
-      const p = f.properties;
-      const cap = p.tasr_mean_mt != null
-        ? `${fmtGt(p.tasr_mean_mt / 1000)} Gt CO₂ <small>(mean TASR)</small>` : "";
-      ly.bindTooltip(`<b>${p.sau_name || "Storage assessment unit"}</b>${cap}` +
-        `<small>${p.basin || ""} — USGS 2013 assessment</small>`, { sticky: true });
-      ly.on("click", (e) => { showSau(p); L.DomEvent.stop(e); });
-    },
-  });
-
-  const euStorageLayer = L.geoJSON(window.GEO_EU_STORAGE, {
-    style: { color: css("--inj-deep"), weight: 0.7, fillColor: css("--inj-deep"), fillOpacity: 0.35 },
-    onEachFeature: (f, ly) => {
-      const p = f.properties;
-      ly.bindTooltip(`<b>${p.name}</b><small>${p.country || ""} — CO2StoP storage unit (${p.storage_type || "saline"})</small>`,
-                     { sticky: true });
     },
   });
 
@@ -189,8 +171,8 @@
         `<div class="lg-row"><span class="lg-sw" style="background:${css(RAMP[i])}"></span>${l}</div>`));
       rows.push(`<div class="lg-row"><span class="lg-sw" style="background:${css("--inj-1")};opacity:.5;border:1.2px dashed ${css("--inj-4")}"></span>${on("ly-basins") ? "known basin, capacity unquantified or theoretical only" : "theoretical/prospective estimate only"}</div>`);
     }
-    if (on("ly-detail")) {
-      rows.push(`<div class="lg-row"><span class="lg-sw" style="background:${css("--inj-deep")};opacity:.6"></span>saline aquifers (US &amp; EU detail)</div>`);
+    if (on("ly-basins")) {
+      rows.push(`<div class="lg-row"><span class="lg-sw" style="background:${css("--inj-deep")};opacity:.6"></span>CO2StoP storage unit (EU, no basin assessment)</div>`);
     }
     if (on("ly-ism")) {
       rows.push(`<div class="lg-title">Mineralization formations</div>`);
@@ -262,6 +244,43 @@
       Schmelz et al. 2020 / Rubin et al. 2015)</span><br>${COST_CAVEAT}</p>`;
   }
 
+  function formationRows(p) {
+    if (!p.formations || !p.formations.length) return "";
+    const byState = COSTS.netl_us_formations?.by_state || {};
+    const shown = p.formations.slice(0, 12);
+    const rows = shown.map((f) => {
+      const gt = f.tasr_mean_mt != null ? `${fmtGt(f.tasr_mean_mt / 1000)} Gt` : "–";
+      const depth = (v) => v.depth_ft ? ` ~${Math.round(v.depth_ft).toLocaleString()} ft` : "";
+      const vars = f.variants.length > 1
+        ? ` <small>(${f.variants.map((v) => v.variant + depth(v)).join(", ")})</small>`
+        : `<small>${depth(f.variants[0] || {})}</small>`;
+      const netl = Object.entries(byState).filter(([, v]) =>
+        f.formation.toLowerCase().includes(v.formation.toLowerCase()));
+      const cost = netl.length
+        ? ` <small>· NETL ${netl.map(([st, v]) => `${st} $${v.usd_t}`).join(", ")}/t</small>` : "";
+      return `<div style="margin:2px 0;font-size:12.5px;color:var(--ink-2)">${f.formation}
+        — ${gt}${vars}${cost}</div>`;
+    });
+    const more = p.formations.length > shown.length
+      ? `<div class="src">+${p.formations.length - shown.length} more formations in DS 774</div>` : "";
+    return `<div class="lg-title">Formations (USGS 2013 SAUs, mean TASR)</div>
+      ${rows.join("")}${more}
+      <div class="src">Formation rows sum base + deep variants; NETL $/t figures are the
+      model's lowest-cost case for that formation in that state, not this basin
+      specifically.</div>`;
+  }
+
+  function unitRows(p) {
+    if (!p.units || !p.units.length) return "";
+    const shown = p.units.slice(0, 10);
+    const rows = shown.map((u) =>
+      `<div style="margin:2px 0;font-size:12.5px;color:var(--ink-2)">${u.name}
+        <small>(${[u.country, u.storage_type].filter(Boolean).join(", ")})</small></div>`);
+    const more = p.units.length > shown.length
+      ? `<div class="src">+${p.units.length - shown.length} more units</div>` : "";
+    return `<div class="lg-title">CO2StoP storage units in this basin</div>${rows.join("")}${more}`;
+  }
+
   function showBasin(p) {
     const capLine = p.cap_mid_gt != null
       ? `<span class="cap-big">${fmtGt(p.cap_mid_gt)} Gt CO₂</span>${tierBadge(p.tier)}`
@@ -271,44 +290,13 @@
       ? `<div class="src">range ${fmtGt(p.cap_low_gt)}–${fmtGt(p.cap_high_gt)} Gt across tiers/sources</div>` : "";
     openDetail(p.basin, `
       <div>${capLine}</div>${range}
-      <dl>${p.countries ? `<dt>Countries</dt><dd>${p.countries.join(", ")}</dd>` : ""}
+      <dl>${p.countries ? `<dt>Countries</dt><dd>${p.countries.filter(Boolean).join(", ")}</dd>` : ""}
       ${p.onshore_offshore ? `<dt>On/offshore</dt><dd>${p.onshore_offshore}</dd>` : ""}</dl>
       ${p.notes ? `<p>${p.notes}</p>` : ""}
-      ${costLineBasin(p)}
+      ${formationRows(p)}
+      ${unitRows(p)}
+      ${p.unit ? "" : costLineBasin(p)}
       <div class="src">${p.src || ""}</div>`);
-  }
-
-  function showSau(p) {
-    const cap = p.tasr_mean_mt != null
-      ? `<span class="cap-big">${fmtGt(p.tasr_mean_mt / 1000)} Gt CO₂</span>${tierBadge("technically accessible")}`
-      : `<span class="cap-big">Capacity in DS774 tables</span>`;
-    const rng = (p.tasr_p5_mt != null && p.tasr_p95_mt != null)
-      ? `<div class="src">P5–P95: ${fmtGt(p.tasr_p5_mt / 1000)}–${fmtGt(p.tasr_p95_mt / 1000)} Gt</div>` : "";
-    // NETL lowest-cost-per-state figures, matched by formation root name
-    let costHtml = "";
-    const byState = COSTS.netl_us_formations?.by_state || {};
-    const matches = Object.entries(byState)
-      .filter(([, v]) => (p.sau_name || "").toLowerCase().includes(v.formation.toLowerCase()));
-    if (matches.length) {
-      const list = matches.map(([st, v]) => `${st} $${v.usd_t}`).join(", ");
-      costHtml = `<p><b>Storage cost (indicative):</b> ${list} /t CO₂
-        <span class="src">(NETL 2024 model run, 2023$, first-year break-even incl. Class VI
-        permitting &amp; monitoring — lowest-cost ${matches[0][1].formation} case per state,
-        not this specific SAU)</span><br>${COST_CAVEAT}</p>`;
-    } else {
-      const cr = COSTS.class_ranges?.ranges?.onshore_saline;
-      if (cr) costHtml = `<p><b>Storage cost (indicative):</b> $${cr.low}–${cr.high}/t CO₂
-        <span class="src">(generic onshore saline class range —
-        Schmelz et al. 2020 / Rubin et al. 2015)</span><br>${COST_CAVEAT}</p>`;
-    }
-    openDetail(p.sau_name || "Storage assessment unit", `
-      <div>${cap}</div>${rng}
-      <dl><dt>Basin</dt><dd>${p.basin || "–"}</dd>
-      ${p.system ? `<dt>System</dt><dd>${p.system}</dd>` : ""}
-      ${p.depth_ml_ft ? `<dt>Depth</dt><dd>~${Math.round(p.depth_ml_ft).toLocaleString()} ft (most likely)</dd>` : ""}</dl>
-      ${costHtml}
-      <div class="src">USGS 2013 National Assessment of Geologic CO₂ Storage Resources
-      (DS 774); TASR = technically accessible storage resource.</div>`);
   }
 
   const ISM_EXTENT_CAVEAT = `<p class="src">Polygon shows the mapped surface extent of
@@ -362,8 +350,6 @@
   function sync() {
     toggle(injLayer, on("ly-injection"));
     toggle(basinsLayer, on("ly-basins"));
-    toggle(usSausLayer, on("ly-detail"));
-    toggle(euStorageLayer, on("ly-detail"));
     toggle(ismOther, on("ly-ism"));
     toggle(ismMatched, on("ly-ism"));
     toggle(projLayer, on("ly-projects"));
@@ -380,7 +366,7 @@
   document.getElementById("ly-basins").addEventListener("change", (e) => {
     if (e.target.checked) document.getElementById("ly-injection").checked = false;
   });
-  ["ly-injection", "ly-basins", "ly-detail", "ly-ism", "ly-projects"]
+  ["ly-injection", "ly-basins", "ly-ism", "ly-projects"]
     .forEach((id) => document.getElementById(id).addEventListener("change", sync));
   sync();
 
@@ -483,9 +469,10 @@
       `Hover any region for a quick number. Click a basin, formation, or storage site ` +
       `for capacity estimates, tiers, and sources.` },
     { el: "#layers", title: "Layers &amp; the fine print", html:
-      `Toggle <b>storage sites</b> to see operating and proposed projects; Advanced has ` +
-      `country-level and saline-aquifer views. Capacity tiers (theoretical / effective / ` +
-      `practical) answer different questions and are never summed — see the ⓘ icons.` },
+      `Toggle <b>storage sites</b> to see operating and proposed projects; Advanced offers ` +
+      `a country-level view. Click any basin for formation-level detail. Capacity tiers ` +
+      `(theoretical / effective / practical) answer different questions and are never ` +
+      `summed — see the ⓘ icons.` },
   ];
   const tourWrap = document.createElement("div");
   tourWrap.id = "tour";
