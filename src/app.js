@@ -61,7 +61,8 @@
     onEachFeature: (f, ly) => {
       const p = f.properties;
       const cap = p.unit
-        ? "<small>CO2StoP storage unit</small>"
+        ? `<small>${p.units && p.units.length > 1
+            ? p.units.length + " stacked CO2StoP storage units" : "CO2StoP storage unit"}</small>`
         : p.cap_mid_gt != null
           ? `${fmtGt(p.cap_mid_gt)} Gt CO₂ <small>(${short(p.tier)})</small>`
           : "assessed extent — no capacity estimate";
@@ -278,7 +279,8 @@
         <small>(${[u.country, u.storage_type].filter(Boolean).join(", ")})</small></div>`);
     const more = p.units.length > shown.length
       ? `<div class="src">+${p.units.length - shown.length} more units</div>` : "";
-    return `<div class="lg-title">CO2StoP storage units in this basin</div>${rows.join("")}${more}`;
+    const title = p.unit ? "CO2StoP storage units here" : "CO2StoP storage units in this basin";
+    return `<div class="lg-title">${title}</div>${rows.join("")}${more}`;
   }
 
   function showBasin(p) {
