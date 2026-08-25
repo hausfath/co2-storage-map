@@ -13,20 +13,20 @@ Source files merged: `bicrs_storage_sites_seed.json` (~81 sites), `bicrs_storage
 on in-situ mineralization (ISM) and North America / Europe / MEA 2025-26 status
 updates captured in `projects_checkpoint.json`. Final deduplicated file: `projects.json`.
 
-## Total: 99 unique projects (post 2026-07 audit; was 84)
+## Total: 104 unique projects (post 2026-08 BiCRS sync; 99 post 2026-07 audit; was 84)
 
 ### By mechanism
-- **Geologic** (dedicated saline/depleted-O&G, excl. EOR): 82
+- **Geologic** (dedicated saline/depleted-O&G, excl. EOR): 87
 - **Mineralization** (in-situ basalt/peridotite/serpentinite): 17
 
 ### By status
 | Status | Count |
 |---|---|
-| operational | 24 |
-| in_permitting | 23 |
+| operational | 25 |
+| in_permitting | 25 |
 | planned | 16 |
 | construction | 15 |
-| approved | 8 |
+| approved | 10 |
 | pilot | 7 |
 | pilot_concluded | 6 |
 
@@ -36,7 +36,7 @@ mostly to `in_permitting`/`planned` (Europe gap-fill) and two new `pilot`/`pilot
 mineralization entries (Saudi Arabia, India).
 
 ### Operational capacity (Mtpa, among projects with a reported nameplate/injection rate)
-- **Geologic operational: ~20.2 Mtpa** across 21 sites (Sleipner, Snøhvit, Northern Lights Ph.1,
+- **Geologic operational: ~20.4 Mtpa** across 23 sites incl. Blue Flint (Sleipner, Snøhvit, Northern Lights Ph.1,
   Quest, ADM Decatur, Al Reyadah, Ravenna Ph.1, Guohua Jinjie, QatarEnergy Ras Laffan,
   ACTL, Aquistore, Red Trail Energy, Stratos, CarbonTerraVault I, Gorgon, Santos Moomba,
   CO2CRC Otway, Tomakomai [concluded, excluded from live total], CNOOC Enping 15-1,
@@ -48,8 +48,8 @@ mineralization entries (Saudi Arabia, India).
   at meaningful volume as of mid-2026.
 
 ### By country (top entries)
-USA 17, CAN 9, NOR 8, GBR 7, CHN 6, AUS 5, ISL 5, JPN 4, MYS 4, ARE 4, IDN 3, IND 3,
-OMN 2, KEN 2, NLD 2, DNK 2, SAU 2, +TLS/KOR/THA/TWN/NZL/DZA/ITA/QAT/ZAF/GRC/BRA/HRV/HUN/BGR
+USA 21, CAN 9, NOR 8, GBR 7, CHN 6, AUS 5, ISL 5, JPN 4, MYS 4, ARE 4, IDN 3, IND 3,
+DNK 3, OMN 2, KEN 2, NLD 2, SAU 2, +TLS/KOR/THA/TWN/NZL/DZA/ITA/QAT/ZAF/GRC/BRA/HRV/HUN/BGR
 1 each (last five countries — GRC, BRA, HRV, HUN, BGR — newly added in the 2026-07 audit).
 
 ## Notable 2025-26 developments captured this round
@@ -238,3 +238,20 @@ summary below.
   site already in inventory, not a new location. A DNV-led "CO2RockLock" joint
   industry project (2026) is a research/knowledge-gap study, not a field site —
   excluded.
+
+## 2026-08 BiCRS Map sync
+
+Cross-checked against the BiCRS Map project's well/site inventories
+(`wells_us.json`, `storage_sites_new.json`, `storage_projects_eu.json`).
+Five verified additions (statuses re-verified Aug 2026 against regulators):
+Blue Flint CCS (ND, operational since Oct 2023, ~0.2 Mtpa, ND DMR),
+CENLA Hub / CapturePoint (LA, in permitting), Hackberry (LA, Class VI permit
+issued Sep 2025, pre-FID), Tenaska Sugarberry (TX, in permitting), and
+Bifrost Harald/Dagny (DNK, permits issued, pre-FID). Total 99 -> 104.
+
+Intentionally NOT synced: ~15 Subpart RR CO2-EOR fields (EOR excluded by policy);
+UK salt-cavern sites (hydrogen storage, not CO2); Vaulted Deep and Charm
+Industrial (Class V slurry/bio-oil injection, different mechanism);
+Heartland Greenway (cancelled Oct 2023 — stale in BiCRS source);
+PYCASSO Lacq (site abandoned by Terega Oct 2024); Wyoming CarbonSAFE
+(UW closed out Oct 2025 pending funding; permit claims unverified vs WY DEQ).
