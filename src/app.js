@@ -11,7 +11,7 @@
     renderer: L.canvas({ padding: 0.4 }),
   }).setView([22, 15], 2);
   map.attributionControl.addAttribution(
-    "Geometry: Natural Earth, NETL NATCARB, Ernst & Youbi LIPs, PLATES/UTIG ophiolites");
+    "Geometry: Natural Earth, USGS 2013 SAUs, Ernst & Youbi LIPs, PLATES/UTIG ophiolites");
 
   // ---------- injection choropleth ----------
   const BINS = [150, 500];                             // Gt CO2 (preferred estimate)
@@ -65,11 +65,17 @@
     },
   });
 
-  const natcarbLayer = L.geoJSON(window.GEO_INJ_NATCARB, {
+  // USGS 2013 National Assessment SAU polygons (replaces the NATCARB 10-km grid,
+  // whose regularized cells were the cause of the blocky US formation outlines)
+  const usSausLayer = L.geoJSON(window.GEO_US_SAUS || { type: "FeatureCollection", features: [] }, {
     style: { color: css("--inj-deep"), weight: 0.7, fillColor: css("--inj-deep"), fillOpacity: 0.35 },
     onEachFeature: (f, ly) => {
-      ly.bindTooltip(`<b>${f.properties.BASIN_NAME || "Saline formation"}</b>` +
-        `<small>NATCARB saline storage formation (US)</small>`, { sticky: true });
+      const p = f.properties;
+      const cap = p.tasr_mean_mt != null
+        ? `${fmtGt(p.tasr_mean_mt / 1000)} Gt CO₂ <small>(mean TASR)</small>` : "";
+      ly.bindTooltip(`<b>${p.sau_name || "Storage assessment unit"}</b>${cap}` +
+        `<small>${p.basin || ""} — USGS 2013 assessment</small>`, { sticky: true });
+      ly.on("click", (e) => { showSau(p); L.DomEvent.stop(e); });
     },
   });
 
@@ -190,7 +196,7 @@
       rows.push(`<div class="lg-title">Mineralization formations</div>`);
       Object.values(CAT).forEach((c) => rows.push(
         `<div class="lg-row"><span class="lg-sw" style="background:${css(c.v)}"></span>${c.label}</div>`));
-
+      rows.push(`<div class="lg-row"><small>mapped surface extent of reactive rock — see ⓘ / Methodology</small></div>`);
     }
     if (on("ly-projects")) {
       rows.push(`<div class="lg-title">Storage sites</div>`);
@@ -227,6 +233,35 @@
       ${c.notes ? `<p>${c.notes}</p>` : ""}`);
   }
 
+  // ---------- storage cost lines (detail panels only; see Methodology) ----------
+  const COSTS = A.costs || {};
+  const COST_CAVEAT = `<span class="src">Costs are highly scale- and site-sensitive
+    (2–10× within one basin); indicative only, excl. capture. See Methodology.</span>`;
+
+  function costLineBasin(p) {
+    const name = p.basin || "";
+    const qgess = COSTS.qgess_us_basins?.by_basin?.[name];
+    if (qgess != null)
+      return `<p><b>Storage cost (indicative):</b> ~$${qgess}/t CO₂
+        <span class="src">(2018$, incl. ~100 km transport — NETL QGESS 2019)</span><br>${COST_CAVEAT}</p>`;
+    const sc = COSTS.strategy_ccus_eu?.by_region || {};
+    const region = Object.keys(sc).find((k) => name.toLowerCase().includes(k.toLowerCase()));
+    if (region) {
+      const r = sc[region];
+      const rng = r.eur_t_low === r.eur_t_high ? `€${r.eur_t_low}` : `€${r.eur_t_low}–${r.eur_t_high}`;
+      return `<p><b>Storage cost (indicative):</b> ${rng}/t CO₂
+        <span class="src">(storage capex+opex, undiscounted — STRATEGY CCUS D4.5 2022,
+        project report; prospects: ${r.prospects})</span><br>${COST_CAVEAT}</p>`;
+    }
+    const cls = /offshore/i.test(p.onshore_offshore || "") && !/onshore/i.test(p.onshore_offshore || "")
+      ? ["offshore_saline", "offshore saline"] : ["onshore_saline", "onshore saline"];
+    const cr = COSTS.class_ranges?.ranges?.[cls[0]];
+    if (!cr) return "";
+    return `<p><b>Storage cost (indicative):</b> $${cr.low}–${cr.high}/t CO₂
+      <span class="src">(generic ${cls[1]} class range, not site-specific —
+      Schmelz et al. 2020 / Rubin et al. 2015)</span><br>${COST_CAVEAT}</p>`;
+  }
+
   function showBasin(p) {
     const capLine = p.cap_mid_gt != null
       ? `<span class="cap-big">${fmtGt(p.cap_mid_gt)} Gt CO₂</span>${tierBadge(p.tier)}`
@@ -239,15 +274,56 @@
       <dl>${p.countries ? `<dt>Countries</dt><dd>${p.countries.join(", ")}</dd>` : ""}
       ${p.onshore_offshore ? `<dt>On/offshore</dt><dd>${p.onshore_offshore}</dd>` : ""}</dl>
       ${p.notes ? `<p>${p.notes}</p>` : ""}
+      ${costLineBasin(p)}
       <div class="src">${p.src || ""}</div>`);
   }
+
+  function showSau(p) {
+    const cap = p.tasr_mean_mt != null
+      ? `<span class="cap-big">${fmtGt(p.tasr_mean_mt / 1000)} Gt CO₂</span>${tierBadge("technically accessible")}`
+      : `<span class="cap-big">Capacity in DS774 tables</span>`;
+    const rng = (p.tasr_p5_mt != null && p.tasr_p95_mt != null)
+      ? `<div class="src">P5–P95: ${fmtGt(p.tasr_p5_mt / 1000)}–${fmtGt(p.tasr_p95_mt / 1000)} Gt</div>` : "";
+    // NETL lowest-cost-per-state figures, matched by formation root name
+    let costHtml = "";
+    const byState = COSTS.netl_us_formations?.by_state || {};
+    const matches = Object.entries(byState)
+      .filter(([, v]) => (p.sau_name || "").toLowerCase().includes(v.formation.toLowerCase()));
+    if (matches.length) {
+      const list = matches.map(([st, v]) => `${st} $${v.usd_t}`).join(", ");
+      costHtml = `<p><b>Storage cost (indicative):</b> ${list} /t CO₂
+        <span class="src">(NETL 2024 model run, 2023$, first-year break-even incl. Class VI
+        permitting &amp; monitoring — lowest-cost ${matches[0][1].formation} case per state,
+        not this specific SAU)</span><br>${COST_CAVEAT}</p>`;
+    } else {
+      const cr = COSTS.class_ranges?.ranges?.onshore_saline;
+      if (cr) costHtml = `<p><b>Storage cost (indicative):</b> $${cr.low}–${cr.high}/t CO₂
+        <span class="src">(generic onshore saline class range —
+        Schmelz et al. 2020 / Rubin et al. 2015)</span><br>${COST_CAVEAT}</p>`;
+    }
+    openDetail(p.sau_name || "Storage assessment unit", `
+      <div>${cap}</div>${rng}
+      <dl><dt>Basin</dt><dd>${p.basin || "–"}</dd>
+      ${p.system ? `<dt>System</dt><dd>${p.system}</dd>` : ""}
+      ${p.depth_ml_ft ? `<dt>Depth</dt><dd>~${Math.round(p.depth_ml_ft).toLocaleString()} ft (most likely)</dd>` : ""}</dl>
+      ${costHtml}
+      <div class="src">USGS 2013 National Assessment of Geologic CO₂ Storage Resources
+      (DS 774); TASR = technically accessible storage resource.</div>`);
+  }
+
+  const ISM_EXTENT_CAVEAT = `<p class="src">Polygon shows the mapped surface extent of
+    reactive rock — an upper bound on geographic availability. Storage requires
+    sufficient formation thickness and depth at a specific site; no global
+    depth/thickness screen is currently possible (see Methodology).</p>`;
 
   function showFormation(p) {
     if (!p.matched) {
       openDetail(p.name, `
         <p>Mapped ophiolite / ultramafic body from the PLATES/UTIG global compilation.
-        Reactive rock suitable in principle for in-situ mineralization, but no published
-        site-specific storage capacity estimate was found.</p>
+        Reactive rock suitable in principle for in-situ mineralization, but thickness,
+        depth, and storage suitability are uncharacterized and no published
+        site-specific capacity estimate was found.</p>
+        ${ISM_EXTENT_CAVEAT}
         <div class="src">${p.src || ""}</div>`);
       return;
     }
@@ -260,8 +336,10 @@
       <dl><dt>Category</dt><dd>${CAT[p.category]?.label || p.category}</dd>
       <dt>Rock</dt><dd>${p.rock || "–"}</dd></dl>
       ${p.cap_basis ? `<p><b>Capacity basis:</b> ${p.cap_basis}</p>` : ""}
+      ${p.depth ? `<p><b>Depth / thickness:</b> ${p.depth}</p>` : ""}
       ${p.suitability ? `<p><b>Suitability:</b> ${p.suitability}</p>` : ""}
       ${p.activity ? `<p><b>Activity:</b> ${p.activity}</p>` : ""}
+      ${ISM_EXTENT_CAVEAT}
       <div class="src">${p.src || ""}</div>`);
   }
 
@@ -284,7 +362,7 @@
   function sync() {
     toggle(injLayer, on("ly-injection"));
     toggle(basinsLayer, on("ly-basins"));
-    toggle(natcarbLayer, on("ly-detail"));
+    toggle(usSausLayer, on("ly-detail"));
     toggle(euStorageLayer, on("ly-detail"));
     toggle(ismOther, on("ly-ism"));
     toggle(ismMatched, on("ly-ism"));
@@ -335,6 +413,29 @@
     ISM theoretical ceiling ~10⁶ Gt (NAS 2019; Kelemen et al.) — orders of magnitude above
     any plausible need, but the practical rate is projected at only ~1.2–5 Gt/yr by 2050
     (RMI 2023).</p>
+    <h3>Storage costs (detail panels)</h3>
+    <p>Cost lines are indicative and storage-only (capture always excluded; transport
+    excluded except where noted). US formations: NETL's 2024 run of the FE/NETL saline
+    storage cost model across 314 formations — first-year break-even price, 2023$,
+    including Class VI permitting and monitoring (nationally, &gt;200 Gt of prospective
+    resource at ≤$8/t). Four US basins carry NETL QGESS (2019) transport+storage figures
+    (2018$, ~100 km pipeline). Southern-EU regions: STRATEGY CCUS D4.5 (2022; EU project
+    report, sites pre-bankability). Everywhere else: generic reservoir-class ranges
+    (Schmelz et al. 2020, after Rubin et al. 2015). Costs vary 2–10× within a single
+    basin with injection rate, depth, and reservoir quality — none of these figures are
+    site-specific.</p>
+    <h3>ISM suitability &amp; depth — why no depth screen is applied</h3>
+    <p>Mineralization polygons show the mapped surface extent of reactive rock — an
+    upper bound on geographic availability, not screened storage resource. The familiar
+    ≥800 m criterion comes from conventional injection storage (IPCC SRCCS 2005: below
+    ~800 m CO₂ remains supercritical) and carries over to supercritical basalt storage
+    (the Wallula pilot injected at 828–887 m; NAS 2019), but dissolved-phase injection
+    (CarbFix, Hellisheiði) operates at ~500 m — trading depth for substantial water
+    demand — and engineered peridotite concepts target ~3 km (Kelemen &amp; Matter 2008).
+    No global thickness or depth dataset exists for basalt/ophiolite bodies (published
+    isopachs are figures, not GIS; the US-only SubMAP-CO2 3D mapping effort is in
+    progress), so no depth screen is applied here. Detail panels carry per-formation
+    depth/thickness notes where literature exists.</p>
     <h3>Why mineralization matters (the complementarity case)</h3>
     <p>ISM-suitable rock sits in geographies that sedimentary basins don't reach —
     ophiolite belts (Oman/UAE, the Balkans, SE Asia, New Caledonia), flood basalts

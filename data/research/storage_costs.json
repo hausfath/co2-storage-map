@@ -1,0 +1,80 @@
+{
+  "_readme": "Storage cost estimates for detail-panel display. All figures transcribed from primary documents (see data/research/storage_costs.md). Costs are highly scale- and site-sensitive; these are indicative, not site-specific.",
+  "netl_us_formations": {
+    "source": "Morgan et al. (2024), 'Modeling the Cost of CO2 Saline Storage on a Regional and National Level', NETL e-poster, AGU24 (OSTI 2484162)",
+    "url": "https://www.netl.doe.gov/projects/files/ModelingCostCO2SalineStorageonRegionalNationalLevel%20_120924.pdf",
+    "basis": "First-year break-even price (all-in: capital, O&M, financing, Class VI permitting, Subpart RR monitoring), 2023 US$/t CO2, FE/NETL CO2_S_COM v4 run over 314 US saline formations. Lowest-cost formation per state.",
+    "dollar_year": 2023,
+    "includes_transport": false,
+    "national_curve_note": ">200 Gt of prospective US storage resource at <=$8/t nationally; all regions except the Northeast have >=60 Gt at <=$10/t; the Northeast has ~1 Gt at <=$40/t.",
+    "by_state": {
+      "MD": {"formation": "Waste Gate", "usd_t": 8.58},
+      "WV": {"formation": "Copper Ridge", "usd_t": 39.37},
+      "PA": {"formation": "Rose Run", "usd_t": 75.05},
+      "KY": {"formation": "Knox", "usd_t": 10.88},
+      "AL": {"formation": "Lower Tuscaloosa", "usd_t": 7.82},
+      "MS": {"formation": "Lower Tuscaloosa", "usd_t": 8.52},
+      "FL": {"formation": "Lower Tuscaloosa", "usd_t": 9.11},
+      "GA": {"formation": "Lower Tuscaloosa", "usd_t": 9.36},
+      "TN": {"formation": "Basal Sandstone", "usd_t": 51.69},
+      "IL": {"formation": "Mount Simon", "usd_t": 7.43},
+      "MI": {"formation": "Mount Simon", "usd_t": 7.57},
+      "IN": {"formation": "Mount Simon", "usd_t": 7.88},
+      "OH": {"formation": "Mount Simon", "usd_t": 13.92},
+      "WY": {"formation": "Frontier", "usd_t": 6.19},
+      "KS": {"formation": "Arbuckle", "usd_t": 8.37},
+      "NE": {"formation": "Maha", "usd_t": 8.73},
+      "UT": {"formation": "Tensleep", "usd_t": 8.96},
+      "CO": {"formation": "Morrison", "usd_t": 9.8},
+      "MT": {"formation": "Inyan Kara", "usd_t": 10.53},
+      "SD": {"formation": "Inyan Kara", "usd_t": 10.53},
+      "ND": {"formation": "Inyan Kara", "usd_t": 10.53},
+      "TX": {"formation": "Frio", "usd_t": 5.97},
+      "NM": {"formation": "Wolfcamp", "usd_t": 7.32},
+      "OK": {"formation": "Arbuckle", "usd_t": 9.71},
+      "LA": {"formation": "Lower Tuscaloosa", "usd_t": 10.31},
+      "CA": {"formation": "Forbes", "usd_t": 6.59}
+    },
+    "notes": "Formation names are NETL database roots (numbered instances collapsed, e.g. 'Frio2' -> 'Frio'). Kentucky has two entries in the poster (Lockport6 $158.31 NE-region, Knox5 $10.88 Midwest-region); the lower Knox figure is used as KY's lowest-cost formation. States absent have no formation in the 314-formation database."
+  },
+  "qgess_us_basins": {
+    "source": "NETL QGESS: Carbon Dioxide Transport and Storage Costs in NETL Studies (2019), DOE/NETL-2019/2044",
+    "basis": "Combined transport (~100 km pipeline) + storage cost, 2018 US$/t CO2, for representative sites in four basins.",
+    "dollar_year": 2018,
+    "includes_transport": true,
+    "by_basin": {
+      "Illinois Basin": 10,
+      "East Texas Basin": 11,
+      "Williston Basin": 15,
+      "Powder River Basin": 22
+    }
+  },
+  "strategy_ccus_eu": {
+    "source": "Chen, L. (2022), 'D4.5 Cost-effectiveness of storage sites and comparison of promising regions', STRATEGY CCUS (EU H2020 project 837754), Table 1",
+    "url": "https://strategyccus.brgm.fr/sites/default/files/D4.5_Cost%20effectiveness%20storage_final.pdf",
+    "basis": "Storage-only capex+opex (monitoring bundled in opex; excludes capture and transport), undiscounted EUR/t CO2 stored; project report, not peer-reviewed. Sites had not reached bankability status; costs assume storage-ready resources (report's own flagged inconsistency).",
+    "currency": "EUR (year basis unstated in source)",
+    "includes_transport": false,
+    "by_region": {
+      "Ebro Basin": {"eur_t_low": 9.9, "eur_t_high": 9.9, "country": "ES", "prospects": "Reus; Maestrazgo-3; Caspe"},
+      "Lusitanian Basin": {"eur_t_low": 14.9, "eur_t_high": 33.1, "country": "PT", "prospects": "S. Mamede; Alcobaca (onshore 14.9); Q4-TV1; Q4-S1 (offshore 33.1)"},
+      "Paris Basin": {"eur_t_low": 23.0, "eur_t_high": 35.0, "country": "FR", "prospects": "Dogger (23.0); Chaunoy; Gres intermediaire (35.0)"},
+      "Rhone Valley": {"eur_t_low": 16.3, "eur_t_high": 16.4, "country": "FR", "prospects": "Sainte Marie de la Mer; Donnemarie"},
+      "Northern Croatia": {"eur_t_low": 37.0, "eur_t_high": 46.5, "country": "HR", "prospects": "Benicanci; Boksic; Osijek; Drava (depleted fields + saline)"},
+      "Galati": {"eur_t_low": 37.9, "eur_t_high": 60.1, "country": "RO", "prospects": "SU#01-SU#05"},
+      "Western Macedonia": {"eur_t_low": 18.0, "eur_t_high": 18.0, "country": "GR", "prospects": "(unnamed saline units)"},
+      "Upper Silesia": {"eur_t_low": 17.0, "eur_t_high": 17.0, "country": "PL", "prospects": "SU#03, SU#4"}
+    }
+  },
+  "class_ranges": {
+    "source": "Schmelz, Hochman & Miller (2020), Interface Focus 10:20190065, cost parameterization drawing on Rubin, Davison & Herzog (2015), IJGGC 40:378",
+    "basis": "Generic reservoir-class storage cost ranges (low / representative / high, US$/t CO2); not site-specific; excludes capture, transport, and monitoring (Schmelz et al. exclude monitoring explicitly).",
+    "includes_transport": false,
+    "ranges": {
+      "onshore_saline": {"low": 3, "rep": 6, "high": 15},
+      "offshore_saline": {"low": 8, "rep": 18, "high": 25},
+      "depleted_og": {"low": 1, "rep": 5, "high": 13}
+    }
+  },
+  "caveat": "Storage costs are highly sensitive to injection rate, project scale, depth, and reservoir quality (order 2-10x within one basin), and vintages differ across sources. Figures are indicative, storage-only unless noted (QGESS includes ~100 km transport). None include capture."
+}

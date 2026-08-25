@@ -21,14 +21,14 @@ step — all data is bundled as JavaScript.
   capacity with dashed styling for theoretical-tier-only numbers and for basins
   mapped but not yet assessed. Click any basin for the estimate, tier,
   cross-source range, and citations. A country-level choropleth (45 countries)
-  is available as an alternative view, plus US (NATCARB) and EU (CO2StoP)
+  is available as an alternative view, plus US (USGS 2013 SAUs) and EU (CO2StoP)
   formation-level detail layers.
 - **In-situ mineralization formations** — a 35-formation global inventory
   (continental flood basalts, ophiolite/peridotite belts, rift and arc
   volcanics, offshore basalt) with literature capacity estimates, drawn from
   LIP and global-ophiolite GIS compilations; plus ~1,000 additional mapped
   ophiolite bodies shown as "uncharacterized."
-- **Storage projects** — 99 dedicated-storage projects (82 geologic, 17 ISM)
+- **Storage projects** — 104 dedicated-storage projects (87 geologic, 17 ISM)
   with statuses as of mid-2026, sized by capacity, colored by mechanism.
   EOR/ECBM projects are excluded.
 
@@ -67,6 +67,7 @@ raw inputs re-downloadable via the URLs in `data/research/geodata_sources.json`)
 
 Natural Earth (countries); USGS World Petroleum Resources 2009–11 provinces and
 Circum-Arctic CARA 2008; USGS Coleman & Cahan 2012 US sedimentary basins; NETL
-NATCARB saline formations; Geoscience Australia Geological Provinces (CC-BY 4.0);
+USGS 2013 National Assessment SAU polygons + DS 774 capacity tables (public domain);
+Geoscience Australia Geological Provinces (CC-BY 4.0);
 ANP Brazil basins; USGS OFR 00-047 China basins; EU CO2StoP storage units;
 Ernst & Youbi LIP outlines; PLATES/UTIG global ophiolite compilation.

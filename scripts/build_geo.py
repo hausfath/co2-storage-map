@@ -109,6 +109,7 @@ def build_ism(formations):
             "cap_low_gt": cap.get("low"), "cap_mid_gt": cap.get("mid"),
             "cap_high_gt": cap.get("high"), "cap_basis": f.get("capacity_basis"),
             "suitability": f.get("suitability_notes"), "activity": f.get("existing_activity"),
+            "depth": f.get("depth_porosity_notes"),
             "src": f.get("source"), "matched": matched,
         }
 

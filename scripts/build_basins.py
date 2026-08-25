@@ -16,7 +16,7 @@ RAW = ROOT / "data" / "raw" / "basins"
 GEO = ROOT / "data" / "geo"
 RESEARCH = ROOT / "data" / "research"
 
-SIMPLIFY_DEG = 0.04
+SIMPLIFY_DEG = 0.015
 DEC = 3
 
 
