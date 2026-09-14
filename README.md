@@ -28,7 +28,7 @@ step — all data is bundled as JavaScript.
   volcanics, offshore basalt) with literature capacity estimates, drawn from
   LIP and global-ophiolite GIS compilations; plus ~1,000 additional mapped
   ophiolite bodies shown as "uncharacterized."
-- **Storage projects** — 104 dedicated-storage projects (87 geologic, 17 ISM)
+- **Storage projects** — 103 dedicated-storage projects (86 geologic, 17 ISM)
   with statuses as of mid-2026, sized by capacity, colored by mechanism.
   EOR/ECBM projects are excluded.
 

@@ -1,0 +1,398 @@
+{
+ "_readme": "Verified citation -> URL map applied at render time (linkify). Literal, case-sensitive substring matches; longest wins. Built by merging agent-verified lookups; see data/research/source_links.md.",
+ "links": [
+  {
+   "match": "Amantayeva et al. 2020",
+   "url": "https://doi.org/10.1016/j.ijggc.2020.103186"
+  },
+  {
+   "match": "Amantayeva et al. 2020 (effective capacity, 4 basins, Kazakh sector)",
+   "url": "https://doi.org/10.1016/j.ijggc.2020.103186",
+   "existence_checked_only": true
+  },
+  {
+   "match": "Australian Carbon Storage Taskforce",
+   "url": "https://www.ga.gov.au/scientific-topics/energy/resources/carbon-capture-and-storage-ccs/geological-storage-studies/NCM_Full_Report.pdf"
+  },
+  {
+   "match": "CAS academic basin-level assessment (via ScienceDirect S0301421515301701 and related literature)",
+   "url": "https://doi.org/10.1016/j.enpol.2015.10.043"
+  },
+  {
+   "match": "CO2-storage assessment and effective capacity in Algeria (PMC4940307), national range 90 Mt (structural traps, low) to 45 Gt (hydrodynamic traps, high)",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC4940307/"
+  },
+  {
+   "match": "CO2-storage assessment and effective capacity in Algeria, PMC4940307",
+   "url": "https://doi.org/10.1186/s40064-016-2682-7"
+  },
+  {
+   "match": "CO2Stored, UKSAP, British Geological Survey & The Crown Estate, ~500 offshore storage units across Southern/Central/Northern North Sea + East Irish Sea",
+   "url": "https://www.co2stored.co.uk/home/about"
+  },
+  {
+   "match": "CO2Stored/UKSAP, British Geological Survey & The Crown Estate",
+   "url": "https://www.co2stored.co.uk/home/about"
+  },
+  {
+   "match": "CSRC Cycle 4",
+   "url": "https://www.ogci.com/wp-content/uploads/2024/08/CSRC_Cycle_4_Main-Report_August_2024.pdf"
+  },
+  {
+   "match": "CSRC Cycle 4 (2024)",
+   "url": "https://www.ogci.com/wp-content/uploads/2024/08/CSRC_Cycle_4_Main-Report_August_2024.pdf"
+  },
+  {
+   "match": "CSRC Cycle 4 (2024) national total 342.93 Gt, apportioned",
+   "url": "https://www.ogci.com/wp-content/uploads/2024/08/CSRC_Cycle_4_F_SubSaharan_Africa_HAL_Aug_2024.pdf"
+  },
+  {
+   "match": "CSRC Cycle 4 (2024) national total 342.93 Gt, apportioned (see Outeniqua Basin note)",
+   "url": "https://www.ogci.com/wp-content/uploads/2024/08/CSRC_Cycle_4_F_SubSaharan_Africa_HAL_Aug_2024.pdf"
+  },
+  {
+   "match": "CSRC Cycle 4 (2024), Capacity 1.5 Gt",
+   "url": "https://www.ogci.com/wp-content/uploads/2024/08/CSRC_Cycle_4_Main-Report_August_2024.pdf"
+  },
+  {
+   "match": "CSRC Cycle 4 (2024): mostly saline, Sub-Comm 19.91 + Undiscovered 323.02",
+   "url": "https://www.ogci.com/wp-content/uploads/2024/08/CSRC_Cycle_4_Main-Report_August_2024.pdf"
+  },
+  {
+   "match": "CSRC Cycle 4 (51.2)",
+   "url": "https://www.ogci.com/wp-content/uploads/2024/08/CSRC_Cycle_4_Appendix_C_Europe-_HAL_August_24.pdf"
+  },
+  {
+   "match": "CSRC Cycle 4 (ROU 4.1 + BGR 2.567 = 6.67)",
+   "url": "https://www.ogci.com/wp-content/uploads/2024/08/CSRC_Cycle_4_Appendix_C_Europe-_HAL_August_24.pdf"
+  },
+  {
+   "match": "CSRC Cycle 4/5",
+   "url": "https://www.ogci.com/ccus/co2-storage-catalogue/"
+  },
+  {
+   "match": "CSRC Cycle 4/5 (148 Gt aggregated, 67 sites/4 basins)",
+   "url": "https://www.ogci.com/ccus/co2-storage-catalogue/",
+   "existence_checked_only": true
+  },
+  {
+   "match": "CSRC Cycle 4/5 (unchanged between cycles)",
+   "url": "https://www.ogci.com/ccus/co2-storage-catalogue/"
+  },
+  {
+   "match": "CSRC Cycle 4/5 aggregated (67 sites, 4 basins)",
+   "url": "https://www.ogci.com/ccus/co2-storage-catalogue/"
+  },
+  {
+   "match": "CSRC Cycle 4: 'no published information' -- superseded by the March 2025 IFC atlas, which post-dates CSRC Cycle 4's Nigeria assessment window",
+   "url": "https://www.ogci.com/wp-content/uploads/2024/08/CSRC_Cycle_4_Main-Report_August_2024.pdf"
+  },
+  {
+   "match": "CSRC Cycle 4: HRV 4.897 + HUN 10.828 + AUT 0.146 + SVK 1.8 = 17.67 (recompute: mid uses HRV+HUN=15.73 as the basin's dominant share",
+   "url": "https://www.ogci.com/wp-content/uploads/2024/08/CSRC_Cycle_4_Appendix_C_Europe-_HAL_August_24.pdf"
+  },
+  {
+   "match": "CSRC Cycle 5 (2025)",
+   "url": "https://www.ogci.com/wp-content/uploads/2025/11/CSRC_Cycle_5_Main-Report_August_2025.pdf"
+  },
+  {
+   "match": "CSRC Cycle 5 (2025), Capacity 2.488 Gt",
+   "url": "https://www.ogci.com/wp-content/uploads/2025/11/CSRC_Cycle_5_Main-Report_August_2025.pdf"
+  },
+  {
+   "match": "CSRC Cycle 5 (2025), national total 28.25 Gt",
+   "url": "https://www.ogci.com/wp-content/uploads/2025/11/CSRC_Cycle_5_Main-Report_August_2025.pdf"
+  },
+  {
+   "match": "CSRC Cycle 5 (2025), see Malay Basin entry",
+   "url": "https://www.ogci.com/wp-content/uploads/2025/11/CSRC_Cycle_5_Main-Report_August_2025.pdf",
+   "existence_checked_only": true
+  },
+  {
+   "match": "CSRC Cycle 5 (2025): 20 Gt saline undiscovered + 1.13 Gt gas fields discovered",
+   "url": "https://www.ogci.com/wp-content/uploads/2025/11/CSRC_Cycle_5_Main-Report_August_2025.pdf"
+  },
+  {
+   "match": "CSRC Cycle 5 (2025): 72 sites, ≥21 basins, gas 5.2 Gt + oil/EOR 4.8 Gt, remainder saline",
+   "url": "https://www.ogci.com/wp-content/uploads/2025/11/CSRC_Cycle_5_Main-Report_August_2025.pdf"
+  },
+  {
+   "match": "CSRC Cycle 5 (2025): Capacity 3.0, Sub-Comm 5.0, Undiscovered 47.0",
+   "url": "https://www.ogci.com/wp-content/uploads/2025/11/CSRC_Cycle_5_Main-Report_August_2025.pdf"
+  },
+  {
+   "match": "CSRC Cycle 5 (2025): Rub al Khali basin, 5.91 Gt project-specified",
+   "url": "https://www.ogci.com/wp-content/uploads/2025/11/CSRC_Cycle_5_Main-Report_August_2025.pdf"
+  },
+  {
+   "match": "CSRC Cycle 5 (2025): saline basin-play Undiscovered ~473 Gt + Capacity 0.1 + Stored 0.009",
+   "url": "https://www.ogci.com/wp-content/uploads/2025/11/CSRC_Cycle_5_Main-Report_August_2025.pdf"
+  },
+  {
+   "match": "CSRC Cycle 5 (2025): saline ~89% of total",
+   "url": "https://www.ogci.com/wp-content/uploads/2025/11/CSRC_Cycle_5_Main-Report_August_2025.pdf"
+  },
+  {
+   "match": "CSRC Cycle 5 (2025, 18.1 Gt)",
+   "url": "https://www.ogci.com/wp-content/uploads/2025/11/CSRC_Cycle_5_Main-Report_August_2025.pdf",
+   "existence_checked_only": true
+  },
+  {
+   "match": "CSRC Cycle 5 -- explicitly not representative, covers 1 discovered oil field, inaccessible",
+   "url": "https://www.ogci.com/wp-content/uploads/2025/11/CSRC_Cycle_5_Main-Report_August_2025.pdf"
+  },
+  {
+   "match": "CSRC Cycle 5 notes cite Santos Cooper Basin project reserves: 1P 6 Mt, 2P 9 Mt, 2C 91 Mt -- these are field-level, not basin-wide",
+   "url": "https://www.ogci.com/wp-content/uploads/2025/11/CSRC_Cycle_5_Main-Report_August_2025.pdf"
+  },
+  {
+   "match": "CSRC Cycle 5-lineage: depleted fields (Maui 0.30 + Kapuni 0.10 + McKee 0.023 = 0.42 Gt) + saline (~2.47 Gt, 3 formations @1% storage efficiency)",
+   "url": "https://www.ogci.com/wp-content/uploads/2025/11/CSRC_Cycle_5_Main-Report_August_2025.pdf"
+  },
+  {
+   "match": "CSRC Cycle 5-lineage: depleted fields ~0.42 Gt (Maui 0.30, Kapuni 0.10, McKee 0.023) + saline ~2.47 Gt (3 formations @1% storage efficiency)",
+   "url": "https://www.ogci.com/wp-content/uploads/2025/11/CSRC_Cycle_5_Main-Report_August_2025.pdf"
+  },
+  {
+   "match": "Carbon Storage Taskforce lineage figure cited in CSRC",
+   "url": "https://www.ga.gov.au/scientific-topics/energy/resources/carbon-capture-and-storage-ccs/geological-storage-studies/NCM_Full_Report.pdf"
+  },
+  {
+   "match": "Cycle 5 (120.66)",
+   "url": "https://www.ogci.com/wp-content/uploads/2025/11/CSRC_Cycle_5_Main-Report_August_2025.pdf",
+   "existence_checked_only": true
+  },
+  {
+   "match": "Decarbonizing the energy and industry sectors in Thailand by CCS, ScienceDirect S0920410521015928",
+   "url": "https://doi.org/10.1016/j.petrol.2021.109979"
+  },
+  {
+   "match": "Evaluation of geological CO2 storage potential in Saudi Arabian sedimentary basins, ScienceDirect S0012825223002283",
+   "url": "https://doi.org/10.1016/j.earscirev.2023.104539"
+  },
+  {
+   "match": "GEUS 2021 (AUT CO2StoP theoretical 20 Gt)",
+   "url": "https://data.geus.dk/pure-pdf/GEUS-R_2021_34_web.pdf"
+  },
+  {
+   "match": "GEUS EU CO2 storage summary 2021",
+   "url": "https://data.geus.dk/pure-pdf/GEUS-R_2021_34_web.pdf"
+  },
+  {
+   "match": "GEUS EU CO2 storage summary 2021 (CO2StoP Romania 21-53 Gt)",
+   "url": "https://data.geus.dk/pure-pdf/GEUS-R_2021_34_web.pdf"
+  },
+  {
+   "match": "GEUS EU CO2 storage summary 2021 (CO2StoP)",
+   "url": "https://data.geus.dk/pure-pdf/GEUS-R_2021_34_web.pdf"
+  },
+  {
+   "match": "GEUS EU CO2 storage summary 2021, citing CO2StoP",
+   "url": "https://cdn.catf.us/wp-content/uploads/2021/10/20183953/EU-CO2-storage-summary_GEUS-report-2021-34_Oct2021.pdf"
+  },
+  {
+   "match": "GEUS EU CO2 storage summary 2021, citing dedicated Polish CO2StoP paper (Poland has one of the largest theoretical-to-mature gaps in Europe)",
+   "url": "https://cdn.catf.us/wp-content/uploads/2021/10/20183953/EU-CO2-storage-summary_GEUS-report-2021-34_Oct2021.pdf"
+  },
+  {
+   "match": "General CAMP literature (Marzoli et al. 1999 Science)",
+   "url": "https://doi.org/10.1126/science.284.5414.616"
+  },
+  {
+   "match": "General LIP geology literature (Reichow et al. 2009 Earth Planet. Sci. Lett. on Siberian Traps volume/age)",
+   "url": "https://doi.org/10.1016/j.epsl.2008.09.030"
+  },
+  {
+   "match": "General LIP literature (Xu et al. 2004 on Emeishan volcanism)",
+   "url": "https://doi.org/10.1130/G20602.1"
+  },
+  {
+   "match": "General geology (Hofmann et al. 1997 on Ethiopian flood basalt volcanism)",
+   "url": "https://doi.org/10.1038/39853"
+  },
+  {
+   "match": "Geoscience Australia geological storage studies program (basin studied",
+   "url": "https://www.ga.gov.au/scientific-topics/energy/resources/carbon-capture-and-storage-ccs/geological-storage-studies"
+  },
+  {
+   "match": "Goldberg, D.S. et al. 2008 PNAS 'Carbon dioxide sequestration in deep-sea basalt'",
+   "url": "https://doi.org/10.1073/pnas.0804397105"
+  },
+  {
+   "match": "Hendriana, Sugihardjo & Usman 2017",
+   "url": "https://doi.org/10.1016/j.egypro.2017.03.1598"
+  },
+  {
+   "match": "Hendriana, Sugihardjo & Usman 2017 (academic ranking study)",
+   "url": "https://doi.org/10.1016/j.egypro.2017.03.1598"
+  },
+  {
+   "match": "IFC Nigerian CO2 Storage Atlas, March 2025 (basin identified, not separately quantified)",
+   "url": "https://www.ifc.org/en/insights-reports/2025/nigerian-co2-storage-atlas"
+  },
+  {
+   "match": "IFC Nigerian CO2 Storage Atlas, March 2025 -- saline aquifers and depleted oil/gas fields, Miocene-age Niger Delta formations dominant",
+   "url": "https://www.ifc.org/en/insights-reports/2025/nigerian-co2-storage-atlas"
+  },
+  {
+   "match": "InTech 'Geological Carbon Dioxide Storage in Mexico'",
+   "url": "https://doi.org/10.5772/26044"
+  },
+  {
+   "match": "Intl CCS Knowledge Centre 'Canada's CO2 Landscape' 2021 (WCSB 385-390 Gt)",
+   "url": "https://ccsknowledge.com/wp-content/uploads/2025/01/CO2_Sources_Sinks_Canada_April2021.pdf"
+  },
+  {
+   "match": "Intl CCS Knowledge Centre, 'Canada's CO2 Landscape' 2021",
+   "url": "https://ccsknowledge.com/wp-content/uploads/2025/01/CO2_Sources_Sinks_Canada_April2021.pdf"
+  },
+  {
+   "match": "JPT/SPE 2023 coverage of 44.01",
+   "url": "https://jpt.spe.org/mountains-in-oman-can-store-huge-amounts-of-co2-if-a-way-can-be-found-into-the-tight-rock"
+  },
+  {
+   "match": "Kelemen et al. 2011 Annu. Rev. Earth Planet. Sci",
+   "url": "https://doi.org/10.1146/annurev-earth-092010-152509"
+  },
+  {
+   "match": "METI Tomakomai project materials",
+   "url": "https://www.japanccs.com/wp/wp-content/uploads/2020/09/Tomakomai-CCS-Demonstration-Project-Achievements-and-Future-Outlook_Shoichi-Ishii.pdf"
+  },
+  {
+   "match": "METI/RITE Nagaoka CO2 injection pilot materials",
+   "url": "https://www.rite.or.jp/co2storage/en/safety/nagaoka/"
+  },
+  {
+   "match": "MIT CCS project database",
+   "url": "https://sequestration.mit.edu/tools/projects/index_database.html"
+  },
+  {
+   "match": "Matter, J.M. et al. 2016 Science (CarbFix mineralization rate)",
+   "url": "https://doi.org/10.1126/science.aad8132"
+  },
+  {
+   "match": "McGrail et al. 2017 Env. Sci. Technol. Wallula results",
+   "url": "https://doi.org/10.1021/acs.estlett.6b00387"
+  },
+  {
+   "match": "McGrail, B.P. et al. 2006 (AGU)",
+   "url": "https://doi.org/10.1029/2005JB004169"
+  },
+  {
+   "match": "NETL NATCARB Atlas V (2015)",
+   "url": "https://edx.netl.doe.gov/dataset/netl-carbon-storage-atlas-fifth-edition/resource/4f44abdf-0976-4251-8838-457c60e638ba"
+  },
+  {
+   "match": "OGCI CSRC characterization of Australia's commercially-relevant subset",
+   "url": "https://www.ogci.com/wp-content/uploads/2025/11/CSRC_Cycle_5_Main-Report_August_2025.pdf"
+  },
+  {
+   "match": "Quesnel, B. et al. 2013 'Syn-tectonic, meteoric water-derived carbonation of the New Caledonia Peridotite Nappe'",
+   "url": "https://doi.org/10.1130/G34531.1"
+  },
+  {
+   "match": "Ranking of Indonesia Sedimentary Basin and Storage Capacity Estimates (academic ranking study)",
+   "url": "https://doi.org/10.1016/j.egypro.2013.06.433"
+  },
+  {
+   "match": "Resource Maturity and Sensitivity Analysis of CO2 Storage Capacity in the Lusitanian Basin, Portugal (Earthdoc 10.3997/2214-4609.202112547)",
+   "url": "https://doi.org/10.3997/2214-4609.202112547"
+  },
+  {
+   "match": "ScienceDirect S0016236123002946, 'CO2 storage potential assessment of offshore saline aquifers in China' (basin covered",
+   "url": "https://doi.org/10.1016/j.fuel.2023.127681"
+  },
+  {
+   "match": "ScienceDirect S0959652623010594 secondary (national 877 Gt, unverified vs Bachu primary)",
+   "url": "https://doi.org/10.1016/j.jclepro.2023.136901"
+  },
+  {
+   "match": "Snæbjörnsdóttir, S.Ó. & Gislason, S.R. 2016. CO2 storage potential of basaltic rocks in Iceland and the oceanic ridges. Energy Procedia",
+   "url": "https://doi.org/10.1016/j.egypro.2016.01.038",
+   "existence_checked_only": true
+  },
+  {
+   "match": "Springer 'Site characterisation of a basin-scale CO2 geological storage system: Gippsland Basin' and CarbonNet Project materials",
+   "url": "https://doi.org/10.1007/s00254-007-0941-1"
+  },
+  {
+   "match": "Teletzke et al. 2018",
+   "url": "https://doi.org/10.2139/ssrn.3366176",
+   "existence_checked_only": true
+  },
+  {
+   "match": "Teletzke et al. 2018 (ExxonMobil, GHGT-14), saline P50",
+   "url": "https://doi.org/10.2139/ssrn.3366176",
+   "existence_checked_only": true
+  },
+  {
+   "match": "Teletzke et al. 2018 (GHGT-14)",
+   "url": "https://doi.org/10.2139/ssrn.3366176"
+  },
+  {
+   "match": "Teletzke et al. 2018 (GHGT-14) via PMC10569028 secondary citation",
+   "url": "https://doi.org/10.2139/ssrn.3366176"
+  },
+  {
+   "match": "USGS 'Geologic framework for the national assessment of carbon dioxide storage resources: Alaska North Slope and Kandik Basin, Alaska'",
+   "url": "https://pubs.usgs.gov/of/2012/1024/i/"
+  },
+  {
+   "match": "USGS Geologic framework for the National Assessment, Chapter B (Powder River Basin, WY/MT/SD/NE)",
+   "url": "https://pubs.usgs.gov/of/2012/1024/b/"
+  },
+  {
+   "match": "USGS Geologic framework for the National Assessment, Chapter P",
+   "url": "https://doi.org/10.5066/P13D7IQS"
+  },
+  {
+   "match": "USGS Geologic framework for the National Assessment, Chapter P (Appalachian, Black Warrior, Illinois, Michigan basins)",
+   "url": "https://doi.org/10.5066/P13D7IQS"
+  },
+  {
+   "match": "USGS National Assessment 2013",
+   "url": "https://www.usgs.gov/publications/national-assessment-geologic-carbon-dioxide-storage-resources-data"
+  },
+  {
+   "match": "USGS National Assessment 2013 (basin included in scope",
+   "url": "https://pubs.usgs.gov/circ/1386/"
+  },
+  {
+   "match": "USGS National Assessment 2013 (share of national total)",
+   "url": "https://pubs.usgs.gov/circ/1386/"
+  },
+  {
+   "match": "Vienna Basin sub-portion AUT+SVK ~1.95)",
+   "url": "https://www.ogci.com/wp-content/uploads/2024/08/CSRC_Cycle_4_Appendix_C_Europe-_HAL_August_24.pdf"
+  },
+  {
+   "match": "Vishal et al. 2021",
+   "url": "https://doi.org/10.1016/j.ijggc.2021.103458"
+  },
+  {
+   "match": "Vishal et al. 2021, per basin-level review cited in Proceedings of the Indian National Science Academy 2026 mini-review",
+   "url": "https://doi.org/10.1016/j.ijggc.2021.103458"
+  },
+  {
+   "match": "Vishal, V. et al. 2021",
+   "url": "https://doi.org/10.1016/j.ijggc.2021.103458"
+  },
+  {
+   "match": "Vishal, V. et al. 2021 capacity assessment",
+   "url": "https://doi.org/10.1016/j.ijggc.2021.103458"
+  },
+  {
+   "match": "academic study (Korea Science, Economic and Environmental Geology journal), southwestern Ulleung Basin margin",
+   "url": "https://koreascience.or.kr/article/JAKO201216636292712.page"
+  },
+  {
+   "match": "derived: Saudi national effective total (~432-446 Gt, S0012825223002283) minus Rub al Khali sub-range (~150 Gt mid) -- NOT independently basin-attributed in the source",
+   "url": "https://doi.org/10.1016/j.earscirev.2023.104539",
+   "existence_checked_only": true
+  },
+  {
+   "match": "multiple structural CO2 storage estimates for Algeria's most prospective basin",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC4940307/"
+  }
+ ]
+}

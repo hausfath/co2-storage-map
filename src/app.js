@@ -262,9 +262,20 @@
     basalt: "Basalt", peridotite: "Peridotite", serpentinite: "Serpentinite" };
   // Turn URLs and bare domains in research text into links with a readable label.
   const URL_RE = /(https?:\/\/[^\s<>()"']+|(?<![\w@\/.])(?:www\.)?[a-z0-9-]+(?:\.[a-z0-9-]+)*\.(?:com|org|gov|edu|net|eu|int|io|no|dk|uk|de|fr|ch|is|ca|au|nl|be|pt|es|it|se|fi|jp|kr|in|br|za|ae|om|hr|bg|pl|ro|hu|cz|gr|sk|si|lt|lv|ee|ie|nz|cn|id|my|sa|qa|ng|ke|tw|th|mx|ar|cl|co)(?:\/[^\s<>()"']*)?)(?![\w.-])/gi;
+  const SOURCE_LINKS = (A.source_links || []).slice()
+    .sort((x, y) => y.match.length - x.match.length);
   function linkify(text) {
     if (!text) return "";
-    return String(text).replace(URL_RE, (m) => {
+    // 1. known citations -> placeholders (protects them from the URL pass)
+    const held = [];
+    let out = String(text);
+    SOURCE_LINKS.forEach((l) => {
+      if (!l.url || !out.includes(l.match)) return;
+      held.push(`<a href="${l.url}" target="_blank" rel="noopener">${l.match}</a>`);
+      out = out.split(l.match).join(`\u0001${held.length - 1}\u0001`);
+    });
+    // 2. raw URLs / domains
+    out = out.replace(URL_RE, (m) => {
       let url = m, trail = "";
       const t = url.match(/[.,;:]+$/);
       if (t) { trail = t[0]; url = url.slice(0, -trail.length); }
@@ -277,6 +288,7 @@
       if (label.length > 44) label = label.slice(0, 42).replace(/[\/-]+$/, "") + "…";
       return `<a href="${href}" target="_blank" rel="noopener">${label}</a>${trail}`;
     });
+    return out.replace(/\u0001(\d+)\u0001/g, (_, i) => held[+i]);
   }
   function pretty(s) { return (s || "").replace(/_/g, " ").replace(/^\w/, (c) => c.toUpperCase()); }
 
@@ -431,6 +443,7 @@
       ${p.cumulative_stored_mt ? `<dt>Stored to date</dt><dd>${p.cumulative_stored_mt} Mt</dd>` : ""}
       <dt>Setting</dt><dd>${pretty(p.onshore_offshore) || "–"}</dd></dl>
       ${p.notes ? `<p>${firstSentence(p.notes, 220)}</p>` : ""}
+      ${p.url ? `<div><a href="${p.url}" target="_blank" rel="noopener">Project page ↗</a></div>` : ""}
       ${more("Details & sources", `${restOf(p.notes, 220) ? `<p>${linkify(restOf(p.notes, 220))}</p>` : ""}<div class="src">${linkify(p.source)}</div>`)}`);
   }
 

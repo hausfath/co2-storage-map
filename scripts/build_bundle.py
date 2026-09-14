@@ -11,6 +11,7 @@ mc = json.loads((RESEARCH / "mineralization_capacity.json").read_text())
 projects = json.loads((RESEARCH / "projects.json").read_text())
 costs = json.loads((RESEARCH / "storage_costs.json").read_text())
 costs.pop("_readme", None)
+source_links = json.loads((RESEARCH / "source_links.json").read_text())["links"]
 
 op_geo = sum(p.get("capacity_mtpa") or 0 for p in projects
              if p["mechanism"] == "geologic" and p["status"] == "operational")
@@ -31,6 +32,7 @@ atlas = {
     "formations": mc["formations"],
     "projects": projects,
     "costs": costs,
+    "source_links": source_links,
     "meta": {
         "built": "2026-07-13",
         "note": ("Capacity tiers are not comparable: theoretical / effective / practical "

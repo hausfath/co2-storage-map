@@ -13,17 +13,17 @@ Source files merged: `bicrs_storage_sites_seed.json` (~81 sites), `bicrs_storage
 on in-situ mineralization (ISM) and North America / Europe / MEA 2025-26 status
 updates captured in `projects_checkpoint.json`. Final deduplicated file: `projects.json`.
 
-## Total: 104 unique projects (post 2026-08 BiCRS sync; 99 post 2026-07 audit; was 84)
+## Total: 103 unique projects (2026-09 Bifrost duplicate merged; 104 post 2026-08 BiCRS sync; 99 post 2026-07 audit; was 84)
 
 ### By mechanism
-- **Geologic** (dedicated saline/depleted-O&G, excl. EOR): 87
+- **Geologic** (dedicated saline/depleted-O&G, excl. EOR): 86
 - **Mineralization** (in-situ basalt/peridotite/serpentinite): 17
 
 ### By status
 | Status | Count |
 |---|---|
 | operational | 25 |
-| in_permitting | 25 |
+| in_permitting | 24 |
 | planned | 16 |
 | construction | 15 |
 | approved | 10 |
@@ -49,7 +49,7 @@ mineralization entries (Saudi Arabia, India).
 
 ### By country (top entries)
 USA 21, CAN 9, NOR 8, GBR 7, CHN 6, AUS 5, ISL 5, JPN 4, MYS 4, ARE 4, IDN 3, IND 3,
-DNK 3, OMN 2, KEN 2, NLD 2, SAU 2, +TLS/KOR/THA/TWN/NZL/DZA/ITA/QAT/ZAF/GRC/BRA/HRV/HUN/BGR
+DNK 2, OMN 2, KEN 2, NLD 2, SAU 2, +TLS/KOR/THA/TWN/NZL/DZA/ITA/QAT/ZAF/GRC/BRA/HRV/HUN/BGR
 1 each (last five countries — GRC, BRA, HRV, HUN, BGR — newly added in the 2026-07 audit).
 
 ## Notable 2025-26 developments captured this round
@@ -255,3 +255,11 @@ Industrial (Class V slurry/bio-oil injection, different mechanism);
 Heartland Greenway (cancelled Oct 2023 — stale in BiCRS source);
 PYCASSO Lacq (site abandoned by Terega Oct 2024); Wyoming CarbonSAFE
 (UW closed out Oct 2025 pending funding; permit claims unverified vs WY DEQ).
+
+
+## 2026-09 corrections
+Bifrost: the 2026-08 sync added "Bifrost (Harald/Dagny)" without matching the existing
+"Bifrost CCS Phase 1 (TotalEnergies/DUC...)" entry (name-overlap heuristic missed it; coordinates 1 deg apart).
+Merged into one record, "Bifrost CCS (Harald/Dagny, Denmark)", status approved (DEA permits issued, pre-FID),
+partners per bifrost-ccs.com. Total 104 -> 103. Verified project pages added for 77 projects
+(see source_links.md).

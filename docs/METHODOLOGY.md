@@ -104,10 +104,15 @@ Austin/NETL is building US-only 3D coverage) — so a depth screen is not curren
 implementable and per-formation depth notes are shown instead.
 
 ## Projects layer
-104 dedicated-storage projects (87 geologic, 17 ISM), statuses as of mid-2026,
+103 dedicated-storage projects (86 geologic, 17 ISM), statuses as of mid-2026,
 compiled in `data/research/projects.{json,md}` from GCCSI, IEA CCUS database,
 EPA Class VI tracker, operator disclosures, press. Operational: ~20.4 Mtpa geologic
 vs ~0.05 Mtpa ISM.
+
+## Source hyperlinks
+Detail-panel citations are linked at render time via `data/research/source_links.json`
+(citation substring -> verified URL) plus raw-URL detection; projects carry a verified `url`.
+Method, coverage and the review list of unverified/rejected candidates: `data/research/source_links.md`.
 
 ## Build
 `python3 scripts/build_geo.py && python3 scripts/build_bundle.py` regenerates
