@@ -260,19 +260,37 @@
   }
   const STORAGE_LABEL = { saline: "Saline aquifer", depleted_og: "Depleted oil & gas field",
     basalt: "Basalt", peridotite: "Peridotite", serpentinite: "Serpentinite" };
+  // Turn URLs and bare domains in research text into links with a readable label.
+  const URL_RE = /(https?:\/\/[^\s<>()"']+|(?<![\w@\/.])(?:www\.)?[a-z0-9-]+(?:\.[a-z0-9-]+)*\.(?:com|org|gov|edu|net|eu|int|io|no|dk|uk|de|fr|ch|is|ca|au|nl|be|pt|es|it|se|fi|jp|kr|in|br|za|ae|om|hr|bg|pl|ro|hu|cz|gr|sk|si|lt|lv|ee|ie|nz|cn|id|my|sa|qa|ng|ke|tw|th|mx|ar|cl|co)(?:\/[^\s<>()"']*)?)(?![\w.-])/gi;
+  function linkify(text) {
+    if (!text) return "";
+    return String(text).replace(URL_RE, (m) => {
+      let url = m, trail = "";
+      const t = url.match(/[.,;:]+$/);
+      if (t) { trail = t[0]; url = url.slice(0, -trail.length); }
+      const href = /^https?:\/\//i.test(url) ? url : "https://" + url;
+      let label = url;
+      try {
+        const u = new URL(href);
+        label = u.hostname.replace(/^www\./, "") + (u.pathname && u.pathname !== "/" ? u.pathname : "");
+      } catch (e) { /* keep raw */ }
+      if (label.length > 44) label = label.slice(0, 42).replace(/[\/-]+$/, "") + "…";
+      return `<a href="${href}" target="_blank" rel="noopener">${label}</a>${trail}`;
+    });
+  }
   function pretty(s) { return (s || "").replace(/_/g, " ").replace(/^\w/, (c) => c.toUpperCase()); }
 
   function showCountry(p) {
     const c = A.countries.find((x) => x.iso3 === p.iso3) || {};
     const alts = (c.alt_estimates || []).filter((a) => a.gt).map((a) =>
-      `<div>${fmtGt(a.gt)} Gt — ${tierInfo(a.tier).label.toLowerCase()} <span class="src">(${a.source})</span></div>`).join("");
+      `<div>${fmtGt(a.gt)} Gt — ${tierInfo(a.tier).label.toLowerCase()} <span class="src">(${linkify(a.source)})</span></div>`).join("");
     openDetail(p.name, `
       <div><span class="cap-big">${fmtGt(p.cap_pref_gt)} Gt CO₂</span>${tierChip(p.tier)}</div>
       ${tierLine(p.tier)}
       <dl>${c.key_basins ? `<dt>Key basins</dt><dd>${c.key_basins.join(", ")}</dd>` : ""}
       ${c.onshore_offshore_notes ? `<dt>Setting</dt><dd>${firstSentence(c.onshore_offshore_notes)}</dd>` : ""}</dl>
       ${more(`Other estimates (${(c.alt_estimates || []).filter((a) => a.gt).length})`, alts)}
-      ${more("Notes & sources", `${c.notes ? `<p>${c.notes}</p>` : ""}<div class="src">${p.src || ""}</div>`)}`);
+      ${more("Notes & sources", `${c.notes ? `<p>${linkify(c.notes)}</p>` : ""}<div class="src">${linkify(p.src)}</div>`)}`);
   }
 
   // ---------- storage cost lines (detail panels only; see Methodology) ----------
@@ -291,7 +309,7 @@
     if (region) {
       const r = sc[region];
       const rng = r.eur_t_low === r.eur_t_high ? `€${r.eur_t_low}` : `€${r.eur_t_low}–${r.eur_t_high}`;
-      return { line: `${rng} per tonne`,
+      return { line: `${rng} per tonne`, url: COSTS.strategy_ccus_eu.url,
                source: `STRATEGY CCUS D4.5 (2022), storage capex+opex for prospects ${r.prospects}; EU project report, not peer-reviewed.` };
     }
     // NETL modeled costs for formations present in this basin (US)
@@ -303,6 +321,7 @@
     if (vals.length) {
       const lo = Math.round(Math.min(...vals)), hi = Math.round(Math.max(...vals));
       return { line: lo === hi ? `from ~$${lo} per tonne` : `$${lo}–${hi} per tonne`,
+               url: COSTS.netl_us_formations.url,
                source: `NETL 2024 saline storage cost model (2023$, first-year break-even incl. permitting and monitoring), lowest-cost cases for formations found in this basin — not a basin-specific estimate.` };
     }
     const offshore = /offshore/i.test(p.onshore_offshore || "") && !/onshore/i.test(p.onshore_offshore || "");
@@ -361,11 +380,11 @@
       ${unitRows(p)}
       ${more("Details & sources", `
         ${range}
-        ${p.notes ? `<p>${p.notes}</p>` : ""}
-        ${cost ? `<p><b>Cost basis:</b> ${cost.source} ${COST_NOTE}</p>` : ""}
+        ${p.notes ? `<p>${linkify(p.notes)}</p>` : ""}
+        ${cost ? `<p><b>Cost basis:</b> ${cost.source} ${COST_NOTE}${cost.url ? ` <a href="${cost.url}" target="_blank" rel="noopener">Source ↗</a>` : ""}</p>` : ""}
         ${p.formations ? `<p class="src">Formation capacities are mean technically accessible storage resource (USGS DS 774); rows combine base and deep intervals of the same formation.</p>` : ""}
         <div class="src">Capacity tier as recorded: ${p.tier || "–"}</div>
-        <div class="src">${p.src || ""}</div>`)}`);
+        <div class="src">${linkify(p.src)}</div>`)}`);
   }
 
   const ISM_EXTENT_NOTE = `<div class="src">Shaded area is where this reactive rock is mapped
@@ -379,7 +398,7 @@
         mineralization, but its thickness, depth and storage capacity have not been
         characterized.</p>
         ${ISM_EXTENT_NOTE}
-        ${more("Source", `<div class="src">${p.src || ""}</div>`)}`);
+        ${more("Source", `<div class="src">${linkify(p.src)}</div>`)}`);
       return;
     }
     const capLine = p.cap_low_gt != null || p.cap_high_gt != null
@@ -397,7 +416,7 @@
         ${p.depth ? `<p><b>Depth and thickness:</b> ${p.depth}</p>` : ""}
         ${restOf(p.suitability) ? `<p><b>Suitability (cont.):</b> ${restOf(p.suitability)}</p>` : ""}
         ${restOf(p.activity) ? `<p><b>Activity (cont.):</b> ${restOf(p.activity)}</p>` : ""}
-        <div class="src">${p.src || ""}</div>`)}`);
+        <div class="src">${linkify(p.src)}</div>`)}`);
   }
 
   function showProject(p) {
@@ -412,7 +431,7 @@
       ${p.cumulative_stored_mt ? `<dt>Stored to date</dt><dd>${p.cumulative_stored_mt} Mt</dd>` : ""}
       <dt>Setting</dt><dd>${pretty(p.onshore_offshore) || "–"}</dd></dl>
       ${p.notes ? `<p>${firstSentence(p.notes, 220)}</p>` : ""}
-      ${more("Details & sources", `${restOf(p.notes, 220) ? `<p>${restOf(p.notes, 220)}</p>` : ""}<div class="src">${p.source || ""}</div>`)}`);
+      ${more("Details & sources", `${restOf(p.notes, 220) ? `<p>${linkify(restOf(p.notes, 220))}</p>` : ""}<div class="src">${linkify(p.source)}</div>`)}`);
   }
 
   // ---------- layer toggles ----------

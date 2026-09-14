@@ -187,3 +187,6 @@ footer { margin-top: auto; border-top: 1px solid var(--hairline); padding-top: 1
 #detail-body .lg-title small { text-transform: none; letter-spacing: 0; }
 #detail-body dl { margin: 10px 0 6px; }
 #detail-body p { margin: 8px 0; }
+#detail-body a { color: var(--proj-geo); text-decoration: underline; text-decoration-color: var(--hairline);
+  overflow-wrap: anywhere; }
+#detail-body a:hover { text-decoration-color: var(--proj-geo); }
