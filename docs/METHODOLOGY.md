@@ -16,6 +16,8 @@ All capacity numbers carry a tier and tiers are never summed or averaged:
 - **Effective** — screened for injectivity, depth, reservoir quality.
 - **Practical** — additionally screened for access, economics, regulation.
 
+**Plain-language tier labels in the UI (2026-09):** detail panels show one of five labels — Practical, Effective, Catalogued, Theoretical, Not assessed — derived from the primary tier recorded in the research tables (regex on the text before any `;`/`alt`), each with a one-line explainer; mixed theoretical/technical tiers are labeled Theoretical (conservative). The raw tier string is kept as the badge's hover title and under "Details & sources". Research notes, alternate estimates and citations are collapsed by default; formation and unit lists show the first five entries.
+
 Global anchors: geologic ~1,290 Gt prudent (Gasser et al. 2025) / ~14,300 Gt catalogued
 (OGCI CSRC Cycle 5, 2025) / 55,000 Gt ceiling (Kearns et al. 2017). ISM ~10⁶ Gt
 theoretical (NAS 2019; Kelemen et al.), with practical deployment projected at

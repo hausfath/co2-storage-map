@@ -138,7 +138,7 @@
     if (x >= 10) return x.toLocaleString(undefined, { maximumFractionDigits: 0 });
     return x.toLocaleString(undefined, { maximumSignificantDigits: 2 });
   }
-  function short(tier) { return (tier || "").split(/[ (]/)[0] || "estimate"; }
+  function short(tier) { return tierInfo(tier).label.toLowerCase(); }
 
   const G = A.global.geologic, M = A.global.mineralization;
   const nOpGeo = A.projects.filter((p) => p.mechanism === "geologic" && p.status === "operational").length;
@@ -201,150 +201,208 @@
   }
   document.getElementById("detail-close").onclick = () => (detail.hidden = true);
 
-  function tierBadge(t) { return `<span class="tier-badge">${t || "unspecified tier"}</span>`; }
+  // ---------- detail-panel helpers ----------
+  // Research tier strings are precise but dense; map them to five plain labels
+  // and keep the raw string as a hover title for specialists.
+  function tierInfo(t) {
+    const s = (t || "").toLowerCase().split(/;| \/ |\balt\b/)[0];
+    if (!s || /unassessed|n\/a|unsplit|data gap|not recovered|not basin-split|project-level/.test(s))
+      return { label: "Not assessed", blurb: "No basin-specific capacity estimate in the sources reviewed." };
+    if (/practic/.test(s))
+      return { label: "Practical", blurb: "Screened for access, economics and regulation as well as geology." };
+    if (/theoretical/.test(s) && /technical/.test(s))  // mixed tiers: conservative label
+      return { label: "Theoretical", blurb: "Blend of theoretical and technical estimates; treat as an upper bound." };
+    if (/effective|technical/.test(s))
+      return { label: "Effective", blurb: "Screened for depth, injectivity and reservoir quality; not yet for access or economics." };
+    if (/aggregated|catalog/.test(s))
+      return { label: "Catalogued", blurb: "Resource-catalogue total (OGCI/SRMS) mixing maturity levels from stored to undiscovered." };
+    if (/theoretical|prospective|unproven|structural|stochastic|hydrodynamic/.test(s))
+      return { label: "Theoretical", blurb: "Volumetric estimate before screening for injectivity, access or economics — an upper bound." };
+    return { label: "Estimate", blurb: "Basin-level estimate whose screening level is not stated in the source." };
+  }
+  function tierChip(t) {
+    const i = tierInfo(t);
+    return `<span class="tier-badge" title="${(t || "").replace(/"/g, "'")}">${i.label}</span>`;
+  }
+  function tierLine(t, override) {
+    const blurb = override || tierInfo(t).blurb;
+    return blurb ? `<div class="src">${blurb} Gt = billion tonnes CO₂.</div>` : "";
+  }
+  function more(title, html) {
+    return html && html.trim()
+      ? `<details class="more"><summary>${title}</summary>${html}</details>` : "";
+  }
+  function firstSentence(s, max = 200) {
+    if (!s) return "";
+    const m = s.match(/^.*?[.!?](\s|$)/);
+    let out = (m ? m[0] : s).trim();
+    if (out.length > max) {
+      const cut = out.slice(0, max);
+      const clause = Math.max(cut.lastIndexOf(", "), cut.lastIndexOf("; "), cut.lastIndexOf(" — "));
+      out = (clause > max * 0.5 ? cut.slice(0, clause) : cut.replace(/\s+\S*$/, "")) + "…";
+    }
+    return out;
+  }
+  const ISO_NAME = {};
+  (window.GEO_COUNTRIES?.features || []).forEach((f) => {
+    if (f.properties.iso3 && f.properties.name) ISO_NAME[f.properties.iso3] = f.properties.name;
+  });
+  function countryNames(list) {
+    return (list || []).filter(Boolean).map((c) => ISO_NAME[c] || c).join(", ");
+  }
+  function pretty(s) { return (s || "").replace(/_/g, " ").replace(/^\w/, (c) => c.toUpperCase()); }
 
   function showCountry(p) {
     const c = A.countries.find((x) => x.iso3 === p.iso3) || {};
-    const alts = (c.alt_estimates || []).map((a) =>
-      `<div>· ${fmtGt(a.gt)} Gt — ${a.tier} <span class="src">(${a.source})</span></div>`).join("");
+    const alts = (c.alt_estimates || []).filter((a) => a.gt).map((a) =>
+      `<div>${fmtGt(a.gt)} Gt — ${tierInfo(a.tier).label.toLowerCase()} <span class="src">(${a.source})</span></div>`).join("");
     openDetail(p.name, `
-      <div><span class="cap-big">${fmtGt(p.cap_pref_gt)} Gt CO₂</span>${tierBadge(p.tier)}</div>
-      <div class="src">${p.src || ""}</div>
+      <div><span class="cap-big">${fmtGt(p.cap_pref_gt)} Gt CO₂</span>${tierChip(p.tier)}</div>
+      ${tierLine(p.tier)}
       <dl>${c.key_basins ? `<dt>Key basins</dt><dd>${c.key_basins.join(", ")}</dd>` : ""}
-      ${c.onshore_offshore_notes ? `<dt>On/offshore</dt><dd>${c.onshore_offshore_notes}</dd>` : ""}</dl>
-      ${alts ? `<div class="lg-title">Alternate estimates (other tiers)</div>${alts}` : ""}
-      ${c.notes ? `<p>${c.notes}</p>` : ""}`);
+      ${c.onshore_offshore_notes ? `<dt>Setting</dt><dd>${firstSentence(c.onshore_offshore_notes)}</dd>` : ""}</dl>
+      ${more(`Other estimates (${(c.alt_estimates || []).filter((a) => a.gt).length})`, alts)}
+      ${more("Notes & sources", `${c.notes ? `<p>${c.notes}</p>` : ""}<div class="src">${p.src || ""}</div>`)}`);
   }
 
   // ---------- storage cost lines (detail panels only; see Methodology) ----------
   const COSTS = A.costs || {};
-  const COST_CAVEAT = `<span class="src">Costs are highly scale- and site-sensitive
-    (2–10× within one basin); indicative only, excl. capture. See Methodology.</span>`;
+  const COST_NOTE = "Indicative only: storage cost varies several-fold with site and project scale, and excludes capture.";
 
-  function costLineBasin(p) {
+  // Returns {line, source} for a basin, or null.
+  function basinCost(p) {
     const name = p.basin || "";
     const qgess = COSTS.qgess_us_basins?.by_basin?.[name];
     if (qgess != null)
-      return `<p><b>Storage cost (indicative):</b> ~$${qgess}/t CO₂
-        <span class="src">(2018$, incl. ~100 km transport — NETL QGESS 2019)</span><br>${COST_CAVEAT}</p>`;
+      return { line: `~$${Math.round(qgess)} per tonne`,
+               source: `NETL QGESS 2019 (2018$), includes ~100 km of pipeline transport.` };
     const sc = COSTS.strategy_ccus_eu?.by_region || {};
     const region = Object.keys(sc).find((k) => name.toLowerCase().includes(k.toLowerCase()));
     if (region) {
       const r = sc[region];
       const rng = r.eur_t_low === r.eur_t_high ? `€${r.eur_t_low}` : `€${r.eur_t_low}–${r.eur_t_high}`;
-      return `<p><b>Storage cost (indicative):</b> ${rng}/t CO₂
-        <span class="src">(storage capex+opex, undiscounted — STRATEGY CCUS D4.5 2022,
-        project report; prospects: ${r.prospects})</span><br>${COST_CAVEAT}</p>`;
+      return { line: `${rng} per tonne`,
+               source: `STRATEGY CCUS D4.5 (2022), storage capex+opex for prospects ${r.prospects}; EU project report, not peer-reviewed.` };
     }
-    const cls = /offshore/i.test(p.onshore_offshore || "") && !/onshore/i.test(p.onshore_offshore || "")
-      ? ["offshore_saline", "offshore saline"] : ["onshore_saline", "onshore saline"];
-    const cr = COSTS.class_ranges?.ranges?.[cls[0]];
-    if (!cr) return "";
-    return `<p><b>Storage cost (indicative):</b> $${cr.low}–${cr.high}/t CO₂
-      <span class="src">(generic ${cls[1]} class range, not site-specific —
-      Schmelz et al. 2020 / Rubin et al. 2015)</span><br>${COST_CAVEAT}</p>`;
+    // NETL modeled costs for formations present in this basin (US)
+    const byState = COSTS.netl_us_formations?.by_state || {};
+    const vals = [];
+    (p.formations || []).forEach((f) => Object.values(byState).forEach((v) => {
+      if (f.formation.toLowerCase().includes(v.formation.toLowerCase())) vals.push(v.usd_t);
+    }));
+    if (vals.length) {
+      const lo = Math.round(Math.min(...vals)), hi = Math.round(Math.max(...vals));
+      return { line: lo === hi ? `from ~$${lo} per tonne` : `$${lo}–${hi} per tonne`,
+               source: `NETL 2024 saline storage cost model (2023$, first-year break-even incl. permitting and monitoring), lowest-cost cases for formations found in this basin — not a basin-specific estimate.` };
+    }
+    const offshore = /offshore/i.test(p.onshore_offshore || "") && !/onshore/i.test(p.onshore_offshore || "");
+    const cr = COSTS.class_ranges?.ranges?.[offshore ? "offshore_saline" : "onshore_saline"];
+    if (!cr) return null;
+    return { line: `$${cr.low}–${cr.high} per tonne`,
+             source: `Generic ${offshore ? "offshore" : "onshore"} saline-reservoir range (Schmelz et al. 2020, after Rubin et al. 2015), not site-specific.` };
   }
 
   function formationRows(p) {
     if (!p.formations || !p.formations.length) return "";
-    const byState = COSTS.netl_us_formations?.by_state || {};
-    const shown = p.formations.slice(0, 12);
-    const rows = shown.map((f) => {
+    const row = (f) => {
       const gt = f.tasr_mean_mt != null ? `${fmtGt(f.tasr_mean_mt / 1000)} Gt` : "–";
-      const depth = (v) => v.depth_ft ? ` ~${Math.round(v.depth_ft).toLocaleString()} ft` : "";
-      const vars = f.variants.length > 1
-        ? ` <small>(${f.variants.map((v) => v.variant + depth(v)).join(", ")})</small>`
-        : `<small>${depth(f.variants[0] || {})}</small>`;
-      const netl = Object.entries(byState).filter(([, v]) =>
-        f.formation.toLowerCase().includes(v.formation.toLowerCase()));
-      const cost = netl.length
-        ? ` <small>· NETL ${netl.map(([st, v]) => `${st} $${v.usd_t}`).join(", ")}/t</small>` : "";
-      return `<div style="margin:2px 0;font-size:12.5px;color:var(--ink-2)">${f.formation}
-        — ${gt}${vars}${cost}</div>`;
-    });
-    const more = p.formations.length > shown.length
-      ? `<div class="src">+${p.formations.length - shown.length} more formations in DS 774</div>` : "";
-    return `<div class="lg-title">Formations (USGS 2013 SAUs, mean TASR)</div>
-      ${rows.join("")}${more}
-      <div class="src">Formation rows sum base + deep variants; NETL $/t figures are the
-      model's lowest-cost case for that formation in that state, not this basin
-      specifically.</div>`;
+      const depth = (v) => v.depth_ft ? `~${(v.depth_ft * 0.3048 / 1000).toFixed(1)} km deep` : "";
+      const detail = f.variants.length > 1
+        ? `${f.variants.length} intervals` : depth(f.variants[0] || {});
+      return `<div class="row"><span>${f.formation}</span><span class="v">${gt}</span>` +
+             `${detail ? `<small>${detail}</small>` : ""}</div>`;
+    };
+    const first = p.formations.slice(0, 5).map(row).join("");
+    const rest = p.formations.slice(5).map(row).join("");
+    return `<div class="lg-title">Storage formations <small>(USGS 2013, technically accessible)</small></div>
+      ${first}${rest ? more(`Show all ${p.formations.length} formations`, rest) : ""}`;
   }
 
   function unitRows(p) {
     if (!p.units || !p.units.length) return "";
-    const shown = p.units.slice(0, 10);
-    const rows = shown.map((u) =>
-      `<div style="margin:2px 0;font-size:12.5px;color:var(--ink-2)">${u.name}
-        <small>(${[u.country, u.storage_type].filter(Boolean).join(", ")})</small></div>`);
-    const more = p.units.length > shown.length
-      ? `<div class="src">+${p.units.length - shown.length} more units</div>` : "";
-    const title = p.unit ? "CO2StoP storage units here" : "CO2StoP storage units in this basin";
-    return `<div class="lg-title">${title}</div>${rows.join("")}${more}`;
+    const rows = p.units.map((u) =>
+      `<div class="row"><span>${u.name}</span><small>${[u.country, u.storage_type].filter(Boolean).join(", ")}</small></div>`).join("");
+    const title = p.unit ? `Storage units at this location (${p.units.length})`
+                         : `Assessed storage units in this basin (${p.units.length})`;
+    return p.unit ? `<div class="lg-title">${title}</div>${rows}` : more(title, rows);
   }
 
   function showBasin(p) {
+    if (p.unit) {  // standalone CO2StoP unit(s)
+      openDetail(p.basin, `
+        <div class="src">EU CO2StoP storage unit${(p.units || []).length > 1 ? "s" : ""}: an assessed
+        formation with no basin-level capacity estimate covering this area.</div>
+        ${unitRows(p)}`);
+      return;
+    }
     const capLine = p.cap_mid_gt != null
-      ? `<span class="cap-big">${fmtGt(p.cap_mid_gt)} Gt CO₂</span>${tierBadge(p.tier)}`
-      : `<span class="cap-big">No published capacity estimate</span>`;
-    const range = (p.cap_low_gt != null && p.cap_high_gt != null &&
-                   p.cap_low_gt !== p.cap_mid_gt)
-      ? `<div class="src">range ${fmtGt(p.cap_low_gt)}–${fmtGt(p.cap_high_gt)} Gt across tiers/sources</div>` : "";
+      ? `<span class="cap-big">${fmtGt(p.cap_mid_gt)} Gt CO₂</span>${tierChip(p.tier)}`
+      : `<span class="cap-big">No capacity estimate</span>${tierChip(p.tier)}`;
+    const range = (p.cap_low_gt != null && p.cap_high_gt != null && p.cap_low_gt !== p.cap_mid_gt)
+      ? `<div class="src">Range across sources and methods: ${fmtGt(p.cap_low_gt)}–${fmtGt(p.cap_high_gt)} Gt.</div>` : "";
+    const cost = basinCost(p);
     openDetail(p.basin, `
-      <div>${capLine}</div>${range}
-      <dl>${p.countries ? `<dt>Countries</dt><dd>${p.countries.filter(Boolean).join(", ")}</dd>` : ""}
-      ${p.onshore_offshore ? `<dt>On/offshore</dt><dd>${p.onshore_offshore}</dd>` : ""}</dl>
-      ${p.notes ? `<p>${p.notes}</p>` : ""}
+      <div>${capLine}</div>
+      ${tierLine(p.tier)}
+      <dl>${p.countries ? `<dt>Countries</dt><dd>${countryNames(p.countries)}</dd>` : ""}
+      ${p.onshore_offshore ? `<dt>Setting</dt><dd>${pretty(p.onshore_offshore)}</dd>` : ""}
+      ${cost ? `<dt>Storage cost</dt><dd>${cost.line} <span class="src">(indicative)</span></dd>` : ""}</dl>
       ${formationRows(p)}
       ${unitRows(p)}
-      ${p.unit ? "" : costLineBasin(p)}
-      <div class="src">${p.src || ""}</div>`);
+      ${more("Details & sources", `
+        ${range}
+        ${p.notes ? `<p>${p.notes}</p>` : ""}
+        ${cost ? `<p><b>Cost basis:</b> ${cost.source} ${COST_NOTE}</p>` : ""}
+        ${p.formations ? `<p class="src">Formation capacities are mean technically accessible storage resource (USGS DS 774); rows combine base and deep intervals of the same formation.</p>` : ""}
+        <div class="src">Capacity tier as recorded: ${p.tier || "–"}</div>
+        <div class="src">${p.src || ""}</div>`)}`);
   }
 
-  const ISM_EXTENT_CAVEAT = `<p class="src">Polygon shows the mapped surface extent of
-    reactive rock — an upper bound on geographic availability. Storage requires
-    sufficient formation thickness and depth at a specific site; no global
-    depth/thickness screen is currently possible (see Methodology).</p>`;
+  const ISM_EXTENT_NOTE = `<div class="src">Shaded area is where this reactive rock is mapped
+    at the surface — an upper bound on where storage could be developed, not proven capacity.</div>`;
 
   function showFormation(p) {
     if (!p.matched) {
       openDetail(p.name, `
-        <p>Mapped ophiolite / ultramafic body from the PLATES/UTIG global compilation.
-        Reactive rock suitable in principle for in-situ mineralization, but thickness,
-        depth, and storage suitability are uncharacterized and no published
-        site-specific capacity estimate was found.</p>
-        ${ISM_EXTENT_CAVEAT}
-        <div class="src">${p.src || ""}</div>`);
+        <div><span class="cap-big">Not assessed</span></div>
+        <p>Mapped ophiolite / ultramafic rock body. Suitable in principle for in-situ
+        mineralization, but its thickness, depth and storage capacity have not been
+        characterized.</p>
+        ${ISM_EXTENT_NOTE}
+        ${more("Source", `<div class="src">${p.src || ""}</div>`)}`);
       return;
     }
     const capLine = p.cap_low_gt != null || p.cap_high_gt != null
-      ? `<span class="cap-big">${fmtGt(p.cap_low_gt)}–${fmtGt(p.cap_high_gt)} Gt CO₂</span>
-         ${tierBadge("theoretical–effective")}`
-      : `<span class="cap-big">Capacity uncharacterized</span>`;
+      ? `<span class="cap-big">${fmtGt(p.cap_low_gt)}–${fmtGt(p.cap_high_gt)} Gt CO₂</span>${tierChip("theoretical")}`
+      : `<span class="cap-big">Capacity not quantified</span>`;
     openDetail(p.name, `
       <div>${capLine}</div>
-      <dl><dt>Category</dt><dd>${CAT[p.category]?.label || p.category}</dd>
-      <dt>Rock</dt><dd>${p.rock || "–"}</dd></dl>
-      ${p.cap_basis ? `<p><b>Capacity basis:</b> ${p.cap_basis}</p>` : ""}
-      ${p.depth ? `<p><b>Depth / thickness:</b> ${p.depth}</p>` : ""}
-      ${p.suitability ? `<p><b>Suitability:</b> ${p.suitability}</p>` : ""}
-      ${p.activity ? `<p><b>Activity:</b> ${p.activity}</p>` : ""}
-      ${ISM_EXTENT_CAVEAT}
-      <div class="src">${p.src || ""}</div>`);
+      ${p.cap_low_gt != null ? tierLine("theoretical", "Theoretical: based on the volume and chemistry of reactive rock, before any screening — an upper bound.") : ""}
+      <dl><dt>Rock</dt><dd>${CAT[p.category]?.label || p.category}${p.rock ? ` (${p.rock})` : ""}</dd>
+      ${p.suitability ? `<dt>Suitability</dt><dd>${firstSentence(p.suitability)}</dd>` : ""}
+      ${p.activity ? `<dt>Activity</dt><dd>${firstSentence(p.activity)}</dd>` : ""}</dl>
+      ${ISM_EXTENT_NOTE}
+      ${more("Details & sources", `
+        ${p.cap_basis ? `<p><b>How the capacity was estimated:</b> ${p.cap_basis}</p>` : ""}
+        ${p.depth ? `<p><b>Depth and thickness:</b> ${p.depth}</p>` : ""}
+        ${p.suitability ? `<p><b>Suitability:</b> ${p.suitability}</p>` : ""}
+        ${p.activity ? `<p><b>Activity:</b> ${p.activity}</p>` : ""}
+        <div class="src">${p.src || ""}</div>`)}`);
   }
 
   function showProject(p) {
+    const mech = p.mechanism === "mineralization" ? "In-situ mineralization" : "CO₂ injection";
     openDetail(p.name, `
-      <dl><dt>Mechanism</dt><dd>${p.mechanism === "mineralization"
-          ? "In-situ mineralization" : "CO₂ injection"} (${p.storage_type})</dd>
-      <dt>Status</dt><dd>${p.status.replace(/_/g, " ")}</dd>
+      <div><span class="cap-big">${p.capacity_mtpa != null ? p.capacity_mtpa + " Mt/yr" : pretty(p.status)}</span>
+        <span class="tier-badge">${pretty(p.status)}</span></div>
+      ${p.capacity_mtpa != null ? `<div class="src">${p.status === "operational" ? "Injection rate" : "Planned injection rate"}, million tonnes CO₂ per year.</div>` : ""}
+      <dl><dt>Type</dt><dd>${mech} — ${pretty(p.storage_type)}</dd>
       <dt>Operator</dt><dd>${p.operator || "–"}</dd>
-      <dt>Capacity</dt><dd>${p.capacity_mtpa != null ? p.capacity_mtpa + " Mtpa" : "–"}</dd>
+      ${p.start_year ? `<dt>Started</dt><dd>${p.start_year}</dd>` : ""}
       ${p.cumulative_stored_mt ? `<dt>Stored to date</dt><dd>${p.cumulative_stored_mt} Mt</dd>` : ""}
-      ${p.start_year ? `<dt>Start</dt><dd>${p.start_year}</dd>` : ""}
-      <dt>Setting</dt><dd>${p.onshore_offshore || "–"}</dd></dl>
-      ${p.notes ? `<p>${p.notes}</p>` : ""}
-      <div class="src">${p.source || ""}</div>`);
+      <dt>Setting</dt><dd>${pretty(p.onshore_offshore) || "–"}</dd></dl>
+      ${p.notes ? `<p>${firstSentence(p.notes, 220)}</p>` : ""}
+      ${more("Details & sources", `${p.notes ? `<p>${p.notes}</p>` : ""}<div class="src">${p.source || ""}</div>`)}`);
   }
 
   // ---------- layer toggles ----------
