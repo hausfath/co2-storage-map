@@ -250,6 +250,16 @@
   function countryNames(list) {
     return (list || []).filter(Boolean).map((c) => ISO_NAME[c] || c).join(", ");
   }
+  // Full text for the details section only if the summary shown above was truncated.
+  function restOf(text, max) {
+    if (!text) return "";
+    const shown = firstSentence(text, max), full = text.trim();
+    if (shown === full) return "";                     // nothing beyond the summary
+    if (shown.endsWith("…")) return full;              // summary was cut mid-sentence
+    return full.slice(shown.length).trim();            // remainder only, no repeat
+  }
+  const STORAGE_LABEL = { saline: "Saline aquifer", depleted_og: "Depleted oil & gas field",
+    basalt: "Basalt", peridotite: "Peridotite", serpentinite: "Serpentinite" };
   function pretty(s) { return (s || "").replace(/_/g, " ").replace(/^\w/, (c) => c.toUpperCase()); }
 
   function showCountry(p) {
@@ -385,8 +395,8 @@
       ${more("Details & sources", `
         ${p.cap_basis ? `<p><b>How the capacity was estimated:</b> ${p.cap_basis}</p>` : ""}
         ${p.depth ? `<p><b>Depth and thickness:</b> ${p.depth}</p>` : ""}
-        ${p.suitability ? `<p><b>Suitability:</b> ${p.suitability}</p>` : ""}
-        ${p.activity ? `<p><b>Activity:</b> ${p.activity}</p>` : ""}
+        ${restOf(p.suitability) ? `<p><b>Suitability (cont.):</b> ${restOf(p.suitability)}</p>` : ""}
+        ${restOf(p.activity) ? `<p><b>Activity (cont.):</b> ${restOf(p.activity)}</p>` : ""}
         <div class="src">${p.src || ""}</div>`)}`);
   }
 
@@ -396,13 +406,13 @@
       <div><span class="cap-big">${p.capacity_mtpa != null ? p.capacity_mtpa + " Mt/yr" : pretty(p.status)}</span>
         <span class="tier-badge">${pretty(p.status)}</span></div>
       ${p.capacity_mtpa != null ? `<div class="src">${p.status === "operational" ? "Injection rate" : "Planned injection rate"}, million tonnes CO₂ per year.</div>` : ""}
-      <dl><dt>Type</dt><dd>${mech} — ${pretty(p.storage_type)}</dd>
+      <dl><dt>Type</dt><dd>${mech} — ${STORAGE_LABEL[p.storage_type] || pretty(p.storage_type)}</dd>
       <dt>Operator</dt><dd>${p.operator || "–"}</dd>
       ${p.start_year ? `<dt>Started</dt><dd>${p.start_year}</dd>` : ""}
       ${p.cumulative_stored_mt ? `<dt>Stored to date</dt><dd>${p.cumulative_stored_mt} Mt</dd>` : ""}
       <dt>Setting</dt><dd>${pretty(p.onshore_offshore) || "–"}</dd></dl>
       ${p.notes ? `<p>${firstSentence(p.notes, 220)}</p>` : ""}
-      ${more("Details & sources", `${p.notes ? `<p>${p.notes}</p>` : ""}<div class="src">${p.source || ""}</div>`)}`);
+      ${more("Details & sources", `${restOf(p.notes, 220) ? `<p>${restOf(p.notes, 220)}</p>` : ""}<div class="src">${p.source || ""}</div>`)}`);
   }
 
   // ---------- layer toggles ----------
