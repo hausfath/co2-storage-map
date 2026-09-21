@@ -11,7 +11,8 @@ function mkEl(id) {
     querySelector() { return mkEl('q'); }, appendChild(c) { this.children.push(c); },
     scrollIntoView() {}, getBoundingClientRect() { return { left: 0, top: 0, width: 100, height: 50, right: 100 }; },
     focus() {}, click() {}, set onclick(f) { this._onclick = f; }, get onclick() { return this._onclick; },
-    contains() { return false; }, get open() { return false; }, set open(v) {} };
+    contains() { return false; }, get open() { return false; }, set open(v) {},
+    classList: { toggle() {}, add() {}, remove() {} }, value: undefined };
   return el;
 }
 const els = {};
@@ -20,6 +21,7 @@ global.document = {
   documentElement: {},
   getElementById(id) { return els[id] || (els[id] = mkEl(id)); },
   querySelector(sel) { return mkEl(sel); },
+  querySelectorAll() { return []; },
   createElement(t) { return mkEl(t); },
   body: mkEl('body'),
   addEventListener() {},

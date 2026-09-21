@@ -1,4 +1,4 @@
-/* Global CO2 Storage Atlas — single-page Leaflet app.
+/* Global CO2 Storage Atlas: single-page Leaflet app.
    Data: window.ATLAS (bundle), window.GEO_* (geometry). No network calls. */
 (function () {
   "use strict";
@@ -65,7 +65,7 @@
             ? p.units.length + " stacked CO2StoP storage units" : "CO2StoP storage unit"}</small>`
         : p.cap_mid_gt != null
           ? `${fmtGt(p.cap_mid_gt)} Gt CO₂ <small>(${short(p.tier)})</small>`
-          : "assessed extent — no capacity estimate";
+          : "assessed extent, no capacity estimate";
       ly.bindTooltip(`<b>${p.basin}</b>${cap}`, { sticky: true });
       ly.on("click", (e) => { showBasin(p); L.DomEvent.stop(e); });
     },
@@ -120,9 +120,9 @@
         pane: "markerPane",
       });
       m.bindTooltip(`<b>${p.name}</b>${p.status.replace(/_/g, " ")}` +
-        `${p.capacity_mtpa ? ` · ${p.capacity_mtpa} Mtpa` : ""}` +
-        `<small>${p.mechanism === "mineralization" ? "In-situ mineralization" : "CO₂ injection"}` +
-        ` — ${p.storage_type}</small>`, { sticky: true });
+        `${p.capacity_mtpa ? ` · ${p.capacity_mtpa} Mt/yr` : ""}` +
+        `<small>${p.mechanism === "mineralization" ? "Mineralization" : "Sedimentary storage"}` +
+        `: ${p.storage_type.replace(/_/g, " ")}</small>`, { sticky: true });
       m.on("click", (e) => { showProject(p); L.DomEvent.stop(e); });
       g.addLayer(m);
     });
@@ -143,48 +143,53 @@
   const G = A.global.geologic, M = A.global.mineralization;
   const nOpGeo = A.projects.filter((p) => p.mechanism === "geologic" && p.status === "operational").length;
   const nOpIsm = A.projects.filter((p) => p.mechanism === "mineralization" && p.status === "operational").length;
-  const geoTip = "Potential range spans methodological tiers: ~1,290 Gt prudent " +
-    "risk-screened (Gasser et al. 2025) to ~14,300 Gt catalogued resource (OGCI CO2 " +
-    "Storage Resource Catalogue Cycle 5, 2025); theoretical ceilings reach 55,000 Gt " +
-    "(Kearns et al. 2017). Tiers answer different questions and are never summed.";
-  const ismTip = "Theoretical ceiling ~1,000,000 Gt from reactive rock mass " +
-    "(NAS 2019; Kelemen et al.); practical deployment projected at ~1.2-5 Gt/yr by " +
-    "2050 (RMI 2023). Operating figure is current injection capacity.";
+  const INJ_THEORETICAL_MAX_GT = 55000;  // Kearns et al. 2017 upper bound (see methodology)
+  const ismRatio = Math.round(M.theoretical_gt / INJ_THEORETICAL_MAX_GT);
+  const fmtBig = (x) => Math.round(x).toLocaleString("en-US");
+  const tierNote = "Estimates at different tiers answer different questions, so they are shown side by side and never added together.";
+  const geoTip = "Potential spans methodological tiers: ~1,290 Gt prudent, risk-screened " +
+    "(Gasser et al. 2025) to ~14,300 Gt catalogued resource (OGCI CO2 Storage Resource " +
+    "Catalogue Cycle 5, 2025); theoretical ceilings reach ~55,000 Gt (Kearns et al. 2017). " + tierNote;
+  const ismTip = "Theoretical ceiling ~1,000,000 Gt from the volume and chemistry of reactive rock " +
+    "(NAS 2019; Kelemen et al.); practical deployment projected at ~1.2-5 Gt/yr by 2050 " +
+    "(RMI 2023). Operating figure is current injection capacity.";
   document.getElementById("stats").innerHTML = `
-    <div class="stat-tile geo"><div class="k">CO₂ injection storage
+    <div class="stat-tile geo"><div class="k">Sedimentary basin storage
         <span class="info" tabindex="0" data-tip="${geoTip}">ⓘ</span></div>
-      <div class="v">${G.operational_mtpa} Mtpa</div>
-      <div class="s">operating today across ${nOpGeo} sites<br>
-      potential: <b>1,290–14,300 Gt</b></div></div>
-    <div class="stat-tile ism"><div class="k">In-situ mineralization
+      <div class="v">${G.operational_mtpa} Mt/yr</div>
+      <div class="s">operating today, ${nOpGeo} sites</div>
+      <div class="v2">1,290–14,300 Gt</div>
+      <div class="s">potential range</div></div>
+    <div class="stat-tile ism"><div class="k">Mineralization in reactive rock
         <span class="info" tabindex="0" data-tip="${ismTip}">ⓘ</span></div>
-      <div class="v">${M.operational_mtpa} Mtpa</div>
-      <div class="s">operating today across ${nOpIsm} sites<br>
-      potential: <b>~${fmtGt(M.theoretical_gt)} Gt</b></div></div>`;
+      <div class="v">${M.operational_mtpa} Mt/yr</div>
+      <div class="s">operating today, ${nOpIsm} sites</div>
+      <div class="v2">~${fmtBig(M.theoretical_gt)} Gt</div>
+      <div class="s">theoretical potential</div></div>`;
 
   // ---------- legend ----------
   function legend() {
     const rows = [];
-    if (on("ly-basins") || on("ly-injection")) {
-      rows.push(`<div class="lg-title">CO₂ injection storage (Gt CO₂, ${on("ly-basins") ? "per basin" : "per country"})</div>`);
+    if (injOn()) {
+      rows.push(`<div class="lg-title">Sedimentary basin storage (Gt CO₂, ${injMode() === "basins" ? "per basin" : "per country"})</div>`);
       const lab = ["0–150", "150–500", ">500"];
       lab.forEach((l, i) => rows.push(
         `<div class="lg-row"><span class="lg-sw" style="background:${css(RAMP[i])}"></span>${l}</div>`));
-      rows.push(`<div class="lg-row"><span class="lg-sw" style="background:${css("--inj-1")};opacity:.5;border:1.2px dashed ${css("--inj-4")}"></span>${on("ly-basins") ? "known basin, capacity unquantified or theoretical only" : "theoretical/prospective estimate only"}</div>`);
+      rows.push(`<div class="lg-row"><span class="lg-sw" style="background:${css("--inj-1")};opacity:.5;border:1.2px dashed ${css("--inj-4")}"></span>${injMode() === "basins" ? "known basin, capacity unquantified or theoretical only" : "theoretical/prospective estimate only"}</div>`);
     }
-    if (on("ly-basins")) {
+    if (injOn() && injMode() === "basins") {
       rows.push(`<div class="lg-row"><span class="lg-sw" style="background:${css("--inj-deep")};opacity:.6"></span>CO2StoP storage unit (EU, no basin assessment)</div>`);
     }
     if (on("ly-ism")) {
-      rows.push(`<div class="lg-title">Mineralization formations</div>`);
+      rows.push(`<div class="lg-title">Reactive rock formations (mineralization)</div>`);
       Object.values(CAT).forEach((c) => rows.push(
         `<div class="lg-row"><span class="lg-sw" style="background:${css(c.v)}"></span>${c.label}</div>`));
-      rows.push(`<div class="lg-row"><small>mapped surface extent of reactive rock — see ⓘ / Methodology</small></div>`);
+      rows.push(`<div class="lg-row"><small>mapped surface extent of reactive rock (see Methodology)</small></div>`);
     }
     if (on("ly-projects")) {
       rows.push(`<div class="lg-title">Storage sites</div>`);
-      rows.push(`<div class="lg-row"><span class="lg-sw round" style="background:${css("--proj-geo")}"></span>CO₂ injection site</div>`);
-      rows.push(`<div class="lg-row"><span class="lg-sw round" style="background:${css("--proj-ism")}"></span>In-situ mineralization site</div>`);
+      rows.push(`<div class="lg-row"><span class="lg-sw round" style="background:${css("--proj-geo")}"></span>Sedimentary storage site</div>`);
+      rows.push(`<div class="lg-row"><span class="lg-sw round" style="background:${css("--proj-ism")}"></span>Mineralization site</div>`);
       rows.push(`<div class="lg-row"><span class="lg-sw round" style="background:transparent;border:1.6px solid ${css("--proj-geo")}"></span>Planned / in permitting (hollow)</div>`);
       rows.push(`<div class="lg-row"><small>Size ∝ capacity (Mtpa)</small></div>`);
     }
@@ -217,7 +222,7 @@
     if (/aggregated|catalog/.test(s))
       return { label: "Catalogued", blurb: "Resource-catalogue total (OGCI/SRMS) mixing maturity levels from stored to undiscovered." };
     if (/theoretical|prospective|unproven|structural|stochastic|hydrodynamic/.test(s))
-      return { label: "Theoretical", blurb: "Volumetric estimate before screening for injectivity, access or economics — an upper bound." };
+      return { label: "Theoretical", blurb: "Volumetric estimate before screening for injectivity, access or economics, so an upper bound." };
     return { label: "Estimate", blurb: "Basin-level estimate whose screening level is not stated in the source." };
   }
   function tierChip(t) {
@@ -295,7 +300,7 @@
   function showCountry(p) {
     const c = A.countries.find((x) => x.iso3 === p.iso3) || {};
     const alts = (c.alt_estimates || []).filter((a) => a.gt).map((a) =>
-      `<div>${fmtGt(a.gt)} Gt — ${tierInfo(a.tier).label.toLowerCase()} <span class="src">(${linkify(a.source)})</span></div>`).join("");
+      `<div>${fmtGt(a.gt)} Gt, ${tierInfo(a.tier).label.toLowerCase()} <span class="src">(${linkify(a.source)})</span></div>`).join("");
     openDetail(p.name, `
       <div><span class="cap-big">${fmtGt(p.cap_pref_gt)} Gt CO₂</span>${tierChip(p.tier)}</div>
       ${tierLine(p.tier)}
@@ -334,7 +339,7 @@
       const lo = Math.round(Math.min(...vals)), hi = Math.round(Math.max(...vals));
       return { line: lo === hi ? `from ~$${lo} per tonne` : `$${lo}–${hi} per tonne`,
                url: COSTS.netl_us_formations.url,
-               source: `NETL 2024 saline storage cost model (2023$, first-year break-even incl. permitting and monitoring), lowest-cost cases for formations found in this basin — not a basin-specific estimate.` };
+               source: `NETL 2024 saline storage cost model (2023$, first-year break-even incl. permitting and monitoring), lowest-cost cases for formations found in this basin, not a basin-specific estimate.` };
     }
     const offshore = /offshore/i.test(p.onshore_offshore || "") && !/onshore/i.test(p.onshore_offshore || "");
     const cr = COSTS.class_ranges?.ranges?.[offshore ? "offshore_saline" : "onshore_saline"];
@@ -400,7 +405,7 @@
   }
 
   const ISM_EXTENT_NOTE = `<div class="src">Shaded area is where this reactive rock is mapped
-    at the surface — an upper bound on where storage could be developed, not proven capacity.</div>`;
+    at the surface: an upper bound on where storage could be developed, not proven capacity.</div>`;
 
   function showFormation(p) {
     if (!p.matched) {
@@ -418,7 +423,7 @@
       : `<span class="cap-big">Capacity not quantified</span>`;
     openDetail(p.name, `
       <div>${capLine}</div>
-      ${p.cap_low_gt != null ? tierLine("theoretical", "Theoretical: based on the volume and chemistry of reactive rock, before any screening — an upper bound.") : ""}
+      ${p.cap_low_gt != null ? tierLine("theoretical", "Theoretical: based on the volume and chemistry of reactive rock, before any screening, so an upper bound.") : ""}
       <dl><dt>Rock</dt><dd>${CAT[p.category]?.label || p.category}${p.rock ? ` (${p.rock})` : ""}</dd>
       ${p.suitability ? `<dt>Suitability</dt><dd>${firstSentence(p.suitability)}</dd>` : ""}
       ${p.activity ? `<dt>Activity</dt><dd>${firstSentence(p.activity)}</dd>` : ""}</dl>
@@ -432,12 +437,12 @@
   }
 
   function showProject(p) {
-    const mech = p.mechanism === "mineralization" ? "In-situ mineralization" : "CO₂ injection";
+    const mech = p.mechanism === "mineralization" ? "Mineralization (reactive rock)" : "Sedimentary storage (CO₂ injection)";
     openDetail(p.name, `
       <div><span class="cap-big">${p.capacity_mtpa != null ? p.capacity_mtpa + " Mt/yr" : pretty(p.status)}</span>
         <span class="tier-badge">${pretty(p.status)}</span></div>
       ${p.capacity_mtpa != null ? `<div class="src">${p.status === "operational" ? "Injection rate" : "Planned injection rate"}, million tonnes CO₂ per year.</div>` : ""}
-      <dl><dt>Type</dt><dd>${mech} — ${STORAGE_LABEL[p.storage_type] || pretty(p.storage_type)}</dd>
+      <dl><dt>Type</dt><dd>${mech}: ${STORAGE_LABEL[p.storage_type] || pretty(p.storage_type)}</dd>
       <dt>Operator</dt><dd>${p.operator || "–"}</dd>
       ${p.start_year ? `<dt>Started</dt><dd>${p.start_year}</dd>` : ""}
       ${p.cumulative_stored_mt ? `<dt>Stored to date</dt><dd>${p.cumulative_stored_mt} Mt</dd>` : ""}
@@ -449,9 +454,12 @@
 
   // ---------- layer toggles ----------
   function on(id) { return document.getElementById(id).checked; }
+  const injOn = () => on("ly-basins");
+  const injMode = () => (document.querySelector('input[name="inj-mode"]:checked') || {}).value || "basins";
   function sync() {
-    toggle(injLayer, on("ly-injection"));
-    toggle(basinsLayer, on("ly-basins"));
+    toggle(injLayer, injOn() && injMode() === "country");
+    toggle(basinsLayer, injOn() && injMode() === "basins");
+    document.getElementById("inj-mode").classList.toggle("disabled", !injOn());
     toggle(ismOther, on("ly-ism"));
     toggle(ismMatched, on("ly-ism"));
     toggle(projLayer, on("ly-projects"));
@@ -461,15 +469,9 @@
     if (want && !map.hasLayer(layer)) layer.addTo(map);
     if (!want && map.hasLayer(layer)) map.removeLayer(layer);
   }
-  // basins and country view are alternate renderings of the same data — never both
-  document.getElementById("ly-injection").addEventListener("change", (e) => {
-    if (e.target.checked) document.getElementById("ly-basins").checked = false;
-  });
-  document.getElementById("ly-basins").addEventListener("change", (e) => {
-    if (e.target.checked) document.getElementById("ly-injection").checked = false;
-  });
-  ["ly-injection", "ly-basins", "ly-ism", "ly-projects"]
+  ["ly-basins", "ly-ism", "ly-projects"]
     .forEach((id) => document.getElementById(id).addEventListener("change", sync));
+  document.querySelectorAll('input[name="inj-mode"]').forEach((r) => r.addEventListener("change", sync));
   sync();
 
   // ---------- methodology modal ----------
@@ -492,40 +494,40 @@
     solid carbonate within months–years. EOR and ECBM are excluded. The ideal storage site
     depends on transport distance and cost from the CO₂ source, permitting and development
     time, and cost per ton stored.</p>
-    <h3>Capacity tiers — read before comparing numbers</h3>
+    <h3>Capacity tiers: read before comparing numbers</h3>
     <p><b>Theoretical</b> (full pore volume or full rock stoichiometry),
     <b>effective</b> (screened for injectivity/depth/quality), and <b>practical</b>
     (also screened for access, economics, regulation) answer different questions and are
-    never summed here. Geologic global anchors: ~1,290 Gt prudent (Gasser 2025),
+    never added together here. Geologic global anchors: ~1,290 Gt prudent (Gasser 2025),
     ~14,300 Gt catalogued (OGCI CSRC Cycle 5), 55,000 Gt theoretical ceiling (Kearns 2017).
-    ISM theoretical ceiling ~10⁶ Gt (NAS 2019; Kelemen et al.) — orders of magnitude above
+    ISM theoretical ceiling ~10⁶ Gt (NAS 2019; Kelemen et al.), orders of magnitude above
     any plausible need, but the practical rate is projected at only ~1.2–5 Gt/yr by 2050
     (RMI 2023).</p>
     <h3>Storage costs (detail panels)</h3>
     <p>Cost lines are indicative and storage-only (capture always excluded; transport
     excluded except where noted). US formations: NETL's 2024 run of the FE/NETL saline
-    storage cost model across 314 formations — first-year break-even price, 2023$,
+    storage cost model across 314 formations: first-year break-even price, 2023$,
     including Class VI permitting and monitoring (nationally, &gt;200 Gt of prospective
     resource at ≤$8/t). Four US basins carry NETL QGESS (2019) transport+storage figures
     (2018$, ~100 km pipeline). Southern-EU regions: STRATEGY CCUS D4.5 (2022; EU project
     report, sites pre-bankability). Everywhere else: generic reservoir-class ranges
     (Schmelz et al. 2020, after Rubin et al. 2015). Costs vary 2–10× within a single
-    basin with injection rate, depth, and reservoir quality — none of these figures are
+    basin with injection rate, depth, and reservoir quality; none of these figures are
     site-specific.</p>
-    <h3>ISM suitability &amp; depth — why no depth screen is applied</h3>
-    <p>Mineralization polygons show the mapped surface extent of reactive rock — an
+    <h3>ISM suitability and depth: why no depth screen is applied</h3>
+    <p>Mineralization polygons show the mapped surface extent of reactive rock, an
     upper bound on geographic availability, not screened storage resource. The familiar
     ≥800 m criterion comes from conventional injection storage (IPCC SRCCS 2005: below
     ~800 m CO₂ remains supercritical) and carries over to supercritical basalt storage
     (the Wallula pilot injected at 828–887 m; NAS 2019), but dissolved-phase injection
-    (CarbFix, Hellisheiði) operates at ~500 m — trading depth for substantial water
-    demand — and engineered peridotite concepts target ~3 km (Kelemen &amp; Matter 2008).
+    (CarbFix, Hellisheiði) operates at ~500 m, trading depth for substantial water
+    demand, and engineered peridotite concepts target ~3 km (Kelemen &amp; Matter 2008).
     No global thickness or depth dataset exists for basalt/ophiolite bodies (published
     isopachs are figures, not GIS; the US-only SubMAP-CO2 3D mapping effort is in
     progress), so no depth screen is applied here. Detail panels carry per-formation
     depth/thickness notes where literature exists.</p>
     <h3>Why mineralization matters (the complementarity case)</h3>
-    <p>ISM-suitable rock sits in geographies that sedimentary basins don't reach —
+    <p>ISM-suitable rock sits in geographies that sedimentary basins don't reach:
     ophiolite belts (Oman/UAE, the Balkans, SE Asia, New Caledonia), flood basalts
     (India's Deccan, the Pacific Northwest, Ethiopia), and rift/island basalt (Iceland,
     Kenya, Japan). Several of these regions (India, Japan, Korea, SE Asia) are exactly
@@ -557,24 +559,24 @@
   // theoretical ceiling matches the geoTip / methodology text (Kearns 2017).
   const TOUR = [
     { el: "#stats", title: "Start with the headline numbers", html:
-      `CO₂ storage to date is almost all injection — <b>${G.operational_mtpa} Mtpa</b> ` +
-      `operating across ${nOpGeo} sites, vs <b>${M.operational_mtpa} Mtpa</b> at ` +
-      `${nOpIsm} in-situ mineralization (ISM) sites. But ISM's theoretical potential ` +
-      `(~${fmtGt(M.theoretical_gt)} Gt) exceeds even the largest theoretical estimates ` +
-      `for injection (~55,000 Gt), and it reaches many regions with no good injection ` +
-      `formations. Carbon removal at scale needs both.` },
+      `Almost all CO₂ stored so far went into <b>sedimentary basins</b>: <b>${G.operational_mtpa} Mt/yr</b> ` +
+      `operating across ${nOpGeo} sites, versus <b>${M.operational_mtpa} Mt/yr</b> at ${nOpIsm} ` +
+      `<b>mineralization</b> sites. But the theoretical potential of mineralization in reactive ` +
+      `rock (~${fmtBig(M.theoretical_gt)} Gt) is about ${ismRatio}× the largest theoretical estimate ` +
+      `for sedimentary storage (~${fmtBig(INJ_THEORETICAL_MAX_GT)} Gt), and reactive rock reaches many ` +
+      `regions with no good sedimentary option. Carbon removal at scale needs both.` },
     { el: "#map", title: "Reading the map", html:
-      `<b>Blues</b> are sedimentary basins suited to CO₂ injection — darker means more ` +
+      `<b>Blues</b> are sedimentary basins suited to CO₂ injection; darker means more ` +
       `assessed capacity, dashed means unquantified. <b>Warm colors and purple</b> are ` +
-      `reactive rock (basalts, ophiolites) suited to ISM.` },
+      `reactive rock (basalts, ophiolites) suited to mineralization.` },
     { el: "#map", title: "Explore the data", html:
       `Hover any region for a quick number. Click a basin, formation, or storage site ` +
-      `for capacity estimates, tiers, and sources.` },
-    { el: "#layers", title: "Layers &amp; the fine print", html:
-      `Toggle <b>storage sites</b> to see operating and proposed projects; Advanced offers ` +
-      `a country-level view. Click any basin for formation-level detail. Capacity tiers ` +
-      `(theoretical / effective / practical) answer different questions and are never ` +
-      `summed — see the ⓘ icons.` },
+      `for capacity estimates, tiers, costs, and sources.` },
+    { el: "#layers", title: "Layers and the fine print", html:
+      `Toggle <b>storage sites</b> to see operating and proposed projects, and switch the ` +
+      `basin layer between per-basin and per-country views (mineralization stays on either ` +
+      `way). Capacity estimates come in tiers (theoretical, effective, practical) that answer ` +
+      `different questions, so they are never added together; see the ⓘ icons.` },
   ];
   const tourWrap = document.createElement("div");
   tourWrap.id = "tour";
@@ -637,6 +639,7 @@
   });
   window.addEventListener("resize", () => { if (!tourWrap.hidden) tourShow(ti); });
   document.getElementById("btn-tour").onclick = () => tourShow(0);
+  document.getElementById("btn-tour-top").onclick = () => tourShow(0);
   let tourSeen = true;
   try { tourSeen = !!localStorage.getItem("atlas_tour_seen"); } catch (e) {}
   if (!tourSeen) setTimeout(() => tourShow(0), 400);

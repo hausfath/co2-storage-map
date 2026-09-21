@@ -190,3 +190,13 @@ footer { margin-top: auto; border-top: 1px solid var(--hairline); padding-top: 1
 #detail-body a { color: var(--proj-geo); text-decoration: underline; text-decoration-color: var(--hairline);
   overflow-wrap: anywhere; }
 #detail-body a:hover { text-decoration-color: var(--proj-geo); }
+
+/* feedback pass (Sept 2026): mode switch, tile potentials, tour replay */
+.mode { display: flex; gap: 14px; padding: 0 0 4px 36px; font-size: 12px; color: var(--ink-2); }
+.mode label { display: flex; align-items: center; gap: 4px; cursor: pointer; }
+.mode.disabled { opacity: .45; pointer-events: none; }
+.stat-tile .v2 { font-size: 15px; font-weight: 650; color: var(--ink-1); margin-top: 6px; white-space: nowrap; }
+.stat-tile .v { white-space: nowrap; }
+.linklike.small { font-size: 12px; margin-top: 8px; text-decoration: none; color: var(--proj-geo);
+  border: 1px solid var(--hairline); border-radius: 14px; padding: 3px 10px; }
+.linklike.small:hover { background: var(--hairline); }

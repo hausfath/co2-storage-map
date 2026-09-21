@@ -12,13 +12,14 @@
   <aside id="sidebar">
     <header>
       <h1>Global CO₂ Storage Atlas</h1>
-      <p class="subtitle">Where the world can store CO₂ — through
-      <a href="https://www.globalccsinstitute.com/why-ccs/what-is-ccs/" target="_blank" rel="noopener">injection
-      into sedimentary reservoirs</a> and
+      <p class="subtitle">Where the world can store CO₂: in sedimentary basins, by
+      <a href="https://www.globalccsinstitute.com/why-ccs/what-is-ccs/" target="_blank" rel="noopener">injecting
+      it into saline aquifers and depleted fields</a>, and in reactive rock, by
       <a href="https://www.carbfix.com/the-science" target="_blank" rel="noopener">in-situ mineralization
-      (ISM)</a> in reactive rock. Injection storage will likely remain cheaper, but in many
-      parts of the world it isn't an option — and ISM is. Carbon removal at scale needs a
+      (ISM)</a>. Sedimentary storage will likely remain cheaper, but in many parts of the
+      world it isn't an option, and mineralization is. Carbon removal at scale needs a
       diversity of storage sites around the globe.</p>
+      <button id="btn-tour-top" class="linklike small">How to read this map ↻</button>
     </header>
 
     <section id="stats" class="stat-row" aria-label="Global storage potential"></section>
@@ -26,25 +27,25 @@
     <section id="layers">
       <h2>Layers</h2>
       <label class="layer-toggle"><input type="checkbox" id="ly-basins" checked>
-        <span class="swatch seq"></span> CO₂ injection storage <small>(basins, Gt CO₂)</small></label>
+        <span class="swatch seq"></span> Sedimentary basins <small>(CO₂ injection)</small></label>
+      <div class="mode" id="inj-mode" title="How the sedimentary storage capacity is displayed">
+        <label><input type="radio" name="inj-mode" value="basins" checked> by basin</label>
+        <label><input type="radio" name="inj-mode" value="country"> by country</label>
+      </div>
       <label class="layer-toggle"><input type="checkbox" id="ly-ism" checked>
-        <span class="swatch multi"></span> In-situ mineralization formations</label>
+        <span class="swatch multi"></span> Reactive rock <small>(mineralization)</small></label>
       <label class="layer-toggle"><input type="checkbox" id="ly-projects">
         <span class="swatch dot"></span> Storage sites <small>(operating &amp; proposed)</small></label>
-      <details id="advanced">
-        <summary>Advanced</summary>
-        <label class="layer-toggle"><input type="checkbox" id="ly-injection">
-          <span class="swatch seq"></span> View by country <small>(replaces basins)</small></label>
-      </details>
     </section>
 
     <section id="legend"><div id="legend-body"></div></section>
 
     <footer>
       <button id="btn-method" class="linklike">Methodology &amp; sources</button> ·
-      <button id="btn-tour" class="linklike">Take the tour</button>
-      <p class="fineprint">Capacity tiers (theoretical / effective / practical) are not
-      comparable and never summed. Built July 2026.</p>
+      <button id="btn-tour" class="linklike">Replay the tour</button>
+      <p class="fineprint">Capacity estimates come in tiers (theoretical, effective, practical)
+      that answer different questions, so they are shown side by side and never added
+      together. Updated September 2026.</p>
     </footer>
   </aside>
   <div id="map"></div>
