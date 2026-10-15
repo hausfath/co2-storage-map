@@ -54,8 +54,7 @@ polygons. US: basins with USGS 2013 National Assessment coverage take their geom
 from the dissolved union of that basin's Storage Assessment Unit footprints (191 SAUs
 queried from the USGS ArcGIS StudyAreas services, public domain; capacity from DS 774
 Table 1; `scripts/build_us_saus.py` + `scripts/build_basins.py`), and the basin detail
-panel lists each formation (base + Deep variants grouped, mean TASR, depth, matched
-NETL cost case). The 26 assessed USGS basins with no row in the capacity table are
+panel lists each formation (base + Deep variants grouped, mean TASR, depth). The 26 assessed USGS basins with no row in the capacity table are
 added as basins in their own right, colored by the sum of SAU mean TASR (tier
 "technically accessible (USGS 2013)"; their low-high range sums SAU P5/P95 and is not
 a formal percentile). This replaced both the NATCARB 10-km grid (the cause of the
@@ -64,16 +63,12 @@ storage units inside a mapped basin are listed in that basin's detail panel; uni
 with no covering basin polygon (Paris, Ebro, etc.) draw standalone in deep blue.
 A basin's headline number remains its own assessment, never a sum of formations.
 
-## Storage costs (detail panels)
-Indicative, storage-only figures shown on click (never a choropleth — precision does
-not support it): NETL 2024 AGU model run of FE/NETL CO2_S_COM across 314 US saline
-formations (first-year break-even, 2023$, incl. Class VI permitting & Subpart RR
-monitoring; lowest-cost formation per state; >200 Gt nationally at <=$8/t); NETL
-QGESS 2019 transport+storage for 4 US basins (2018$); STRATEGY CCUS D4.5 (2022) for
-8 southern-EU regions (EUR/t, capex+opex, project report, pre-bankability sites);
-generic reservoir-class ranges elsewhere (Schmelz et al. 2020 after Rubin et al.
-2015). Full transcriptions: `data/research/storage_costs.json`. Costs vary 2-10x
-within a basin with rate/depth/quality; vintages differ across sources.
+## Storage costs (removed 2026-10-15)
+Indicative storage-cost lines were previously shown in basin detail panels (NETL 2024
+saline cost model, NETL QGESS 2019, STRATEGY CCUS D4.5, Schmelz et al. 2020 class
+ranges). They are withheld from the atlas for now. The transcriptions remain in
+`data/research/storage_costs.json`; restoring them means re-adding `costs` to
+`scripts/build_bundle.py` and the cost lookup in `src/app.js` (see git history).
 
 **Alternative view: per-country choropleth** using each country's preferred estimate from
 `data/research/sedimentary_capacity.{json,md}` (45 countries). Known issues: Norway

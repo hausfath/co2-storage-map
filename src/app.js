@@ -310,44 +310,6 @@
       ${more("Notes & sources", `${c.notes ? `<p>${linkify(c.notes)}</p>` : ""}<div class="src">${linkify(p.src)}</div>`)}`);
   }
 
-  // ---------- storage cost lines (detail panels only; see Methodology) ----------
-  const COSTS = A.costs || {};
-  const COST_NOTE = "Indicative only: storage cost varies several-fold with site and project scale, and excludes capture.";
-
-  // Returns {line, source} for a basin, or null.
-  function basinCost(p) {
-    const name = p.basin || "";
-    const qgess = COSTS.qgess_us_basins?.by_basin?.[name];
-    if (qgess != null)
-      return { line: `~$${Math.round(qgess)} per tonne`,
-               source: `NETL QGESS 2019 (2018$), includes ~100 km of pipeline transport.` };
-    const sc = COSTS.strategy_ccus_eu?.by_region || {};
-    const region = Object.keys(sc).find((k) => name.toLowerCase().includes(k.toLowerCase()));
-    if (region) {
-      const r = sc[region];
-      const rng = r.eur_t_low === r.eur_t_high ? `€${r.eur_t_low}` : `€${r.eur_t_low}–${r.eur_t_high}`;
-      return { line: `${rng} per tonne`, url: COSTS.strategy_ccus_eu.url,
-               source: `STRATEGY CCUS D4.5 (2022), storage capex+opex for prospects ${r.prospects}; EU project report, not peer-reviewed.` };
-    }
-    // NETL modeled costs for formations present in this basin (US)
-    const byState = COSTS.netl_us_formations?.by_state || {};
-    const vals = [];
-    (p.formations || []).forEach((f) => Object.values(byState).forEach((v) => {
-      if (f.formation.toLowerCase().includes(v.formation.toLowerCase())) vals.push(v.usd_t);
-    }));
-    if (vals.length) {
-      const lo = Math.round(Math.min(...vals)), hi = Math.round(Math.max(...vals));
-      return { line: lo === hi ? `from ~$${lo} per tonne` : `$${lo}–${hi} per tonne`,
-               url: COSTS.netl_us_formations.url,
-               source: `NETL 2024 saline storage cost model (2023$, first-year break-even incl. permitting and monitoring), lowest-cost cases for formations found in this basin, not a basin-specific estimate.` };
-    }
-    const offshore = /offshore/i.test(p.onshore_offshore || "") && !/onshore/i.test(p.onshore_offshore || "");
-    const cr = COSTS.class_ranges?.ranges?.[offshore ? "offshore_saline" : "onshore_saline"];
-    if (!cr) return null;
-    return { line: `$${cr.low}–${cr.high} per tonne`,
-             source: `Generic ${offshore ? "offshore" : "onshore"} saline-reservoir range (Schmelz et al. 2020, after Rubin et al. 2015), not site-specific.` };
-  }
-
   function formationRows(p) {
     if (!p.formations || !p.formations.length) return "";
     const row = (f) => {
@@ -386,19 +348,16 @@
       : `<span class="cap-big">No capacity estimate</span>${tierChip(p.tier)}`;
     const range = (p.cap_low_gt != null && p.cap_high_gt != null && p.cap_low_gt !== p.cap_mid_gt)
       ? `<div class="src">Range across sources and methods: ${fmtGt(p.cap_low_gt)}–${fmtGt(p.cap_high_gt)} Gt.</div>` : "";
-    const cost = basinCost(p);
     openDetail(p.basin, `
       <div>${capLine}</div>
       ${tierLine(p.tier)}
       <dl>${p.countries ? `<dt>Countries</dt><dd>${countryNames(p.countries)}</dd>` : ""}
-      ${p.onshore_offshore ? `<dt>Setting</dt><dd>${pretty(p.onshore_offshore)}</dd>` : ""}
-      ${cost ? `<dt>Storage cost</dt><dd>${cost.line} <span class="src">(indicative)</span></dd>` : ""}</dl>
+      ${p.onshore_offshore ? `<dt>Setting</dt><dd>${pretty(p.onshore_offshore)}</dd>` : ""}</dl>
       ${formationRows(p)}
       ${unitRows(p)}
       ${more("Details & sources", `
         ${range}
         ${p.notes ? `<p>${linkify(p.notes)}</p>` : ""}
-        ${cost ? `<p><b>Cost basis:</b> ${cost.source} ${COST_NOTE}${cost.url ? ` <a href="${cost.url}" target="_blank" rel="noopener">Source ↗</a>` : ""}</p>` : ""}
         ${p.formations ? `<p class="src">Formation capacities are mean technically accessible storage resource (USGS DS 774); rows combine base and deep intervals of the same formation.</p>` : ""}
         <div class="src">Capacity tier as recorded: ${p.tier || "–"}</div>
         <div class="src">${linkify(p.src)}</div>`)}`);
@@ -503,17 +462,6 @@
     ISM theoretical ceiling ~10⁶ Gt (NAS 2019; Kelemen et al.), orders of magnitude above
     any plausible need, but the practical rate is projected at only ~1.2–5 Gt/yr by 2050
     (RMI 2023).</p>
-    <h3>Storage costs (detail panels)</h3>
-    <p>Cost lines are indicative and storage-only (capture always excluded; transport
-    excluded except where noted). US formations: NETL's 2024 run of the FE/NETL saline
-    storage cost model across 314 formations: first-year break-even price, 2023$,
-    including Class VI permitting and monitoring (nationally, &gt;200 Gt of prospective
-    resource at ≤$8/t). Four US basins carry NETL QGESS (2019) transport+storage figures
-    (2018$, ~100 km pipeline). Southern-EU regions: STRATEGY CCUS D4.5 (2022; EU project
-    report, sites pre-bankability). Everywhere else: generic reservoir-class ranges
-    (Schmelz et al. 2020, after Rubin et al. 2015). Costs vary 2–10× within a single
-    basin with injection rate, depth, and reservoir quality; none of these figures are
-    site-specific.</p>
     <h3>ISM suitability and depth: why no depth screen is applied</h3>
     <p>Mineralization polygons show the mapped surface extent of reactive rock, an
     upper bound on geographic availability, not screened storage resource. The familiar
@@ -571,7 +519,7 @@
       `reactive rock (basalts, ophiolites) suited to mineralization.` },
     { el: "#map", title: "Explore the data", html:
       `Hover any region for a quick number. Click a basin, formation, or storage site ` +
-      `for capacity estimates, tiers, costs, and sources.` },
+      `for capacity estimates, tiers, and sources.` },
     { el: "#layers", title: "Layers and the fine print", html:
       `Toggle <b>storage sites</b> to see operating and proposed projects, and switch the ` +
       `basin layer between per-basin and per-country views (mineralization stays on either ` +

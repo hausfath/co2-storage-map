@@ -9,8 +9,6 @@ RESEARCH = ROOT / "data" / "research"
 sed = json.loads((RESEARCH / "sedimentary_capacity.json").read_text())
 mc = json.loads((RESEARCH / "mineralization_capacity.json").read_text())
 projects = json.loads((RESEARCH / "projects.json").read_text())
-costs = json.loads((RESEARCH / "storage_costs.json").read_text())
-costs.pop("_readme", None)
 source_links = json.loads((RESEARCH / "source_links.json").read_text())["links"]
 
 op_geo = sum(p.get("capacity_mtpa") or 0 for p in projects
@@ -31,7 +29,6 @@ atlas = {
     "countries": sed["countries"],
     "formations": mc["formations"],
     "projects": projects,
-    "costs": costs,
     "source_links": source_links,
     "meta": {
         "built": "2026-07-13",
