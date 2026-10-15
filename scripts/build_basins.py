@@ -12,6 +12,8 @@ import geopandas as gpd
 from shapely.geometry import mapping, shape
 from shapely.ops import unary_union
 
+from basin_attrs import research_props, usgs_props, code_for_usgs_name
+
 ROOT = Path(__file__).resolve().parent.parent
 RAW = ROOT / "data" / "raw" / "basins"
 GEO = ROOT / "data" / "geo"
@@ -72,8 +74,6 @@ SAU_ALIASES = {
     "Alaska North Slope Basin": "Alaska North Slope",
 }
 
-VARIANT_RE = re.compile(r"^(.*?)(?:\s+(Deep|Shallow|Updip|Downdip))?$")
-
 # European capacity basins absent from every polygon source: reconstruct their
 # outline as the dissolved extent of CO2StoP formations/storage units assigned
 # by name keyword, country, and proximity to the basin center. Labeled in the
@@ -100,31 +100,6 @@ def km_dist(a, b):
     dlat = (a[0] - b[0]) * 111.0
     dlon = (a[1] - b[1]) * 111.0 * math.cos(math.radians((a[0] + b[0]) / 2))
     return (dlat ** 2 + dlon ** 2) ** 0.5
-
-
-def formation_breakdown(sau_feats):
-    """Group a basin's SAUs by formation root; 'X' + 'X Deep' become one entry."""
-    seen, roots = set(), {}
-    for f in sau_feats:
-        p = f["properties"]
-        code = p.get("sau_code")
-        if code in seen:
-            continue
-        seen.add(code)
-        name = p.get("sau_name") or code or "SAU"
-        m = VARIANT_RE.match(name)
-        root, variant = m.group(1), (m.group(2) or "main")
-        r = roots.setdefault(root, {"formation": root, "variants": []})
-        r["variants"].append({"variant": variant,
-                              "tasr_mean_mt": p.get("tasr_mean_mt"),
-                              "depth_ft": p.get("depth_ml_ft")})
-    out = []
-    for r in roots.values():
-        s = sum(v["tasr_mean_mt"] or 0 for v in r["variants"])
-        r["tasr_mean_mt"] = round(s, 1) if s else None
-        out.append(r)
-    out.sort(key=lambda r: -(r["tasr_mean_mt"] or 0))
-    return out
 
 
 def sau_union_geom(sau_feats):
@@ -189,17 +164,9 @@ def main():
                     break
         if sau_key and sau_key in sau_groups:
             sfeats = sau_groups.pop(sau_key)
-            cap = b.get("capacity_gt") or {}
-            feats.append({"type": "Feature", "properties": {
-                "basin": b["basin"], "countries": b.get("countries"),
-                "cap_low_gt": cap.get("low"), "cap_mid_gt": cap.get("mid"),
-                "cap_high_gt": cap.get("high"), "tier": b.get("tier"),
-                "soft_tier": False,
-                "onshore_offshore": b.get("onshore_offshore"),
-                "src": b.get("source"), "notes": b.get("notes"),
-                "formations": formation_breakdown(sfeats),
-                "_layer": "usgs_saus"},
-                "geometry": sau_union_geom(sfeats)})
+            feats.append({"type": "Feature",
+                          "properties": {**research_props(b), "_layer": "usgs_saus"},
+                          "geometry": sau_union_geom(sfeats)})
             continue
         # manual alias override first
         if b["basin"] in ALIASES:
@@ -243,17 +210,7 @@ def main():
             unmatched.append(b["basin"])
             continue
 
-        cap = b.get("capacity_gt") or {}
-        tier_s = b.get("tier") or ""
-        soft = (bool(re.search(r"theoretical|prospective", tier_s, re.I))
-                and not re.search(r"practic|effective|technical", tier_s, re.I))
-        props = {"basin": b["basin"],
-                 "countries": b.get("countries"),
-                 "cap_low_gt": cap.get("low"), "cap_mid_gt": cap.get("mid"),
-                 "cap_high_gt": cap.get("high"), "tier": b.get("tier"),
-                 "soft_tier": soft,
-                 "onshore_offshore": b.get("onshore_offshore"),
-                 "src": b.get("source"), "notes": b.get("notes")}
+        props = research_props(b)
 
         if hit[0] == "bicrs_canada":
             for f in hit[1]:
@@ -269,35 +226,13 @@ def main():
             feats.append({"type": "Feature", "properties": {**props, "_layer": lname},
                           "geometry": round_geom(mapping(geom))})
 
-    # USGS SAU basins with no capacity-table row become new basin features,
-    # with capacity = sum of SAU mean TASR (range = summed P5/P95 — labeled as
-    # such, not a formal percentile aggregation)
+    # USGS SAU basins with no capacity-table row become basins in their own
+    # right, with USGS's own aggregate (DS 774 Table 1) as the number.
     for bname, sfeats in sorted(sau_groups.items()):
-        seen, p5 = set(), 0.0
-        mean, p95 = 0.0, 0.0
-        for f in sfeats:
-            p = f["properties"]
-            if p.get("sau_code") in seen:
-                continue
-            seen.add(p.get("sau_code"))
-            mean += p.get("tasr_mean_mt") or 0
-            p5 += p.get("tasr_p5_mt") or 0
-            p95 += p.get("tasr_p95_mt") or 0
-        feats.append({"type": "Feature", "properties": {
-            "basin": bname, "countries": ["USA"],
-            "cap_low_gt": round(p5 / 1000, 1) or None,
-            "cap_mid_gt": round(mean / 1000, 1) or None,
-            "cap_high_gt": round(p95 / 1000, 1) or None,
-            "tier": "technically accessible (USGS 2013)", "soft_tier": False,
-            "onshore_offshore": "onshore & state waters (US)",
-            "src": "USGS 2013 National Assessment (DS 774)",
-            "notes": f"Basin total is the sum of mean technically accessible storage "
-                     f"resource (TASR) across {len(seen)} assessed storage assessment "
-                     f"units; the range sums SAU P5/P95 values and is not a formal "
-                     f"percentile.",
-            "formations": formation_breakdown(sfeats),
-            "_layer": "usgs_saus_new"},
-            "geometry": sau_union_geom(sfeats)})
+        feats.append({"type": "Feature",
+                      "properties": {**usgs_props(code_for_usgs_name(bname), bname),
+                                     "_layer": "usgs_saus_new"},
+                      "geometry": sau_union_geom(sfeats)})
 
     # Williston: the WCSB polygon should merge into the Williston structural
     # basin at its geologic margin, not stop at the 49th parallel. Draw the
@@ -315,15 +250,9 @@ def main():
             full.simplify(SIMPLIFY_DEG, preserve_topology=True)))
         wil["properties"]["basin"] = "Williston Basin"
         wil["properties"]["countries"] = ["USA", "CAN"]
-        wil["properties"]["notes"] = ((wil["properties"].get("notes") or "") +
-            " Outline shows the full cross-border structural basin; the capacity"
-            " estimate covers the US portion only (the Canadian portion in SK/MB"
-            " is assessed within Western Canada Sedimentary Basin totals).").strip()
+        # panel notes come from the research rows only (Williston's says US-only)
         wcsb_geom = shape(wcsb["geometry"]).difference(full).buffer(0)
         wcsb["geometry"] = round_geom(mapping(wcsb_geom))
-        wcsb["properties"]["notes"] = ((wcsb["properties"].get("notes") or "") +
-            " Southeastern boundary follows the Williston Basin margin (shown"
-            " separately), not the national border.").strip()
         print("Williston: cross-border merge applied, WCSB clipped")
 
     # Reconstruct unmatched European basins from CO2StoP formations + units
@@ -361,22 +290,10 @@ def main():
         geom = unary_union([pool[i][0] for i in members])
         geom = geom.buffer(0.06).buffer(-0.06).simplify(SIMPLIFY_DEG, preserve_topology=True)
         used.update(members)
-        cap = b.get("capacity_gt") or {}
-        tier_s = b.get("tier") or ""
-        soft = (bool(re.search(r"theoretical|prospective", tier_s, re.I))
-                and not re.search(r"practic|effective|technical", tier_s, re.I))
-        feats.append({"type": "Feature", "properties": {
-            "basin": bname, "countries": b.get("countries"),
-            "cap_low_gt": cap.get("low"), "cap_mid_gt": cap.get("mid"),
-            "cap_high_gt": cap.get("high"), "tier": b.get("tier"), "soft_tier": soft,
-            "onshore_offshore": b.get("onshore_offshore"),
-            "src": b.get("source"),
-            "notes": ((b.get("notes") or "") +
-                      " Outline shows the dissolved extent of CO2StoP-assessed"
-                      " formations and storage units grouped to this basin, not a"
-                      " structural basin boundary.").strip(),
-            "_layer": "co2stop_reconstructed"},
-            "geometry": round_geom(mapping(geom))})
+        feats.append({"type": "Feature",
+                      "properties": {**research_props(b, "co2stop_reconstructed"),
+                                     "_layer": "co2stop_reconstructed"},
+                      "geometry": round_geom(mapping(geom))})
         unmatched.remove(bname)
         print(f"  reconstructed {bname} from {len(members)} CO2StoP polygons")
     basin_shapes = []
@@ -437,7 +354,7 @@ def main():
         feats.append({"type": "Feature", "properties": {
             "basin": name, "countries": sorted({r["country"] for r in recs if r["country"]}),
             "cap_low_gt": None, "cap_mid_gt": None, "cap_high_gt": None,
-            "tier": None, "soft_tier": False, "unit": True,
+            "tier": None, "unit": True,
             "onshore_offshore": None,
             "src": "EU CO2StoP storage unit(s)",
             "notes": f"{note}; shown individually because no basin-level "

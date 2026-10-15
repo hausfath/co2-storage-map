@@ -19,6 +19,30 @@
   without polygon data: rift volcanics, offshore basalt, harrats).
 - `src/data_bundle.js` → `window.ATLAS` = {global, countries[], formations[], projects[], meta}.
 
+### Basin feature properties (`data/geo/geometry_basins.js`, window.GEO_BASINS)
+`{basin, countries[], cap_low_gt, cap_mid_gt, cap_high_gt, tier, onshore_offshore, src, notes,
+  alt_estimates[{gt, tier, source}]?, usgs_code?, formations[]?, units[]?, unit?, _layer}`.
+`usgs_code` (e.g. "C5047") marks a US basin whose number is the USGS 2013 basin aggregate
+(DS 774 Table 1: low = P5, mid = mean, high = P95); its `formations[]` =
+`{formation, tasr_mean_mt, variants[{variant: main|Deep, tasr_mean_mt, depth_ft}]}` from
+`data/research/usgs_ds774_saus.json`. Built by `scripts/basin_attrs.py` (shared by
+`build_basins.py` and `refresh_attrs.py`).
+
+### Research text fields
+Reader-facing text (`notes`, `onshore_offshore_notes`, `capacity_basis`, `depth_porosity_notes`,
+`suitability_notes`, `existing_activity`) is short public copy (2026-10-15). The original
+research text is kept alongside as `<field>_research`, and for the 9 US basin rows also
+`capacity_research`, `tier_research`, `source_research`. Apps should never display `*_research`.
+
+### Fields added 2026-10-15 (verification round)
+- `alt_estimates[].gt_label` (optional): display text overriding the number, e.g. ">100 Gt".
+- Country rows: `added` marks the 29 countries added from the OGCI catalogue tables; `preferred_estimate_gt`
+  may be `null` (tier "not assessed"), which leaves the country uncolored.
+- Basin rows: `basin_research` keeps a previous name after a rename; `match_names` includes the old
+  name so geometry joins still work (e.g. "Southern North Sea Basin (UK sector)").
+- Formation rows: `alt_estimates` (same shape as basins), shown under "Other estimates".
+- `data/research/source_links.json` links carry a `label` (clean citation shown in panels).
+
 ### Formation feature properties (ISM polygons)
 `{fid, name, category(flood_basalt|ophiolite|rift_volcanic|offshore_basalt), rock,
   cap_low_gt, cap_mid_gt, cap_high_gt, cap_basis, tier, matched(bool), src}`

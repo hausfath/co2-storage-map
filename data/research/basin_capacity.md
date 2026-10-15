@@ -7,6 +7,8 @@ onshore_offshore/source/notes). Intended to be joined onto a basin polygon layer
 uses — polygon datasets are inconsistent about "Basin" suffixes, hyphenation, and
 composite/regional names).*
 
+> **Update 2026-10-15:** the map no longer uses the US basin headlines below. All 35 US basins now headline USGS 2013 basin aggregates from DS 774 Table 1 (`usgs_ds774_saus.json`; e.g. Gulf Coast 1,800 Gt, Illinois 150, San Joaquin 51, Williston 150). Teletzke practicable P50s are kept as `alt_estimates`; the previous values are in each row's `capacity_research` / `tier_research` / `source_research` / `notes_research`. Reader-facing `notes` were rewritten as short public copy (originals in `notes_research`). See docs/METHODOLOGY.md.
+
 ## Source hierarchy (highest to lowest authority per basin, when multiple exist)
 
 1. **Basin-specific academic/government assessments** (e.g., USGS SAU chapters, Vishal et al.

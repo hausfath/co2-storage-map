@@ -31,9 +31,10 @@ atlas = {
     "projects": projects,
     "source_links": source_links,
     "meta": {
-        "built": "2026-07-13",
+        "built": "2026-10-15",
         "note": ("Capacity tiers are not comparable: theoretical / effective / practical "
-                 "estimates answer different questions. See docs/METHODOLOGY.md."),
+                 "estimates and catalogued resource totals answer different questions. "
+                 "See docs/METHODOLOGY.md."),
     },
 }
 

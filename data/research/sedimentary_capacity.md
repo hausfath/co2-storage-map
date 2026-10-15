@@ -4,6 +4,8 @@
 Companion data file: `sedimentary_capacity.json`. Predecessor files: `csrc_country_capacity.md`,
 `sedimentary_us_canada_tiers.md` (read first — they are not repeated here).*
 
+> **Update 2026-10-15:** several country figures and narratives below are superseded (CSRC re-extraction, Algeria, Nigeria, Canada, China, Australia, Kazakhstan). Current values are in `sedimentary_capacity.json`; originals in `*_research` fields. See docs/METHODOLOGY.md, "Data corrections".
+
 ## 1. Why the numbers don't agree
 
 Every "CO2 storage capacity" figure in circulation is the output of a **tier** in a resource
@@ -23,7 +25,7 @@ loosest to tightest constraint:
 4. **Commercial/Capacity** — appraised, injectable-ready sites. Vanishingly small everywhere
    except AUS, CAN, NOR, USA, DNK, NLD, GBR (the only 7 countries with any CSRC Cycle 5
    commercial-tier resource at all).
-5. **Prudent/risk-screened** — a 2025 Nature paper (Gasser et al., "A prudent planetary limit for
+5. **Prudent/risk-screened** — a 2025 Nature paper (Gidden et al., "A prudent planetary limit for
    geologic carbon storage") takes the ~11,800 Gt starting physical potential and sequentially
    excludes areas by depth, seismicity, protected status, and a 25km populated-area buffer,
    arriving at a **global central estimate of 1,460 Gt (range 1,290–2,710 Gt)** — roughly an
@@ -39,7 +41,7 @@ because of tier).
 
 ## 2. Global range chosen for the atlas
 
-- **Low: 1,290 Gt** — Gasser et al. 2025 prudent-limit lower bound.
+- **Low: 1,290 Gt** — Gidden et al. 2025 prudent-limit lower bound.
 - **Central: ~14,300 Gt** — CSRC/OGCI Cycle 4/5 aggregated resource (Stored+Commercial+
   Sub-Commercial+Undiscovered) across the ~54-111 countries CSRC has assessed. Chosen as central
   because it is (a) built bottom-up from country/basin-level SRMS assessments rather than a
@@ -132,7 +134,7 @@ gives 2,420 Gt theoretical saline, and a range of Chinese "effective capacity" s
 
 - OGCI, CSRC Cycles 2/4/5 (2021/2024/2025) — https://www.ogci.com/wp-content/uploads/2025/11/CSRC_Cycle_5_Main-Report_August_2025.pdf and Cycle 4 equivalents
 - Kearns, J., Teletzke, G., Palmer, J., Thomann, H., Kheshgi, H., Chen, H., Paltsev, S., Herzog, H. (2017). "Developing a Consistent Database for Regional Geologic CO2 Storage Capacity Worldwide." Energy Procedia 114:4697-4709. doi:10.1016/j.egypro.2017.03.1603 (primary table inaccessible this pass — see §3)
-- Gasser et al. (2025). "A prudent planetary limit for geologic carbon storage." Nature 645:124-. doi:10.1038/s41586-025-09423-y. PMC12408384. https://cgs.umd.edu/research-impact/publications/prudent-planetary-limit-geologic-carbon-storage
+- Gidden et al. (2025). "A prudent planetary limit for geologic carbon storage." Nature 645:124-. doi:10.1038/s41586-025-09423-y. PMC12408384. https://cgs.umd.edu/research-impact/publications/prudent-planetary-limit-geologic-carbon-storage
 - Vangkilde-Pedersen, T. et al. (2009). EU GeoCapacity project final report, WP2 D16, "Assessing European Capacity for Geological Storage of Carbon Dioxide." https://www.sciencedirect.com/science/article/pii/S1876610209006778
 - GEUS/CATF (2021). "EU Geological CO2 storage summary." GEUS-R_2021_34. https://cdn.catf.us/wp-content/uploads/2021/10/20183953/EU-CO2-storage-summary_GEUS-report-2021-34_Oct2021.pdf (CO2StoP country figures)
 - Norwegian Offshore Directorate (NPD/Sodir), CO2 Storage Atlas of the Norwegian Continental Shelf. https://www.sodir.no/490a7e/globalassets/1-sodir/publikasjoner/atlas-eng/co2-atlas-north-sea.pdf

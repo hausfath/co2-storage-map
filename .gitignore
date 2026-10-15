@@ -8,3 +8,6 @@ data/raw/
 # Internal planning docs -- not for the public repo
 PLAN.md
 to_do.md
+
+# Local Python environment (geopandas for full rebuilds)
+.venv/

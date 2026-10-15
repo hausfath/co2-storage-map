@@ -5,6 +5,8 @@ Stored < Capacity (Commercial) < Sub-Commercial (Discovered) < Undiscovered (Pro
 "Aggregated" = sum of all four — the report itself cautions these are not mutually risked;
 use tier-appropriate values, not aggregates, for headline claims.*
 
+> **Update 2026-10-15:** many country values below were mis-extracted and have been corrected in `sedimentary_capacity.json` from the CSRC Cycle 5 appendices (e.g. Norway 100.918, UK 81.341, Germany 51.208, Netherlands 3.210, Poland 82.870, Ireland 90.634, Malaysia 149.6, Australia 502.429 Gt). See docs/METHODOLOGY.md, "Data corrections". Do not use the values below without re-checking.
+
 Extraction route: r.jina.ai text proxy over OGCI PDFs (direct fetch failed on binaries).
 Spot-check against original PDFs before publication.
 

@@ -64,7 +64,9 @@ body { font: 14px/1.45 system-ui, -apple-system, "Segoe UI", sans-serif; color: 
 }
 .stat-tile .info:hover::after, .stat-tile .info:focus::after {
   opacity: 1; visibility: visible; }
-.stat-tile.ism .info::after { left: auto; right: -70px; }
+/* icons sit at the right of each tile's potential label: open the tooltip inward */
+.stat-tile.geo .info::after { left: -100px; }
+.stat-tile.ism .info::after { left: auto; right: -6px; }
 .stat-tile .v { font-size: 21px; font-weight: 650; margin: 2px 0; }
 .stat-tile .s { font-size: 11px; color: var(--ink-3); }
 .stat-tile.geo .v { color: var(--proj-geo); }
@@ -135,6 +137,11 @@ footer { margin-top: auto; border-top: 1px solid var(--hairline); padding-top: 1
 #method-body h3:first-child { border-top: none; padding-top: 6px; margin-top: 0; }
 #method-body p { margin: 0 0 10px; }
 #method-body .method-src { font-size: 12px; color: var(--ink-3); }
+#method-body .method-list { margin: 0 0 10px; padding-left: 18px; }
+#method-body .method-list li { margin: 0 0 5px; }
+#method-body a { color: var(--proj-geo); text-decoration: underline;
+  text-decoration-color: var(--hairline); overflow-wrap: anywhere; }
+#method-body a:hover { text-decoration-color: var(--proj-geo); }
 
 /* first-visit tour */
 #tour { position: fixed; inset: 0; z-index: 3000; }
@@ -184,6 +191,10 @@ footer { margin-top: auto; border-top: 1px solid var(--hairline); padding-top: 1
   font-size: 12.5px; color: var(--ink-2); padding: 2px 0; border-bottom: 1px solid var(--hairline); }
 #detail-body .row .v { color: var(--ink-1); font-variant-numeric: tabular-nums; }
 #detail-body .row small { grid-column: 1 / -1; color: var(--ink-3); }
+#detail-body .frm { border-bottom: 1px solid var(--hairline); padding-bottom: 2px; }
+#detail-body .frm .row { border-bottom: none; }
+#detail-body .row.sub { font-size: 11.5px; color: var(--ink-3); padding: 0 0 1px 14px; }
+#detail-body .row.sub .v { color: var(--ink-2); }
 #detail-body .lg-title small { text-transform: none; letter-spacing: 0; }
 #detail-body dl { margin: 10px 0 6px; }
 #detail-body p { margin: 8px 0; }
@@ -200,3 +211,14 @@ footer { margin-top: auto; border-top: 1px solid var(--hairline); padding-top: 1
 .linklike.small { font-size: 12px; margin-top: 8px; text-decoration: none; color: var(--proj-geo);
   border: 1px solid var(--hairline); border-radius: 14px; padding: 3px 10px; }
 .linklike.small:hover { background: var(--hairline); }
+
+/* public panels (Oct 2026): short note + visible linked sources */
+#detail-body .note { color: var(--ink-1); }
+#detail-body .sources { margin-top: 12px; padding-top: 8px; border-top: 1px solid var(--hairline); }
+#detail-body .sources ul { margin: 2px 0 0; padding-left: 16px; font-size: 12px; color: var(--ink-3); }
+#detail-body .sources li { margin: 0 0 3px; }
+#detail-body dd { overflow-wrap: anywhere; }
+#detail-body .lg-title { margin-top: 12px; }
+/* (i) sits beside the potential label; keep them on one line */
+.stat-tile .s:has(.info) { white-space: nowrap; }
+.stat-tile .s .info { white-space: normal; }

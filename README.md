@@ -16,29 +16,35 @@ step — all data is bundled as JavaScript.
 
 ## What's on the map
 
-- **Injection capacity by basin** (default) — 92 assessed sedimentary basins
-  worldwide, 46 with published storage capacity estimates (Gt CO₂), colored by
-  capacity with dashed styling for theoretical-tier-only numbers and for basins
-  mapped but not yet assessed. Click any basin for the estimate, tier,
-  cross-source range, and citations. A country-level choropleth (45 countries)
+- **Injection capacity by basin** (default) — 108 sedimentary basins mapped
+  worldwide, 66 with a storage capacity estimate (Gt CO₂). All 35 US basins use
+  the USGS 2013 National Assessment basin totals (32 quantified); the other 73
+  come from the literature compilation of 92 basins. Where a national estimate is
+  not split by basin, the basin shows "not assessed" and the figure is in the
+  country view. Colored by capacity, with
+  dashed styling for theoretical-only numbers and for basins mapped but not yet
+  assessed. Click any basin for the estimate, kind of estimate, range, key
+  context, and linked sources. A country-level choropleth (74 countries, 70 with an estimate)
   is available as an alternative view, with US formation detail (USGS 2013 SAUs)
   and EU storage units (CO2StoP) folded into each basin's detail panel.
-- **In-situ mineralization formations** — a 35-formation global inventory
+- **In-situ mineralization formations** — a 34-formation global inventory
   (continental flood basalts, ophiolite/peridotite belts, rift and arc
   volcanics, offshore basalt) with literature capacity estimates, drawn from
   LIP and global-ophiolite GIS compilations; plus ~1,000 additional mapped
   ophiolite bodies shown as "uncharacterized."
-- **Storage projects** — 103 dedicated-storage projects (86 geologic, 17 ISM)
+- **Storage projects** — 100 dedicated-storage projects (83 geologic, 17 ISM)
   with statuses as of mid-2026, sized by capacity, colored by mechanism.
   EOR/ECBM projects are excluded.
 
-Headline framing: geologic storage resources are vast (~1,290 Gt prudent →
-~14,300 Gt catalogued → 55,000 Gt theoretical) but concentrated in sedimentary
+Headline framing: geologic storage resources are vast (1,290 Gt, the low end
+of the Gidden et al. 2025 prudent limit →
+~14,300 Gt catalogued → up to 55,000 Gt "practically accessible", Kearns et al. 2017) but concentrated in sedimentary
 basins; ISM capacity is effectively unlimited (~10⁶ Gt theoretical) and sits in
 *different* geographies — including regions where sedimentary storage is scarce
 (India, Japan/Korea, East Africa, Oman/UAE, Iceland, the US Pacific Northwest).
-Capacity tiers (theoretical / effective / practical) answer different questions
-and are never summed on this map.
+The four kinds of capacity estimate (theoretical / effective / practical tiers,
+plus OGCI catalogued resource totals) answer different questions and are never
+summed on this map.
 
 See **[docs/METHODOLOGY.md](docs/METHODOLOGY.md)** for sources, tier
 definitions, join logic, and caveats. Compiled research with full citations

@@ -8,6 +8,8 @@ largest CO₂-reinjection program by volume, ~67.9 Mt cumulative 2008-2024 and a
 2025 target of ~80 Mt, but it is enhanced-oil-recovery reinjection, not dedicated
 storage, so it is intentionally omitted from the point counts below).
 
+> **Update 2026-10-15:** 100 projects (83 geologic, 17 ISM). Removed Guohua Jinjie, Al Reyadah, ACTL (replaced by Enhance Origins) and Summit; several statuses, dates and coordinates corrected; operating geologic storage now ~16.8 Mtpa. See docs/METHODOLOGY.md, "Data corrections".
+
 Source files merged: `bicrs_storage_sites_seed.json` (~81 sites), `bicrs_storage_sites_seed2.json`
 (~28 sites), `projects_apac_checkpoint.json` (27 APAC projects), plus new research
 on in-situ mineralization (ISM) and North America / Europe / MEA 2025-26 status

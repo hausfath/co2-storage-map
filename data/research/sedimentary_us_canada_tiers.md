@@ -2,6 +2,8 @@
 
 *Compiled by research agent, 2026-07-13. Source workstream: sedimentary capacity R1.*
 
+> **Update 2026-10-15:** the map no longer uses the US basin headlines below. All 35 US basins now headline USGS 2013 basin aggregates from DS 774 Table 1 (`usgs_ds774_saus.json`; e.g. Gulf Coast 1,800 Gt, Illinois 150, San Joaquin 51, Williston 150). Teletzke practicable P50s are kept as `alt_estimates`; the previous values are in each row's `capacity_research` / `tier_research` / `source_research` / `notes_research`. Reader-facing `notes` were rewritten as short public copy (originals in `notes_research`). See docs/METHODOLOGY.md.
+
 **Critical framing:** USGS (2013), NETL/NATCARB Atlas, and Teletzke et al. (2018) US figures
 are NOT additive — they are progressively more conservative re-filterings of the same
 resource base (theoretical/technical → practicable). Never sum them.

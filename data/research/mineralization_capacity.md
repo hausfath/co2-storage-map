@@ -2,6 +2,8 @@
 
 *Companion to `mineralization_capacity.json` (35 formations). Covers flood basalts, ophiolites/peridotites, rift volcanics, and offshore basalt.*
 
+> **Update 2026-10-15:** values for Columbia River, Deccan, Rajmahal, Harrat, Kenya Rift, mid-ocean ridges, Iceland/Reykjanes, Juan de Fuca and the North Atlantic/Vøring entries were corrected after primary-source checks; see `mineralization_capacity.json` (originals in `*_research`) and docs/METHODOLOGY.md, "Data corrections".
+
 ## 1. How ISM capacity estimates are constructed
 
 Unlike sedimentary saline-aquifer or depleted-reservoir storage, where capacity is bounded by measured pore volume, injectivity, and a caprock seal, in-situ mineralization (ISM) capacity estimates in the literature are built from two structurally different methods that are frequently conflated:

@@ -128,3 +128,18 @@ Citation-map entries: 96 (9 existence-checked only).
 - **44.01 Project Hajar (Al Qabil, Hajar Mountains commercial-scale)**: 44.01's own blog post (31 May 2023) confirms the concession agreement with Oman's Ministry of Energy and Minerals for peridotite mineralization at Al Qabil, Hajar Mountains, Oman - matches file's country (OMN) and start year (2023). FLAG: a separate, later 44.01/XFACTOR announcement (April 2025, https://www.4401.earth/blog/project-hajar-wins-usd1-million-xfactor-award-for-innovative-carbon-removal-solution) also uses the name 'Project Hajar' but places it in Fujairah, UAE, not Oman - likely a naming overlap between two related 44.01 sites/phases (Oman peridotite concession vs. a UAE DAC+mineralization demo); worth double-checking which site the map entry actually refers to before publishing.
 - **Bayou Bend CCS (SE Texas, Gulf Coast)**: FLAG - operator field incomplete: Equinor's own release confirms it holds a 25% stake in Bayou Bend CCS (acquired Aug 2023) alongside Chevron (operator, 50%) and Talos (25%) - this is a 3-party JV, not just 'Chevron / Talos Energy JV' as the file states. ~140,000 acres (100,000 onshore + 40,000 offshore), >1 billion tonnes storage potential. Chevron's own newsroom page returned 403 to fetch; Equinor's page was used as the verified operator-tier source instead.
 - **ExxonMobil Baytown Low-Carbon Hydrogen + CCS (Texas)**: FLAG - status likely wrong/outdated: ExxonMobil's own page states the company 'announced a pause in the development of our efforts in Baytown, Texas, to produce virtually carbon-free hydrogen' (as of 2025) due to insufficient policy/market support. File lists status as 'construction' with a 2029 start - this appears out of date; the project's own operator page indicates it is currently paused, not under construction. Recommend re-verifying current status before publishing (e.g. checking for any more recent ExxonMobil statement reversing the pause).
+
+## Labels (2026-10-15)
+Each link now carries a `label`: one clean citation per URL (49 URLs), written from the citation
+details already in the match strings; three uncertain publication years were left out rather
+than guessed. Panels list sources by label, deduplicated, instead of printing the raw citation
+strings. Four matches were added: "USGS National Assessment 2013 (Data Series 774)" →
+https://pubs.usgs.gov/ds/774/, "CSRC Cycle 5" and "CSRC Cycle 4" → the respective OGCI main
+reports, and "S0959652623010594" → doi:10.1016/j.jclepro.2023.136901.
+
+## Catalogue appendices (2026-10-15, verification round)
+Added matches so citations to specific CSRC appendices link to them rather than to the Cycle 5
+main report: Cycle 5 Europe, Americas, Asia and Oceania appendices; Cycle 4 Middle East and
+North Africa (Appendix D) and Sub-Saharan Africa (Appendix F) appendices (no Cycle 5 versions
+of D or F were found); and "main report Table 4-3". All URLs returned HTTP 200 (PDF) on
+2026-10-15.
