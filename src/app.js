@@ -426,8 +426,7 @@
     openDetail(p.basin, `
       <div>${capLine}</div>
       ${range}
-      <dl>${p.countries ? `<dt>Countries</dt><dd>${countryNames(p.countries)}</dd>` : ""}
-      ${p.onshore_offshore ? `<dt>Setting</dt><dd>${pretty(p.onshore_offshore)}</dd>` : ""}</dl>
+      <dl>${p.countries ? `<dt>Countries</dt><dd>${countryNames(p.countries)}</dd>` : ""}</dl>
       ${note(p.notes)}
       ${formationRows(p)}
       ${unitRows(p)}
