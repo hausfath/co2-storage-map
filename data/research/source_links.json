@@ -569,6 +569,16 @@
    "match": "Ye et al. 2023",
    "url": "https://doi.org/10.1016/j.earscirev.2023.104539",
    "label": "Ye et al. 2023, Saudi Arabian sedimentary basins (Earth-Science Reviews)"
+  },
+  {
+   "match": "Carbon Storage Taskforce (2009)",
+   "url": "https://www.ga.gov.au/scientific-topics/energy/resources/carbon-capture-and-storage-ccs/geological-storage-studies/NCM_Full_Report.pdf",
+   "label": "Australian Carbon Storage Taskforce 2009 (National Carbon Mapping report)"
+  },
+  {
+   "match": "International CCS Knowledge Centre, Canada's CO2 Landscape",
+   "url": "https://ccsknowledge.com/wp-content/uploads/2025/01/CO2_Sources_Sinks_Canada_April2021.pdf",
+   "label": "International CCS Knowledge Centre, Canada's CO2 Landscape (2021)"
   }
  ]
 }

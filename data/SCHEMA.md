@@ -36,6 +36,8 @@ research text is kept alongside as `<field>_research`, and for the 9 US basin ro
 
 ### Fields added 2026-10-15 (verification round)
 - `alt_estimates[].gt_label` (optional): display text overriding the number, e.g. ">100 Gt".
+- `alt_estimates[].label` (optional): short scope label shown instead of the kind label, e.g.
+  "Theoretical, Southern North Sea only".
 - Country rows: `added` marks the 29 countries added from the OGCI catalogue tables; `preferred_estimate_gt`
   may be `null` (tier "not assessed"), which leaves the country uncolored.
 - Basin rows: `basin_research` keeps a previous name after a rename; `match_names` includes the old

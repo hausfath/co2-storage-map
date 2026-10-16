@@ -36,7 +36,8 @@
    {
     "gt": 366,
     "tier": "practicable (P50 saline onshore)",
-    "source": "Teletzke et al. 2018"
+    "source": "Teletzke et al. 2018",
+    "label": "Practical (onshore saline, P50)"
    }
   ]
  },
@@ -76,7 +77,8 @@
    {
     "gt": 30,
     "tier": "practicable (P50 saline onshore)",
-    "source": "Teletzke et al. 2018"
+    "source": "Teletzke et al. 2018",
+    "label": "Practical (onshore saline, P50)"
    }
   ]
  },
@@ -115,7 +117,8 @@
    {
     "gt": 15,
     "tier": "practicable (P50 saline onshore)",
-    "source": "Teletzke et al. 2018"
+    "source": "Teletzke et al. 2018",
+    "label": "Practical (onshore saline, P50)"
    }
   ]
  },
@@ -154,7 +157,8 @@
    {
     "gt": 12,
     "tier": "practicable (P50 saline onshore)",
-    "source": "Teletzke et al. 2018"
+    "source": "Teletzke et al. 2018",
+    "label": "Practical (onshore saline, P50)"
    }
   ]
  },
@@ -338,7 +342,7 @@
    "depleted_og_gt": 16
   },
   "onshore_offshore": "onshore",
-  "source": "Clean Prosperity, Felder et al. 2024, Table 1 (WCSB saline 385.5 Gt, from NETL NATCARB 2015); OGCI CSRC Cycle 5 Appendix A, Aug 2025 (Canada aggregated 148.006 Gt; COSS 18.6/24.6/32.0 Gt); Intl CCS Knowledge Centre 'Canada's CO2 Landscape' 2021 citing CSRC (390 Gt, Alberta and Williston basins); North American Carbon Storage Atlas 2012 (oil and gas reservoirs 16 Gt)",
+  "source": "Clean Prosperity, Felder et al. 2024; OGCI CSRC Cycle 5 Appendix A, Aug 2025 (Canada aggregated 148.006 Gt; COSS 18.6/24.6/32.0 Gt); International CCS Knowledge Centre, Canada's CO2 Landscape (2021); North American Carbon Storage Atlas (2012)",
   "notes": "Includes the Canadian part of the Williston Basin. The 385 Gt headline is a volumetric saline estimate; the OGCI catalogue's 148 Gt for all of Canada reflects a pressure-limited reassessment of the Basal Cambrian aquifer.",
   "notes_research": "WCSB (mid=385) subsumes the Canadian portion of the Williston Basin -- do not add a separate Williston(Canada) row on top of this. National 877 Gt figure (high) spans ALL Canadian basins, not just WCSB, and is unverified against Bachu primary literature; treat as upper bound only. || 2026-10-15 verification: WCSB subsumes the Canadian Williston; do not add a separate Williston(Canada) row. mid 385 = Clean Prosperity 2024 Table 1 WCSB rows (from NATCARB 2015, E=2%), of which ~318 Gt is Deep Cambrian Sands volumetric; CSRC Cycle 5 replaced the equivalent Basal Sand volumetric (284 Gt) with COSS pressure-limited 24.6 Gt mid. high 390 = KC 2021 quoting early-cycle CSRC (Alberta + Williston basins). 877 Gt national (Zhang, Lau & Chen 2023, JCP 404:136901, closed access) removed: unverified and national scope. split depleted_og 16 = NACSA 2012 Canada oil+gas total (Ontario <1).",
   "capacity_gt_research": {
@@ -419,7 +423,7 @@
   },
   "onshore_offshore": "offshore",
   "source": "CSRC Cycle 5 Europe appendix (2025), Table 42-1; Bentham et al. 2014, Energy Procedia 63 (CO2 Stored / UKSAP, BGS & The Crown Estate)",
-  "notes": "Figures cover the whole UK offshore estate, including the Central, Northern and Southern North Sea and the East Irish Sea. In the UK Storage Appraisal Project the Southern North Sea holds about 15 Gt of the 78 Gt total, and the Central North Sea about 40 Gt.",
+  "notes": "Figures cover the whole UK offshore estate: the Central, Northern and Southern North Sea and the East Irish Sea.",
   "notes_research": "UK CSRC total (55-78 Gt) spans Southern, Central and Northern North Sea plus East Irish Sea sectors combined -- no clean sub-basin split recovered; entry represents the whole UK offshore estate, named for its largest constituent sector. || 2026-10-15 verification: CSRC UK = 81.341 Gt in Cycle 4 and Cycle 5 appendices (Table 42-1). UKSAP P50 78 Gt whole UKCS; regional P50 CNS 40 / SNS 15 / NNS 14 / EIS 6 Gt (units >=20 Mt). Previous 36/55 values were extraction errors.",
   "capacity_gt_research": {
    "low": 36,
@@ -432,12 +436,14 @@
    {
     "gt": 78,
     "tier": "theoretical P50, whole UK shelf (UKSAP / CO2 Stored)",
-    "source": "Bentham et al. 2014, Energy Procedia 63"
+    "source": "Bentham et al. 2014, Energy Procedia 63",
+    "label": "Theoretical, whole UK shelf"
    },
    {
     "gt": 15,
     "tier": "theoretical P50, Southern North Sea only (UKSAP; units >20 Mt)",
-    "source": "Bentham et al. 2014, Energy Procedia 63"
+    "source": "Bentham et al. 2014, Energy Procedia 63",
+    "label": "Theoretical, Southern North Sea only"
    }
   ],
   "basin_research": "Southern North Sea Basin (UK sector)"
@@ -464,7 +470,7 @@
    "depleted_og_gt": 27
   },
   "onshore_offshore": "offshore",
-  "source": "CSRC Cycle 5 (2025); Norwegian Offshore Directorate (Sodir) CO2 storage atlases (>80 Gt, via GEUS 2021)",
+  "source": "CSRC Cycle 5 (2025); Norwegian Offshore Directorate (Sodir) CO2 storage atlases",
   "notes": "Covers the Norwegian shelf, including the Utsira and Johansen formations used by Sleipner and Northern Lights. The Norwegian Offshore Directorate's atlases give a similar total of over 80 Gt.",
   "notes_research": "Large discrepancy: CSRC revised Norway DOWN from 84.3 Gt (Cycle 4) to 18.1 Gt (Cycle 5) under stricter SRMS maturity criteria, while Norway's own regulator reports 70-80 Gt technical across the full shelf (43 Gt saline incl. Utsira/Johansen + 27 Gt petroleum-related fields). Use NPD figure if mapping is Norway-specific; CSRC if comparing across countries.",
   "capacity_gt_research": {
@@ -590,9 +596,10 @@
    "depleted_og_gt": null
   },
   "onshore_offshore": "onshore",
-  "source": "none basin-specific found; see Paris Basin entry for the (unsplit) French national total",
+  "source": "see Paris Basin entry for the (unsplit) French national total",
   "notes": "France's national estimate (7.2 Gt in the OGCI catalogue) is not split between the Paris and Aquitaine basins; see the France country view.",
-  "notes_research": "Site of the Lacq CCS pilot (Total, 2010-2013). Included for polygon coverage; capacity null to avoid double-counting the undivided French national figure."
+  "notes_research": "Site of the Lacq CCS pilot (Total, 2010-2013). Included for polygon coverage; capacity null to avoid double-counting the undivided French national figure.",
+  "source_research": "none basin-specific found; see Paris Basin entry for the (unsplit) French national total"
  },
  {
   "basin": "Polish Lowlands Basin",
@@ -647,9 +654,10 @@
    "depleted_og_gt": null
   },
   "onshore_offshore": "mixed onshore/offshore",
-  "source": "no dedicated basin-scale Gt figure found",
+  "source": "",
   "notes": "A geologically distinct sub-basin north of the Mogilno-Łódź Trough. Likely partly included in Poland's 200 Gt CO2StoP theoretical figure (see the Polish Lowlands Basin panel), but not quantified separately.",
-  "notes_research": "Geologically distinct northern sub-basin from the Mogilno-Łódź Trough; likely partly included within Poland's 200 Gt CO2StoP theoretical figure (see Polish Lowlands Basin) but not separately quantified. Included for polygon coverage."
+  "notes_research": "Geologically distinct northern sub-basin from the Mogilno-Łódź Trough; likely partly included within Poland's 200 Gt CO2StoP theoretical figure (see Polish Lowlands Basin) but not separately quantified. Included for polygon coverage.",
+  "source_research": "no dedicated basin-scale Gt figure found"
  },
  {
   "basin": "Moesian Platform",
@@ -702,9 +710,10 @@
    "depleted_og_gt": null
   },
   "onshore_offshore": "onshore",
-  "source": "no dedicated basin-scale Gt figure found",
+  "source": "",
   "notes": "Romania's second major sedimentary basin, with depleted gas fields such as Copsa Mica. Romania's national estimates are not split by basin and are shown in the Moesian Platform panel.",
-  "notes_research": "Romania's second major sedimentary basin; national totals not split between Moesian Platform and Transylvanian Basin."
+  "notes_research": "Romania's second major sedimentary basin; national totals not split between Moesian Platform and Transylvanian Basin.",
+  "source_research": "no dedicated basin-scale Gt figure found"
  },
  {
   "basin": "Po Valley / Adriatic Basin",
@@ -788,9 +797,10 @@
    "depleted_og_gt": null
   },
   "onshore_offshore": "onshore/offshore",
-  "source": "no dedicated basin-scale Gt figure found",
+  "source": "",
   "notes": "Spain's national estimate is not split by basin; see the Ebro Basin panel.",
-  "notes_research": "Included for polygon coverage only; part of Spain's undivided national CSRC/CO2StoP total (see Ebro Basin entry)."
+  "notes_research": "Included for polygon coverage only; part of Spain's undivided national CSRC/CO2StoP total (see Ebro Basin entry).",
+  "source_research": "no dedicated basin-scale Gt figure found"
  },
  {
   "basin": "Pannonian Basin",
@@ -815,7 +825,7 @@
    "depleted_og_gt": null
   },
   "onshore_offshore": "onshore",
-  "source": "CSRC Cycle 5 Europe appendix (2025): HUN 10.828 + SVK 11.318 + HRV 4.897 = 27.043; GEUS 2021 CO2StoP summary: HUN ~0.86 + HRV ~4.18 + SVK 2.0-13.0 = 7.0-18.0",
+  "source": "CSRC Cycle 5 Europe appendix (2025): HUN 10.828 + SVK 11.318 + HRV 4.897 = 27.043; GEUS EU CO2 storage summary 2021",
   "notes": "The headline adds the OGCI catalogue totals for Hungary, Slovakia and Croatia, which include a few sites outside this basin such as Croatia's Adriatic offshore. Austria is left out because its catalogued sites are small oil and gas fields and storage there is prohibited.",
   "notes_research": "Composite entry spanning multiple countries' CSRC totals. Croatia and Hungary sit on the main Pannonian Basin; Austria and Slovakia's portions are more specifically the Vienna Basin sub-basin (a Pannonian Basin System component) -- consider splitting into two polygon rows (Pannonian Basin proper: HRV+HUN; Vienna Basin: AUT+SVK) if the basin polygon layer distinguishes them. Austria shows the largest CSRC-vs-CO2StoP ratio in the European dataset (~140x), implying its mature/discovered resource base is minuscule relative to theoretical saline potential.",
   "countries_research": [
@@ -895,7 +905,7 @@
    "depleted_og_gt": null
   },
   "onshore_offshore": "mixed onshore/offshore",
-  "source": "Pereira, Carneiro, Ribeiro & Martins 2021, EAGE Annual (doi 10.3997/2214-4609.202112547): ~3.12 Gt; Pereira, Ribeiro & Carneiro 2021, Petroleum Geoscience 27 (doi 10.1144/petgeo2020-123): >3 Gt incl. 260 Mt onshore; CSRC Cycle 5 Europe appendix (Portugal, 2025)",
+  "source": "Pereira, Carneiro, Ribeiro & Martins 2021, EAGE Annual Conference (doi:10.3997/2214-4609.202112547); Pereira, Ribeiro & Carneiro 2021, Petroleum Geoscience 27 (doi:10.1144/petgeo2020-123); CSRC Cycle 5 Europe appendix (Portugal, 2025)",
   "notes": "Mostly offshore, with about 0.26 Gt onshore. A 2023 study sharply cut the estimates for several offshore structures, so this theoretical figure may be optimistic.",
   "notes_research": "Onshore share only ~0.26-0.34 Gt; offshore dominates at ~1.6 Gt+. Portugal absent from CSRC country tables (no comparison figure). || 2026-10-15 verification: 3.12 Gt = Pereira et al. 2021 EAGE (17 units, stochastic). >3 Gt incl. 260 Mt onshore = Pereira et al. 2021 PetGeo. Prior '0.34 Gt onshore' and '~1.6 Gt offshore' not found in sources. Portugal is in CSRC Cycle 5 (5.926 Gt national, 12 Lusitanian sites); 2023 Pereira et al. EAGE GET (doi 10.3997/2214-4609.202321027, cited by CSRC, not fetched) downgraded Q6-TV2 768->2 Mt, Q3-TV5 119->4.5 Mt, Q4-TVI 239->11 Mt.",
   "capacity_gt_research": {
@@ -1101,9 +1111,10 @@
    "depleted_og_gt": null
   },
   "onshore_offshore": "onshore",
-  "source": "none found -- see sedimentary_capacity.json Russia country notes",
+  "source": "",
   "notes": "A very large sedimentary basin with no published CO2 storage assessment.",
-  "notes_research": "One of the largest sedimentary basins on Earth; by analogy with the adjacent Precaspian Basin (~460-583 Gt for a smaller area) West Siberia's true theoretical potential is very likely in the hundreds-to-thousands of Gt range, but no citable assessment exists. Top data-gap priority for a major-emitter country."
+  "notes_research": "One of the largest sedimentary basins on Earth; by analogy with the adjacent Precaspian Basin (~460-583 Gt for a smaller area) West Siberia's true theoretical potential is very likely in the hundreds-to-thousands of Gt range, but no citable assessment exists. Top data-gap priority for a major-emitter country.",
+  "source_research": "none found -- see sedimentary_capacity.json Russia country notes"
  },
  {
   "basin": "Volga-Urals Basin",
@@ -1124,9 +1135,10 @@
    "depleted_og_gt": null
   },
   "onshore_offshore": "onshore",
-  "source": "none found",
+  "source": "",
   "notes": "",
-  "notes_research": "Included for polygon coverage only."
+  "notes_research": "Included for polygon coverage only.",
+  "source_research": "none found"
  },
  {
   "basin": "Gulf of Suez Basin",
@@ -1147,9 +1159,10 @@
    "depleted_og_gt": null
   },
   "onshore_offshore": "offshore + coastal",
-  "source": "none found -- Egypt absent from CSRC country tables and sedimentary_capacity.json",
+  "source": "",
   "notes": "Egypt's main mature oil and gas basin. No published national or basin-level CO2 storage assessment was found for Egypt.",
-  "notes_research": "Egypt's principal mature hydrocarbon basin; no published national or basin CO2 storage capacity assessment located. Included for polygon coverage only."
+  "notes_research": "Egypt's principal mature hydrocarbon basin; no published national or basin CO2 storage capacity assessment located. Included for polygon coverage only.",
+  "source_research": "none found -- Egypt absent from CSRC country tables and sedimentary_capacity.json"
  },
  {
   "basin": "Sirte Basin",
@@ -1170,9 +1183,10 @@
    "depleted_og_gt": null
   },
   "onshore_offshore": "onshore + offshore extension",
-  "source": "none found -- Libya absent from CSRC country tables",
+  "source": "",
   "notes": "Libya's dominant hydrocarbon basin, with more than 80% of national oil production. No CO2 storage assessment was found.",
-  "notes_research": "Libya's dominant hydrocarbon basin (>80% of national oil production); no CO2 storage assessment located. Included for polygon coverage only."
+  "notes_research": "Libya's dominant hydrocarbon basin (>80% of national oil production); no CO2 storage assessment located. Included for polygon coverage only.",
+  "source_research": "none found -- Libya absent from CSRC country tables"
  },
  {
   "basin": "Ahnet-Gourara Basin (In Salah area)",
@@ -1233,9 +1247,10 @@
    "depleted_og_gt": null
   },
   "onshore_offshore": "onshore, Sahara",
-  "source": "none basin-specific found",
+  "source": "",
   "notes": "A major Algerian hydrocarbon basin, known as the Ghadames Basin where it extends into Libya and Tunisia. Algeria's national estimates (see the Ahnet-Gourara Basin panel) may partly cover it but are not split by basin.",
-  "notes_research": "Algeria's most prolific hydrocarbon basin (shared with Libya/Tunisia as the Ghadames Basin); distinct from the In Salah/Ahnet-Gourara area. No CO2 storage capacity figure isolated for this basin specifically; Algeria's national 45 Gt hydrodynamic-trap estimate (see Ahnet-Gourara entry) may partly reflect this basin too but is not split by source."
+  "notes_research": "Algeria's most prolific hydrocarbon basin (shared with Libya/Tunisia as the Ghadames Basin); distinct from the In Salah/Ahnet-Gourara area. No CO2 storage capacity figure isolated for this basin specifically; Algeria's national 45 Gt hydrodynamic-trap estimate (see Ahnet-Gourara entry) may partly reflect this basin too but is not split by source.",
+  "source_research": "none basin-specific found"
  },
  {
   "basin": "Outeniqua Basin",
@@ -1319,9 +1334,10 @@
    "depleted_og_gt": null
   },
   "onshore_offshore": "onshore",
-  "source": "none found specific to CO2 storage",
+  "source": "",
   "notes": "Studied mainly for shale gas rather than CO2 storage. South Africa's assessed storage capacity lies mostly offshore (see the Outeniqua and Zululand-Durban Basin panels).",
-  "notes_research": "Predominantly studied for shale gas potential, not CO2 storage; South Africa's assessed CO2 storage capacity is concentrated offshore (see Outeniqua/Zululand-Durban entries). Included for polygon coverage only."
+  "notes_research": "Predominantly studied for shale gas potential, not CO2 storage; South Africa's assessed CO2 storage capacity is concentrated offshore (see Outeniqua/Zululand-Durban entries). Included for polygon coverage only.",
+  "source_research": "none found specific to CO2 storage"
  },
  {
   "basin": "Rovuma Basin",
@@ -1463,15 +1479,16 @@
    "depleted_og_gt": null
   },
   "onshore_offshore": "onshore",
-  "source": "Liu, Cai, Li, Zhang & Ouyang (2022), Carbon Management 13(1):435-449, doi:10.1080/17583004.2022.2117648 (lead authors at Institute of Rock and Soil Mechanics, CAS, Wuhan); deep saline theoretical",
-  "notes": "Theoretical deep saline estimate from a 2022 national review; a 2009 assessment using a different method gave about 228 Gt. Songliao is also a major oil basin and contributes to China's CO2-EOR storage estimate.",
+  "source": "Liu, Cai, Li, Zhang & Ouyang (2022), Carbon Management 13(1):435-449, doi:10.1080/17583004.2022.2117648 (lead authors at Institute of Rock and Soil Mechanics, CAS, Wuhan)",
+  "notes": "Theoretical deep saline estimate from a 2022 national review. Songliao is also a major oil basin and contributes to China's CO2-EOR storage estimate.",
   "notes_research": "Largest single Chinese basin for deep saline storage; also a major oil-field basin contributing to China's 5.1 Gt national CO2-EOR estimate (Songliao, Bohai Bay, Ordos, Junggar together host China's oil fields). || 2026-10-15 verification: 694.5 Gt: Liu et al. 2022, Carbon Management 13(1):435-449 (IRSM Wuhan / CAEP / ACCA21), sentence has no inline citation; the paper's '55.9% of the total' share is inconsistent with its own 2,240 Gt total (1,737.9/2,240 = 77.6%). PNNL-19091 Table 3.2 (Dahowski et al. 2009, PNNL + IRSM Wuhan) gives 227,800 MtCO2 (dissolution-based theoretical). Basin is one of four hosting China's oil fields per Liu et al. (5.1 Gt national CO2-EOR estimate).",
   "source_research": "Wuhan Institute of Rock and Soil Mechanics / CAS academic basin-level assessment (via ScienceDirect S0301421515301701 and related literature)",
   "alt_estimates": [
    {
     "gt": 227.8,
     "tier": "theoretical deep saline (dissolution-based, 200 m net sand, 15% porosity)",
-    "source": "Dahowski et al. 2009, PNNL-19091 Table 3.2 (PNNL with IRSM Wuhan)"
+    "source": "Dahowski et al. 2009, PNNL-19091 Table 3.2 (PNNL with IRSM Wuhan)",
+    "label": "Theoretical, 2009 assessment (different method)"
    }
   ]
  },
@@ -1494,15 +1511,16 @@
    "depleted_og_gt": null
   },
   "onshore_offshore": "onshore",
-  "source": "Liu, Cai, Li, Zhang & Ouyang (2022), Carbon Management 13(1):435-449, doi:10.1080/17583004.2022.2117648 (lead authors at Institute of Rock and Soil Mechanics, CAS, Wuhan); deep saline theoretical",
-  "notes": "Theoretical deep saline estimate from a 2022 national review; a 2009 assessment gave about 746 Gt. Tarim also hosts depleted gas fields that count toward China's national gas-reservoir estimate, which is not split by basin.",
+  "source": "Liu, Cai, Li, Zhang & Ouyang (2022), Carbon Management 13(1):435-449, doi:10.1080/17583004.2022.2117648 (lead authors at Institute of Rock and Soil Mechanics, CAS, Wuhan)",
+  "notes": "Theoretical deep saline estimate from a 2022 national review. Tarim also hosts depleted gas fields counted in China's national gas-reservoir estimate, which is not split by basin.",
   "notes_research": "Also among the four basins (with Ordos, Sichuan, Bohai Bay) hosting China's ~15.3 Gt national depleted-gas-reservoir estimate; no basin-specific split of that subtotal was found.",
   "source_research": "academic basin-level assessment (see Songliao Basin source)",
   "alt_estimates": [
    {
     "gt": 745.8,
     "tier": "theoretical deep saline (dissolution-based, 300 m net sand, 15% porosity)",
-    "source": "Dahowski et al. 2009, PNNL-19091 Table 3.2 (PNNL with IRSM Wuhan)"
+    "source": "Dahowski et al. 2009, PNNL-19091 Table 3.2 (PNNL with IRSM Wuhan)",
+    "label": "Theoretical, 2009 assessment (different method)"
    }
   ]
  },
@@ -1525,15 +1543,16 @@
    "depleted_og_gt": null
   },
   "onshore_offshore": "onshore + offshore (Bohai Sea)",
-  "source": "Liu, Cai, Li, Zhang & Ouyang (2022), Carbon Management 13(1):435-449, doi:10.1080/17583004.2022.2117648 (lead authors at Institute of Rock and Soil Mechanics, CAS, Wuhan); deep saline theoretical, onshore/offshore scope not stated",
-  "notes": "Theoretical deep saline estimate from a 2022 national review; a 2009 assessment gave about 343 Gt for the onshore basin and Bohai Sea combined. Bohai Bay is also a major oil and gas basin.",
+  "source": "Liu, Cai, Li, Zhang & Ouyang (2022), Carbon Management 13(1):435-449, doi:10.1080/17583004.2022.2117648 (lead authors at Institute of Rock and Soil Mechanics, CAS, Wuhan)",
+  "notes": "Theoretical deep saline estimate from a 2022 national review. Bohai Bay is also a major oil and gas basin.",
   "notes_research": "Third of China's three largest saline-storage basins (with Songliao and Tarim, together comprising the bulk of China's ~2,240 Gt national saline theoretical estimate); also a major oil and gas reservoir basin. || 2026-10-15 verification: 490.6 Gt: Liu et al. 2022 (no inline citation; scope not stated). PNNL-19091 Table 3.2: onshore Bohai Bay (North of China) 208.1 + Bohai Bay (Liaoning) 25.3 + offshore Bohai Wan 109.2 = 342.6 Gt. Do not describe Songliao+Tarim+Bohai as a share of China's 2,240 Gt: Liu et al.'s stated 55.9% does not match its own numbers (77.6%).",
   "source_research": "academic basin-level assessment (see Songliao Basin source)",
   "alt_estimates": [
    {
     "gt": 342.6,
     "tier": "theoretical deep saline (dissolution-based); onshore 233.4 + offshore Bohai Wan 109.2",
-    "source": "Dahowski et al. 2009, PNNL-19091 Table 3.2 (PNNL with IRSM Wuhan)"
+    "source": "Dahowski et al. 2009, PNNL-19091 Table 3.2 (PNNL with IRSM Wuhan)",
+    "label": "Theoretical, 2009 assessment (onshore and Bohai Sea)"
    }
   ]
  },
@@ -1649,9 +1668,10 @@
    "depleted_og_gt": null
   },
   "onshore_offshore": "onshore",
-  "source": "none found",
+  "source": "",
   "notes": "",
-  "notes_research": "Smaller onshore Jiangsu-province basin; included for polygon coverage only."
+  "notes_research": "Smaller onshore Jiangsu-province basin; included for polygon coverage only.",
+  "source_research": "none found"
  },
  {
   "basin": "Cambay Basin",
@@ -1697,9 +1717,10 @@
    "depleted_og_gt": null
   },
   "onshore_offshore": "onshore + offshore",
-  "source": "national-level literature identifies KG Basin as a major deep-saline-aquifer target basin; no isolated Gt figure recovered",
+  "source": "no isolated Gt figure recovered",
   "notes": "One of India's four main deep saline-aquifer basins, which together underpin the national 300 to 400 Gt estimate. Only Cambay has a published basin-level figure.",
-  "notes_research": "India's four main saline-aquifer basins (Cambay, Krishna-Godavari, Cauvery, Mahanadi) together underpin the national 300-400 Gt theoretical estimate but are not individually split in the sources reviewed except Cambay (see separate entry)."
+  "notes_research": "India's four main saline-aquifer basins (Cambay, Krishna-Godavari, Cauvery, Mahanadi) together underpin the national 300-400 Gt theoretical estimate but are not individually split in the sources reviewed except Cambay (see separate entry).",
+  "source_research": "national-level literature identifies KG Basin as a major deep-saline-aquifer target basin; no isolated Gt figure recovered"
  },
  {
   "basin": "Cauvery Basin",
@@ -1744,9 +1765,10 @@
    "depleted_og_gt": null
   },
   "onshore_offshore": "onshore",
-  "source": "none basin-specific found",
+  "source": "",
   "notes": "India's oldest producing petroleum basin. It is identified as a CO2 storage candidate, but no capacity estimate was found.",
-  "notes_research": "India's oldest producing petroleum basin; identified qualitatively as a CO2 storage candidate but no Gt figure recovered."
+  "notes_research": "India's oldest producing petroleum basin; identified qualitatively as a CO2 storage candidate but no Gt figure recovered.",
+  "source_research": "none basin-specific found"
  },
  {
   "basin": "Mahanadi Basin",
@@ -1838,8 +1860,8 @@
    "depleted_og_gt": null
   },
   "onshore_offshore": "onshore + offshore (Makassar Strait)",
-  "source": "ERIA (2024), 'Estimating Basin-Scale CO2 Storage in Indonesia', Research Project Report FY2024 No. 25, Tables 4.5 and 4.8; ranking also from Iskandar, Sofyan & Usman (2011), LEMIGAS",
-  "notes": "Ranked first among Indonesian basins for CO2 storage suitability in 2011 and 2024 screening studies. A 2024 study gives a high-case estimate of about 153 Gt in one saline formation and about 3.3 Gt in oil and gas fields.",
+  "source": "ERIA (2024), 'Estimating Basin-Scale CO2 Storage in Indonesia', Research Project Report FY2024 No. 25, Tables 4.5 and 4.8; Iskandar, Sofyan & Usman (2011), LEMIGAS",
+  "notes": "Ranked first among Indonesian basins for CO2 storage suitability in 2011 and 2024 screening studies.",
   "notes_research": "Ranked #1 or #2 nationally for CO2 storage suitability (well-characterized geology, stable tectonics) alongside Tarakan and South Sumatra, but no Gt-scale capacity number was recovered in this pass. || 2026-10-15 verification: ERIA 2024 (FY2024 No. 25, BRIN/LEMIGAS): saline Balikpapan Fm 152.95 Gt classified prospective 3U (SRMS high estimate), Table 4.5 p.51; O&G contingent C1 3,255.94 Mt / C2 351.89 / C3 237.37 (89 fields), Table 4.8 p.60; Kutai ranked 1st (Table 4.4). Iskandar et al. 2011 (LEMIGAS) ranks Kutei 1st of 60 but gives only an East Kalimantan regional depleted-field figure (~130 Mt). ERIA lists Makassar Strait (50.70 Gt) as a separate basin.",
   "capacity_gt_research": {
    "low": null,
@@ -1856,12 +1878,14 @@
    {
     "gt": 152.95,
     "tier": "theoretical, saline Balikpapan Fm only; prospective storage resources 3U (SRMS high case)",
-    "source": "ERIA (2024), Estimating Basin-Scale CO2 Storage in Indonesia, Table 4.5"
+    "source": "ERIA (2024), Estimating Basin-Scale CO2 Storage in Indonesia, Table 4.5",
+    "label": "High case, one saline formation"
    },
    {
     "gt": 3.26,
     "tier": "oil and gas fields, contingent C1 (89 fields)",
-    "source": "ERIA (2024), Estimating Basin-Scale CO2 Storage in Indonesia, Table 4.8"
+    "source": "ERIA (2024), Estimating Basin-Scale CO2 Storage in Indonesia, Table 4.8",
+    "label": "Oil and gas fields"
    }
   ]
  },
@@ -1938,9 +1962,10 @@
    "depleted_og_gt": null
   },
   "onshore_offshore": "offshore",
-  "source": "none found",
+  "source": "",
   "notes": "",
-  "notes_research": "Included for polygon coverage only."
+  "notes_research": "Included for polygon coverage only.",
+  "source_research": "none found"
  },
  {
   "basin": "Gulf of Thailand Basin",
@@ -1964,8 +1989,8 @@
    "depleted_og_gt": null
   },
   "onshore_offshore": "offshore",
-  "source": "Thailand Department of Mineral Fuels, 'Thailand's CCUS Development' (Suwannathong, 20 Apr 2023); 2.69 Gt is national, not basin-level",
-  "notes": "No basin-level capacity estimate was found; Thailand's 2.69 Gt depleted-field figure also covers onshore areas. PTTEP's Arthit CCS project here targets first storage in 2028.",
+  "source": "Thailand Department of Mineral Fuels, 'Thailand's CCUS Development' (Suwannathong, 20 Apr 2023)",
+  "notes": "No basin-level capacity estimate was found. PTTEP's Arthit CCS project here targets first storage in 2028.",
   "notes_research": "Composite figure spans Thailand's four offshore basins (Songkhla, Pattani, Chumphon, Malay); PTTEP's Arthit and Bongkot CCS projects (target 2027 startup) sit within the Pattani/Malay trend. No further basin-level split recovered. || 2026-10-15 verification: 2.69 Gt = DMF depleted O&G assessment of 5 areas (North Malay, Kra, West Kra offshore; Sinphuhorm/Namphong and Phitsanulok S1 onshore), saline excluded; slide calls it both 'practical method' and 'Total Theoretical'. Not from Zhang, Bokka & Lau 2022 (J. Pet. Sci. Eng. 209, 109979), which reportedly gives ~79 Gt national P50, mostly saline (unverified at primary, paywalled). No Bongkot CCS project found in PTTEP releases; Arthit targets 2028.",
   "capacity_gt_research": {
    "low": 2.69,
@@ -1977,12 +2002,14 @@
    {
     "gt": 2.69,
     "tier": "national, depleted oil and gas reservoirs in 5 areas including 2 onshore; saline excluded",
-    "source": "Thailand Department of Mineral Fuels (Suwannathong, CCUS development slides, 20 Apr 2023)"
+    "source": "Thailand Department of Mineral Fuels (Suwannathong, CCUS development slides, 20 Apr 2023)",
+    "label": "Depleted fields, Thailand national (incl. onshore)"
    },
    {
     "gt": 10.471,
     "tier": "catalogued national aggregate, all SRMS classes (sub-commercial 1.571 + undiscovered 8.9), 39 sites in at least 10 onshore and offshore basins",
-    "source": "OGCI CO2 Storage Resource Catalogue Cycle 5, Appendix B: Asia, Table 20-1"
+    "source": "OGCI CO2 Storage Resource Catalogue Cycle 5, Appendix B: Asia, Table 20-1",
+    "label": "Catalogued, Thailand national"
    }
   ],
   "source_research": "Decarbonizing the energy and industry sectors in Thailand by CCS, ScienceDirect S0920410521015928"
@@ -2138,7 +2165,8 @@
    {
     "gt": 1.29,
     "tier": "theoretical, E=0.5% (P50 divided by 8 per the report)",
-    "source": "Carbon Storage Taskforce (2009), Table 3 and footnote 40"
+    "source": "Carbon Storage Taskforce (2009), Table 3 and footnote 40",
+    "label": "Theoretical, at 0.5% storage efficiency"
    }
   ]
  },
@@ -2162,9 +2190,10 @@
    "depleted_og_gt": null
   },
   "onshore_offshore": "offshore",
-  "source": "none Gt-specific found",
+  "source": "",
   "notes": "A major offshore petroleum basin on the North West Shelf. The Gorgon CCS project on Barrow Island injects CO2 into the Dupuy Formation here.",
-  "notes_research": "Major offshore WA petroleum basin (North West Shelf); Gorgon CCS project (Barrow Island) injects into the Dupuy Formation here. Included for polygon coverage only."
+  "notes_research": "Major offshore WA petroleum basin (North West Shelf); Gorgon CCS project (Barrow Island) injects into the Dupuy Formation here. Included for polygon coverage only.",
+  "source_research": "none Gt-specific found"
  },
  {
   "basin": "Otway Basin",
@@ -2209,7 +2238,8 @@
    {
     "gt": 3.19,
     "tier": "theoretical, E=0.5% (summed P50 divided by 8 per the report)",
-    "source": "Carbon Storage Taskforce (2009), Table 3 and footnote 40"
+    "source": "Carbon Storage Taskforce (2009), Table 3 and footnote 40",
+    "label": "Theoretical, at 0.5% storage efficiency"
    }
   ]
  },
@@ -2233,7 +2263,7 @@
   },
   "onshore_offshore": "onshore + offshore",
   "source": "Carbon Storage Taskforce (2009), National Carbon Mapping and Infrastructure Plan - Australia, Full Report, Table 3 (E=4%)",
-  "notes": "A 2009 national screening estimate that assumes 4% of pore space can be used; about 90% of it is offshore. The onshore northern Perth Basin alone was estimated at about 2.9 Gt.",
+  "notes": "A 2009 national screening estimate that assumes 4% of pore space can be used; about 90% of it is offshore.",
   "notes_research": "Included for polygon coverage only.",
   "capacity_gt_research": {
    "low": null,
@@ -2247,17 +2277,20 @@
    {
     "gt": 2.9,
     "tier": "theoretical P50, North Perth onshore only (E=4%)",
-    "source": "Carbon Storage Taskforce (2009), Table 3"
+    "source": "Carbon Storage Taskforce (2009), Table 3",
+    "label": "Theoretical, North Perth onshore only"
    },
    {
     "gt": 26.4,
     "tier": "theoretical P50, North Perth offshore only (E=4%)",
-    "source": "Carbon Storage Taskforce (2009), Table 3"
+    "source": "Carbon Storage Taskforce (2009), Table 3",
+    "label": "Theoretical, North Perth offshore only"
    },
    {
     "gt": 3.7,
     "tier": "theoretical, E=0.5% (summed P50 divided by 8 per the report)",
-    "source": "Carbon Storage Taskforce (2009), Table 3 and footnote 40"
+    "source": "Carbon Storage Taskforce (2009), Table 3 and footnote 40",
+    "label": "Theoretical, at 0.5% storage efficiency"
    }
   ]
  },
@@ -2434,9 +2467,10 @@
    "depleted_og_gt": null
   },
   "onshore_offshore": "offshore",
-  "source": "none Gt-specific found",
+  "source": "",
   "notes": "As in the Santos Basin, pre-salt CO2 reinjection here is for enhanced oil recovery, not dedicated storage.",
-  "notes_research": "Same pre-salt EOR caveat as Santos Basin -- Campos pre-salt CO2 reinjection is EOR-driven, not a dedicated storage capacity assessment."
+  "notes_research": "Same pre-salt EOR caveat as Santos Basin -- Campos pre-salt CO2 reinjection is EOR-driven, not a dedicated storage capacity assessment.",
+  "source_research": "none Gt-specific found"
  },
  {
   "basin": "Paraná Basin",
@@ -2640,9 +2674,10 @@
    "depleted_og_gt": null
   },
   "onshore_offshore": "onshore",
-  "source": "none found -- Argentina absent from CSRC Cycles 2/4/5 and academic CO2-storage-capacity literature",
+  "source": "",
   "notes": "A major hydrocarbon basin and home of the Vaca Muerta shale. A plausible large storage target, but no published CO2 storage assessment was found.",
-  "notes_research": "Argentina's largest hydrocarbon basin (45% of national oil, 61% of gas production; Vaca Muerta shale). Plausible large storage target given basin scale, but no published Gt-scale CO2 storage assessment (national or basin) exists. Included for polygon coverage only."
+  "notes_research": "Argentina's largest hydrocarbon basin (45% of national oil, 61% of gas production; Vaca Muerta shale). Plausible large storage target given basin scale, but no published Gt-scale CO2 storage assessment (national or basin) exists. Included for polygon coverage only.",
+  "source_research": "none found -- Argentina absent from CSRC Cycles 2/4/5 and academic CO2-storage-capacity literature"
  },
  {
   "basin": "Golfo San Jorge Basin",
@@ -2663,9 +2698,10 @@
    "depleted_og_gt": null
   },
   "onshore_offshore": "onshore + offshore",
-  "source": "none found",
+  "source": "",
   "notes": "A major oil-producing basin in Patagonia.",
-  "notes_research": "Argentina's second-largest oil-producing basin (Patagonia). Included for polygon coverage only."
+  "notes_research": "Argentina's second-largest oil-producing basin (Patagonia). Included for polygon coverage only.",
+  "source_research": "none found"
  },
  {
   "basin": "Austral-Magallanes Basin",
@@ -2688,9 +2724,10 @@
    "depleted_og_gt": null
   },
   "onshore_offshore": "onshore + offshore",
-  "source": "none found",
+  "source": "",
   "notes": "",
-  "notes_research": "Included for polygon coverage only."
+  "notes_research": "Included for polygon coverage only.",
+  "source_research": "none found"
  },
  {
   "basin": "Orinoco / Eastern Venezuela Basin",
@@ -2713,8 +2750,9 @@
    "depleted_og_gt": null
   },
   "onshore_offshore": "onshore",
-  "source": "none found -- Venezuela absent from all sources reviewed",
+  "source": "",
   "notes": "Home of the Orinoco Belt, a very large heavy-oil accumulation. No published CO2 storage assessment was found.",
-  "notes_research": "Home of the Orinoco Belt, among the world's largest heavy-oil accumulations; no published CO2 storage capacity assessment located, likely reflecting Venezuela's isolation from international CCS research collaboration in recent years. Included for polygon coverage only."
+  "notes_research": "Home of the Orinoco Belt, among the world's largest heavy-oil accumulations; no published CO2 storage capacity assessment located, likely reflecting Venezuela's isolation from international CCS research collaboration in recent years. Included for polygon coverage only.",
+  "source_research": "none found -- Venezuela absent from all sources reviewed"
  }
 ]

@@ -326,6 +326,22 @@ Donghae-1 review withdrawal (news reports only); Jeju (23.5-687 Gt) and Subei/Or
 (Liu et al. 2022) not added; Albania (catalogue tables disagree, 0 vs 131 Mt) left out; the
 global mid-ocean ridge entry has no map geometry (pre-existing).
 
+## Colleague review (2026-10-16)
+Copy, legend and panel edits from the team's "Map edits" review were applied: new intro, tile
+title ("Injection in sedimentary basins"), simplified (i) tooltips, legend section titles,
+"Known basin", storage-site legend reduced to Sedimentary / Mineralization (filled vs hollow
+markers were not distinguishable), tour copy, and a rewritten methodology modal. Wording fixed
+during review: storage occurs *deeper* than about 800 m (the draft said "less than"); RMI's
+1.2 Gt/yr is an optimistic scenario, not a projection; the Catalogued definition; and the tour no
+longer mixes cumulative storage with an annual rate or attributes kinds of estimate to sites.
+A follow-up audit of all 402 panels: "CO2" is shown as "CO₂" and "Mtpa" as "Mt/yr" at render
+time (names such as CO2StoP and CO2 Lock untouched); "practicable" → "practical"; notes that
+repeated their own "Other estimates" were rewritten, and alternate estimates gained short scope
+labels (`alt_estimates[].label`, e.g. "Theoretical, Southern North Sea only"); 46 non-citation
+items ("none found", working annotations) were removed from source lists and 15 citations
+trimmed; operator fields cleaned; country "Setting" phrasing standardized. Originals are kept in
+`*_research` fields.
+
 ## Source hyperlinks
 Detail-panel citations are linked at render time via `data/research/source_links.json`
 (citation substring -> verified URL) plus raw-URL detection; projects carry a verified `url`.

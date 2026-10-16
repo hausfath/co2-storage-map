@@ -27,7 +27,7 @@
     "mid": 35,
     "high": 40
    },
-   "capacity_basis": "Cao and colleagues (2024, PNNL) estimate 21-40 Gt CO2 for a 10,000 km2 study area in the Grande Ronde Basalt. McGrail and colleagues (2006) estimate more than 100 Gt CO2 for the whole Columbia River Basalt Group.",
+   "capacity_basis": "Cao and colleagues (2024, PNNL) estimate 21-40 Gt CO2 for a 10,000 km2 study area in the Grande Ronde Basalt.",
    "depth_porosity_notes": "Stacked flood-basalt flows (Grande Ronde, Wanapum, Saddle Mountains) with porous, brecciated flow tops at 800-900+ m depth at Wallula. Dense flow interiors act as seals.",
    "suitability_notes": "A well-characterized onshore basalt storage target, demonstrated at pilot scale.",
    "existing_activity": "The Wallula pilot injected 977 t CO2 in 2013, and coring found up to 60% of it mineralized as ankerite within about 2 years; follow-on CarbonSAFE studies are ongoing.",
@@ -46,12 +46,14 @@
      "gt": 100,
      "tier": "Theoretical, whole Columbia River Basalt Group (pore-volume method; 'greater than 100 Gt')",
      "source": "McGrail et al. 2006, J. Geophys. Res. 111, B12201, doi:10.1029/2005JB004169",
-     "gt_label": ">100 Gt"
+     "gt_label": ">100 Gt",
+     "label": "Theoretical, whole basalt group"
     },
     {
      "gt": 304,
      "tier": "theoretical supercritical storage resource, same study area, P50 (P90-P10 181-351 Gt; published abstract)",
-     "source": "Cao et al. 2024, Int. J. Greenh. Gas Control 137, 104206, doi:10.1016/j.ijggc.2024.104206"
+     "source": "Cao et al. 2024, Int. J. Greenh. Gas Control 137, 104206, doi:10.1016/j.ijggc.2024.104206",
+     "label": "Supercritical storage, same study area (published abstract)"
     }
    ],
    "source_research": "McGrail, B.P. et al. 2006 (AGU); McGrail et al. 2017 Env. Sci. Technol. Wallula results; ScienceDirect 2024 'Gigaton commercial-scale carbon storage and mineralization potential in stacked Columbia River basalt reservoirs' https://www.sciencedirect.com/science/article/abs/pii/S175058362400149X"
@@ -87,14 +89,15 @@
     "mid": 200,
     "high": 316
    },
-   "alt_estimates": [
+   "alt_estimates": [],
+   "source_research": "Vishal, V. et al. 2021 capacity assessment; Princeton CMI 2022 'India's Deccan Traps Appear to Have Limited Capacity for Carbon Storage' https://cmi.princeton.edu/annual-meetings/annual-reports/year-2022-1/indias-deccan-traps-appear-to-have-limited-capacity-for-carbon-storage/; Discover Geoscience 2025 https://link.springer.com/article/10.1007/s44288-025-00259-7",
+   "alt_estimates_research": [
     {
      "gt": 305,
      "tier": "Theoretical, whole Deccan Volcanic Province (pore-volume method; range 94-305 Gt)",
      "source": "Vishal et al. 2021, Int. J. Greenh. Gas Control 111, 103458, doi:10.1016/j.ijggc.2021.103458, Table 6"
     }
-   ],
-   "source_research": "Vishal, V. et al. 2021 capacity assessment; Princeton CMI 2022 'India's Deccan Traps Appear to Have Limited Capacity for Carbon Storage' https://cmi.princeton.edu/annual-meetings/annual-reports/year-2022-1/indias-deccan-traps-appear-to-have-limited-capacity-for-carbon-storage/; Discover Geoscience 2025 https://link.springer.com/article/10.1007/s44288-025-00259-7"
+   ]
   },
   {
    "name": "Rajmahal Traps",
@@ -141,10 +144,11 @@
    "depth_porosity_notes": "The lava pile is up to 3400 m thick in places (Tunguska Basin); permafrost and remoteness are major practical obstacles.",
    "suitability_notes": "A very large continental flood basalt province, essentially unstudied for CO2 storage and far from industrial CO2 sources and infrastructure.",
    "existing_activity": "None known.",
-   "source": "General LIP geology literature (Reichow et al. 2009 Earth Planet. Sci. Lett. on Siberian Traps volume/age); no mineralization-specific capacity study found.",
+   "source": "General LIP geology literature (Reichow et al. 2009 Earth Planet. Sci. Lett. on Siberian Traps volume/age)",
    "capacity_basis_research": "No dedicated peer-reviewed CO2-storage capacity assessment identified; would be enormous given areal extent (largest continental flood basalt province on Earth, ~2-4 million km2 original extent) but is essentially unstudied for CCS/mineralization purposes.",
    "depth_porosity_notes_research": "Up to 3400 m thick lava pile in places (Tunguska Basin); permafrost terrain and remoteness are major practical obstacles.",
-   "suitability_notes_research": "Largest LIP globally by volume; a major data gap for the global inventory. No known industrial CO2 source co-location or infrastructure."
+   "suitability_notes_research": "Largest LIP globally by volume; a major data gap for the global inventory. No known industrial CO2 source co-location or infrastructure.",
+   "source_research": "General LIP geology literature (Reichow et al. 2009 Earth Planet. Sci. Lett. on Siberian Traps volume/age); no mineralization-specific capacity study found."
   },
   {
    "name": "Paraná-Etendeka Large Igneous Province",
@@ -196,11 +200,12 @@
    "depth_porosity_notes": "The Early Jurassic lava pile is up to 1.4 km thick in the Lesotho highlands, with little subsurface characterization for CO2 storage.",
    "suitability_notes": "Unstudied for CO2 storage in basalt, despite large coal-fired CO2 sources nearby in Mpumalanga.",
    "existing_activity": "None known; South African CCS research has focused on sedimentary basins.",
-   "source": "General Karoo LIP volcanology literature (Duncan & Marsh 2006); no mineralization capacity study identified.",
+   "source": "General Karoo LIP volcanology literature (Duncan & Marsh 2006)",
    "capacity_basis_research": "No published mineralization capacity estimate identified. Original Karoo/Ferrar LIP extent (with Antarctica) estimated at >3 x10^6 km2 but present-day exposed/preserved Karoo basalt (Drakensberg Group, Lesotho highlands) is much smaller (~200,000 km2).",
    "depth_porosity_notes_research": "Up to 1.4 km thick lava pile in Lesotho highlands (Drakensberg basalts), Early Jurassic age; limited subsurface reservoir characterization for CCS purposes.",
    "suitability_notes_research": "Major data gap; South Africa has significant coal-fired CO2 point sources (Mpumalanga) that could pair with Karoo basalt/dolerite sills, but no dedicated CCS-in-basalt studies found.",
-   "existing_activity_research": "None known; South African CCS research (SACCCS) has focused primarily on sedimentary basins, not Karoo basalt mineralization."
+   "existing_activity_research": "None known; South African CCS research (SACCCS) has focused primarily on sedimentary basins, not Karoo basalt mineralization.",
+   "source_research": "General Karoo LIP volcanology literature (Duncan & Marsh 2006); no mineralization capacity study identified."
   },
   {
    "name": "Ethiopian-Yemen Traps / Afar",
@@ -222,11 +227,12 @@
    "depth_porosity_notes": "An Oligocene (about 30 million years old) trap sequence up to 2 km thick in the northwest Ethiopian highlands, with highly fractured, shallower rift basalts near the Afar rift axis.",
    "suitability_notes": "Large in extent but essentially unstudied for CO2 storage.",
    "existing_activity": "None known.",
-   "source": "General geology (Hofmann et al. 1997 on Ethiopian flood basalt volcanism); no CO2 storage capacity study identified.",
+   "source": "General geology (Hofmann et al. 1997 on Ethiopian flood basalt volcanism)",
    "capacity_basis_research": "No dedicated capacity study found; Oligocene Ethiopian/Yemen flood basalts (~30 Ma) plus ongoing Afar rift volcanism give both LIP-scale flood basalt (flood_basalt) and active rift basalt (rift_volcanic) targets - see separate 'East African Rift - Ethiopia/Djibouti' entry for the rift-related component.",
    "depth_porosity_notes_research": "Up to 2 km thick trap sequence in NW Ethiopian highlands; highly fractured Afar rift basalts at shallower depth near the rift axis.",
    "suitability_notes_research": "Large areal extent, essentially unstudied for CCS; overlaps with active East African Rift basalt category below.",
-   "existing_activity_research": "None known for mineralization specifically."
+   "existing_activity_research": "None known for mineralization specifically.",
+   "source_research": "General geology (Hofmann et al. 1997 on Ethiopian flood basalt volcanism); no CO2 storage capacity study identified."
   },
   {
    "name": "North Atlantic Igneous Province (Faroe Islands / Vøring & Møre margins)",
@@ -273,10 +279,11 @@
    "depth_porosity_notes": "A Permian flood basalt province in southwest China (Sichuan, Yunnan, Guizhou), up to 5 km thick in the inner zone and poorly characterized as a CO2 reservoir.",
    "suitability_notes": "Unstudied for CO2 mineralization; Chinese storage research has concentrated on sedimentary basins such as the Ordos and Sichuan.",
    "existing_activity": "None known.",
-   "source": "General LIP literature (Xu et al. 2004 on Emeishan volcanism); no capacity study identified.",
+   "source": "General LIP literature (Xu et al. 2004 on Emeishan volcanism)",
    "capacity_basis_research": "No dedicated CO2 mineralization capacity study identified in literature searched.",
    "depth_porosity_notes_research": "Permian flood basalt province in SW China (Sichuan/Yunnan/Guizhou), up to 5 km thick in the inner zone; poorly characterized for CCS reservoir properties.",
-   "suitability_notes_research": "Data gap; China has strong CCS/CCUS policy interest but published work concentrates on sedimentary basin storage (Ordos, Sichuan Basin sandstones), not Emeishan basalt mineralization."
+   "suitability_notes_research": "Data gap; China has strong CCS/CCUS policy interest but published work concentrates on sedimentary basin storage (Ordos, Sichuan Basin sandstones), not Emeishan basalt mineralization.",
+   "source_research": "General LIP literature (Xu et al. 2004 on Emeishan volcanism); no capacity study identified."
   },
   {
    "name": "Central Atlantic Magmatic Province (CAMP) - Eastern North America / Morocco",
@@ -297,10 +304,11 @@
    "depth_porosity_notes": "Eastern US basalts (Watchung, Palisades) are typically under 300 m thick and often near the surface, too shallow for supercritical CO2; Moroccan basalts are similarly thin.",
    "suitability_notes": "Likely of limited practical relevance because the basalts are thin and shallow, despite proximity to dense US East Coast CO2 sources.",
    "existing_activity": "None known.",
-   "source": "General CAMP literature (Marzoli et al. 1999 Science); no mineralization capacity study identified.",
+   "source": "General CAMP literature (Marzoli et al. 1999 Science)",
    "capacity_basis_research": "No dedicated capacity estimate identified; CAMP (Triassic-Jurassic, ~201 Ma) is one of the largest LIPs by original areal extent (>10^7 km2 including now-separated continents) but present-day exposed basalt (Newark, Hartford, Culpeper basin traps in eastern USA; Morocco's High Atlas basalts) is comparatively limited and thin (100s of m).",
    "depth_porosity_notes_research": "Eastern US CAMP basalts (e.g. Watchung/Palisades) are typically <300 m thick, often near-surface (unsuitable depth for supercritical CO2 without deeper equivalents); Moroccan CAMP basalts similarly thin.",
-   "suitability_notes_research": "Likely limited practical relevance vs. other LIPs due to thinness/shallow depth, but included for completeness given proximity to dense US East Coast CO2 sources."
+   "suitability_notes_research": "Likely limited practical relevance vs. other LIPs due to thinness/shallow depth, but included for completeness given proximity to dense US East Coast CO2 sources.",
+   "source_research": "General CAMP literature (Marzoli et al. 1999 Science); no mineralization capacity study identified."
   },
   {
    "name": "Samail Ophiolite (Oman / UAE)",
@@ -392,10 +400,11 @@
    "depth_porosity_notes": "An Eocene-Oligocene ophiolite on Luzon with partially serpentinized harzburgite and dunite and associated chromite deposits.",
    "suitability_notes": "One of several Southeast Asian ophiolite belts that are geologically analogous to Oman but unstudied for CO2 storage.",
    "existing_activity": "None known.",
-   "source": "General Philippine ophiolite geology literature (Yumul et al. reviews); no mineralization study identified.",
+   "source": "General Philippine ophiolite geology literature (Yumul et al. reviews)",
    "capacity_basis_research": "No dedicated capacity study found.",
    "depth_porosity_notes_research": "Eocene-Oligocene ophiolite complex (Zambales Range, Luzon) with harzburgite, dunite, and associated chromite deposits; partially serpentinized.",
-   "suitability_notes_research": "One of several SE Asian ophiolite belts (with Palawan, Mindanao) that are geologically analogous to Oman but entirely unstudied for CO2 storage as of this compilation."
+   "suitability_notes_research": "One of several SE Asian ophiolite belts (with Palawan, Mindanao) that are geologically analogous to Oman but entirely unstudied for CO2 storage as of this compilation.",
+   "source_research": "General Philippine ophiolite geology literature (Yumul et al. reviews); no mineralization study identified."
   },
   {
    "name": "Troodos Ophiolite (Cyprus)",
@@ -414,10 +423,11 @@
    "depth_porosity_notes": "A classic, well-preserved Cretaceous ophiolite with extensive harzburgite and dunite; variable serpentinization controls reactivity.",
    "suitability_notes": "Long studied as an ophiolite type locality, but no field-scale CO2 injection has been proposed.",
    "existing_activity": "Laboratory carbonation-kinetics studies only.",
-   "source": "General Troodos petrology + peridotite carbonation kinetics literature (autoclave carbonation-efficiency studies of Troodos harzburgite/dunite).",
+   "source": "",
    "capacity_basis_research": "No basin-scale capacity estimate published; only bench-scale carbonation-efficiency experiments exist (harzburgite ~70% olivine/25% pyroxene/2-3% serpentine; dunite ~97% olivine) showing low carbonation extent for unmilled samples (0.7%) rising sharply with milling (7.4%) in short autoclave tests, illustrating the general kinetic-limitation problem rather than an in-situ reservoir capacity.",
    "depth_porosity_notes_research": "Classic, well-preserved Cretaceous ophiolite; harzburgite and dunite exposed extensively in the Troodos massif; degree of serpentinization varies, controlling in-situ reactivity.",
-   "suitability_notes_research": "Long-studied academically as an ophiolite type-locality; no field-scale CO2 injection proposed to date."
+   "suitability_notes_research": "Long-studied academically as an ophiolite type-locality; no field-scale CO2 injection proposed to date.",
+   "source_research": "General Troodos petrology + peridotite carbonation kinetics literature (autoclave carbonation-efficiency studies of Troodos harzburgite/dunite)."
   },
   {
    "name": "Turkish Ophiolites (Kizildag / Anatolian belt)",
@@ -436,10 +446,11 @@
    "depth_porosity_notes": "Several Neotethyan ophiolite belts across Anatolia (Kizildag, Pozanti-Karsanti) with variably serpentinized harzburgite and dunite, some showing natural carbonation.",
    "suitability_notes": "Geologically comparable to Oman and Albania but unstudied for engineered mineralization.",
    "existing_activity": "None known.",
-   "source": "General Turkish ophiolite geology literature; no mineralization capacity study identified.",
+   "source": "General Turkish ophiolite geology literature",
    "capacity_basis_research": "No dedicated CO2 storage capacity study identified.",
    "depth_porosity_notes_research": "Multiple Neotethyan ophiolite belts across southern/central Anatolia (Kizildag, Pozanti-Karsanti, others) with harzburgite/dunite bodies, variably serpentinized; some hosting natural travertine/magnesite occurrences indicative of natural carbonation.",
-   "suitability_notes_research": "Data gap; geologically comparable to other Neotethyan ophiolites (Oman, Albania) but unstudied for engineered mineralization."
+   "suitability_notes_research": "Data gap; geologically comparable to other Neotethyan ophiolites (Oman, Albania) but unstudied for engineered mineralization.",
+   "source_research": "General Turkish ophiolite geology literature; no mineralization capacity study identified."
   },
   {
    "name": "Mirdita Ophiolite (Albania) / Balkan Ophiolite Belt",
@@ -462,10 +473,11 @@
    "depth_porosity_notes": "Large Jurassic harzburgite and dunite massifs in Albania and Greece (Vourinos, Pindos), historically mined for chromite, with natural carbonated serpentinite (listwanite).",
    "suitability_notes": "A plausible future European target near Balkan industrial CO2 sources, but no capacity work is published.",
    "existing_activity": "None known.",
-   "source": "General Balkan ophiolite geology literature; no mineralization capacity study identified.",
+   "source": "General Balkan ophiolite geology literature",
    "capacity_basis_research": "No dedicated CO2 storage capacity study identified.",
    "depth_porosity_notes_research": "Jurassic Mirdita ophiolite (Albania) and related Balkan ophiolite fragments (Vourinos-Greece, Pindos) include large harzburgite/dunite massifs, historically mined for chromite; natural listwanite (carbonated serpentinite) occurrences documented.",
-   "suitability_notes_research": "Data gap; a plausible future European ISM target given proximity to Balkan industrial CO2 sources, but no capacity work published."
+   "suitability_notes_research": "Data gap; a plausible future European ISM target given proximity to Balkan industrial CO2 sources, but no capacity work published.",
+   "source_research": "General Balkan ophiolite geology literature; no mineralization capacity study identified."
   },
   {
    "name": "California Coast Range Ophiolite / Serpentinite belt",
@@ -484,11 +496,12 @@
    "depth_porosity_notes": "Coast Range Ophiolite and Franciscan serpentinite bodies (New Idria, Clear Creek) are widely exposed but faulted by the San Andreas system, complicating deep injection.",
    "suitability_notes": "Deep injection is little studied because of active faulting and seismicity concerns.",
    "existing_activity": "Surface carbonation and enhanced-weathering research on serpentinite mine tailings; no deep in-situ pilot.",
-   "source": "General California Coast Range Ophiolite geology literature; no in-situ mineralization capacity study identified.",
+   "source": "General California Coast Range Ophiolite geology literature",
    "capacity_basis_research": "No dedicated in-situ CO2 storage capacity study identified; California serpentinite is more often discussed for ex-situ/surficial mineral carbonation (mine tailings, enhanced weathering) than deep in-situ injection.",
    "depth_porosity_notes_research": "Coast Range Ophiolite and associated Franciscan Complex serpentinite bodies (including the historic New Idria and Clear Creek serpentinite masses) are extensively exposed but generally structurally complex/faulted (San Andreas system), complicating deep injection.",
    "suitability_notes_research": "California's serpentinite is the state rock and a widely cited surficial carbonation research target (Project Vesta-style enhanced weathering, mine tailings carbonation), but in-situ deep injection is less studied than in Oman-analogue settings due to active faulting/seismicity concerns.",
-   "existing_activity_research": "Surficial/ex-situ carbonation and enhanced-weathering research (e.g. on serpentinite mine tailings); no deep in-situ ISM pilot identified."
+   "existing_activity_research": "Surficial/ex-situ carbonation and enhanced-weathering research (e.g. on serpentinite mine tailings); no deep in-situ ISM pilot identified.",
+   "source_research": "General California Coast Range Ophiolite geology literature; no in-situ mineralization capacity study identified."
   },
   {
    "name": "Bay of Islands Ophiolite (Newfoundland, Canada)",
@@ -507,10 +520,11 @@
    "depth_porosity_notes": "An Ordovician ophiolite, well exposed in Gros Morne National Park and variably serpentinized.",
    "suitability_notes": "A renowned ophiolite type locality, but much of it lies in a protected national park, limiting industrial development.",
    "existing_activity": "None known.",
-   "source": "General Bay of Islands ophiolite geology literature; no mineralization capacity study identified.",
+   "source": "General Bay of Islands ophiolite geology literature",
    "capacity_basis_research": "No dedicated CO2 storage capacity study identified.",
    "depth_porosity_notes_research": "Classic Ordovician ophiolite complex (harzburgite tectonite plus cumulate sequence), well exposed in Gros Morne National Park; variably serpentinized.",
-   "suitability_notes_research": "World-renowned type-locality ophiolite used to define oceanic-crust stratigraphy; no engineered CO2 mineralization work identified, and much of it lies within a protected national park, limiting industrial development potential."
+   "suitability_notes_research": "World-renowned type-locality ophiolite used to define oceanic-crust stratigraphy; no engineered CO2 mineralization work identified, and much of it lies within a protected national park, limiting industrial development potential.",
+   "source_research": "General Bay of Islands ophiolite geology literature; no mineralization capacity study identified."
   },
   {
    "name": "British Columbia Serpentinite Belts (Decar / Cassiar / Shulaps / Atlin)",
@@ -576,10 +590,11 @@
    "depth_porosity_notes": "Several tectonically complex, variably serpentinized ophiolite and serpentinite belts (Hokkaido, Sanbagawa belt, Shikoku).",
    "suitability_notes": "Unstudied; Japan's CCS effort focuses on offshore sedimentary basins such as Tomakomai.",
    "existing_activity": "None known.",
-   "source": "General Japanese ophiolite geology literature; no mineralization study identified.",
+   "source": "General Japanese ophiolite geology literature",
    "capacity_basis_research": "No dedicated CO2 mineralization capacity study identified.",
    "depth_porosity_notes_research": "Multiple accreted ophiolite/serpentinite belts across Japan (Hokkaido, Sanbagawa metamorphic belt, Shikoku); tectonically complex, variably serpentinized.",
-   "suitability_notes_research": "Data gap; Japan's CCS efforts have focused on offshore sedimentary basins (Tomakomai) rather than onshore ultramafic mineralization."
+   "suitability_notes_research": "Data gap; Japan's CCS efforts have focused on offshore sedimentary basins (Tomakomai) rather than onshore ultramafic mineralization.",
+   "source_research": "General Japanese ophiolite geology literature; no mineralization study identified."
   },
   {
    "name": "Kalimantan / Sulawesi Ophiolites (Indonesia)",
@@ -657,7 +672,7 @@
    },
    "rock_type": "basalt",
    "capacity_gt": null,
-   "capacity_basis": "No peer-reviewed regional estimate is published. Cella has stated a potential of about 400 Gt CO2 for the Rift Valley without a published method, and a site study of Olkaria basalt gives 23-89 Mt.",
+   "capacity_basis": "No peer-reviewed regional estimate is published; a site study of Olkaria basalt gives 23-89 Mt.",
    "depth_porosity_notes": "Young rift basalts near Lakes Elementaita and Naivasha share the geothermal systems (Olkaria, Menengai) that supply about half of Kenya's grid, with highly permeable fracture zones.",
    "suitability_notes": "Abundant geothermal power for direct air capture is a key economic advantage.",
    "existing_activity": "Octavia Carbon and Cella injected about 460 kg of CO2 into basalt near Lake Elementaita in a test reported in May 2026.",
@@ -675,7 +690,8 @@
     {
      "gt": 400,
      "tier": "Company statement, whole Kenyan Rift Valley (no published method)",
-     "source": "Cella CEO Corey Pattison, quoted in Carbon Herald, 5 June 2023"
+     "source": "Cella CEO Corey Pattison, quoted in Carbon Herald, 5 June 2023",
+     "label": "Company statement, whole Rift Valley"
     }
    ],
    "source_research": "MIT Technology Review Dec 2025 'Welcome to Kenya's Great Carbon Valley' https://www.technologyreview.com/2025/12/22/1130153/geothermal-energy-carbon-capture-kenya-climate-solution/; ScienceDirect 2021 'Can East African rift basalts sequester CO2? Case study of the Kenya rift' https://www.sciencedirect.com/science/article/pii/S2468227621002283; decarbonfuse.com coverage of Octavia Carbon/Cella injection"
@@ -699,11 +715,12 @@
    "depth_porosity_notes": "Very high geothermal gradients and active volcanism (Erta Ale, Dabbahu) give reactive, permeable young basalt but hard drilling conditions: extreme heat, remoteness and volcanic hazard.",
    "suitability_notes": "Geologically analogous to the Kenya rift and Iceland but essentially unstudied for CO2 storage.",
    "existing_activity": "None known for CO2 mineralization; geothermal exploration is ongoing in Djibouti and Ethiopia.",
-   "source": "General Afar Depression volcanology/rift literature; no CO2 mineralization capacity study identified.",
+   "source": "General Afar Depression volcanology/rift literature",
    "capacity_basis_research": "No dedicated capacity study identified; the Afar Depression sits atop both the Oligocene Ethiopian/Yemen flood-basalt pile and actively rifting, highly fractured young basalt at the Africa-Arabia-Somali triple junction.",
    "depth_porosity_notes_research": "Very high geothermal gradient and active volcanism (Erta Ale, Dabbahu) provide highly reactive, permeable young basalt, but also challenging drilling conditions (extreme heat, remoteness, seismic/volcanic hazard).",
    "suitability_notes_research": "Geologically analogous to the Kenya rift and Iceland (active rift basalt) but essentially unstudied for CCS; flagged as a plausible future extension of the Kenya rift ISM model.",
-   "existing_activity_research": "None known for CO2 mineralization; geothermal exploration ongoing (Djibouti, Ethiopia)."
+   "existing_activity_research": "None known for CO2 mineralization; geothermal exploration ongoing (Djibouti, Ethiopia).",
+   "source_research": "General Afar Depression volcanology/rift literature; no CO2 mineralization capacity study identified."
   },
   {
    "name": "Hawaii (Island of Hawaii basalt shield volcanoes)",
@@ -722,10 +739,11 @@
    "depth_porosity_notes": "Very young, highly permeable shield-volcano basalt (Mauna Loa, Kilauea) with vesicular flow tops and lava tubes; active volcanic and seismic hazard constrains siting.",
    "suitability_notes": "A promising geological analogue to Iceland, but volcanic hazard and a lack of large local CO2 sources limit near-term relevance.",
    "existing_activity": "None known.",
-   "source": "General Hawaiian volcanology; no mineralization capacity study identified.",
+   "source": "General Hawaiian volcanology",
    "capacity_basis_research": "No dedicated in-situ mineralization capacity study identified; discussion of Hawaiian basalt in the CCS literature is largely conceptual (young, highly porous ocean-island tholeiite/alkalic basalt analogous to Iceland).",
    "depth_porosity_notes_research": "Extremely young, highly permeable shield-volcano basalt (Mauna Loa, Kilauea) with abundant vesicular flow tops and lava tubes; active volcanic/seismic hazard is a major siting constraint.",
-   "suitability_notes_research": "Geologically promising analogue to Iceland's young rift basalt, but active-volcano hazard and lack of large local point-source CO2 emitters limit near-term relevance; a research/data gap."
+   "suitability_notes_research": "Geologically promising analogue to Iceland's young rift basalt, but active-volcano hazard and lack of large local point-source CO2 emitters limit near-term relevance; a research/data gap.",
+   "source_research": "General Hawaiian volcanology; no mineralization capacity study identified."
   },
   {
    "name": "Japan / Kurile Volcanic Arc Basalts",
@@ -745,10 +763,11 @@
    "depth_porosity_notes": "Calc-alkaline to tholeiitic arc volcanics with variable porosity.",
    "suitability_notes": "A lower-priority target because its chemistry is less favorable than that of flood or rift basalts and peridotite.",
    "existing_activity": "None known for mineralization.",
-   "source": "General arc volcanism/geochemistry literature; no mineralization capacity study identified.",
+   "source": "General arc volcanism/geochemistry literature",
    "capacity_basis_research": "No dedicated capacity study identified; arc basalts/andesites are generally less Mg-rich and thus less reactive per unit volume than rift tholeiites or peridotite.",
    "depth_porosity_notes_research": "Calc-alkaline to tholeiitic arc volcanics, variable porosity; Japan's main CCS focus (Tomakomai) targets offshore sedimentary aquifers, not arc basalt mineralization.",
-   "suitability_notes_research": "Lower priority ISM target given less favorable (more silicic, less Mg/Ca-rich) bulk chemistry than true flood/rift basalts or peridotite; included for completeness/data-gap tracking."
+   "suitability_notes_research": "Lower priority ISM target given less favorable (more silicic, less Mg/Ca-rich) bulk chemistry than true flood/rift basalts or peridotite; included for completeness/data-gap tracking.",
+   "source_research": "General arc volcanism/geochemistry literature; no mineralization capacity study identified."
   },
   {
    "name": "Juan de Fuca Plate (offshore Pacific Northwest)",
@@ -860,7 +879,7 @@
     "mid": 40000,
     "high": 100000
    },
-   "capacity_basis": "Snæbjörnsdóttir and colleagues (2014) estimate about 2,000 to 100,000-250,000 Gt CO2 for the global ridge system, depending on method. These are whole-system theoretical figures, not site or economic estimates.",
+   "capacity_basis": "Snæbjörnsdóttir and colleagues (2014) estimate about 2,000 to 100,000 Gt CO2 for the global ridge system, depending on method. These are whole-system theoretical figures, not site or economic estimates.",
    "depth_porosity_notes": "Ridge basalt is young, porous and reactive near spreading centers but largely inaccessible, under 2000-4000+ m of water and far from shore and CO2 sources.",
    "suitability_notes": "Essentially no near-term practical relevance given extreme cost and distance.",
    "existing_activity": "None; a research project has drilled monitoring boreholes on the Reykjanes Ridge flank, but no CO2 has been injected (see that panel).",
@@ -878,12 +897,14 @@
     {
      "gt": 250000,
      "tier": "Theoretical, natural-analogue upper end (whole ridge system)",
-     "source": "Snæbjörnsdóttir et al. 2014, Energy Procedia 63, 4585-4600, doi:10.1016/j.egypro.2014.11.491"
+     "source": "Snæbjörnsdóttir et al. 2014, Energy Procedia 63, 4585-4600, doi:10.1016/j.egypro.2014.11.491",
+     "label": "Theoretical, upper end of one method"
     },
     {
      "gt": 15100,
      "tier": "Theoretical minimum, 15 selected deep-sea basalt regions (4,119 Gt carbon)",
-     "source": "Goldberg & Slagle 2008, Nature Precedings, doi:10.1038/npre.2008.2640.1"
+     "source": "Goldberg & Slagle 2008, Nature Precedings, doi:10.1038/npre.2008.2640.1",
+     "label": "Theoretical minimum, 15 selected regions"
     }
    ],
    "source_research": "Snæbjörnsdóttir, S.Ó. & Gislason, S.R. 2016 NORDICCS report https://www.sintef.no/globalassets/sintef-energi/nordiccs/d-6.1.1407-8-co2-storage-potential-of-basaltic-rocks-in-iceland-and-the-oceanic-ridges_web.pdf"
@@ -903,10 +924,11 @@
    "depth_porosity_notes": "Cretaceous submarine plateau basalt, mostly under 1000-2000 m of water and unexplored as a reservoir.",
    "suitability_notes": "Shows the gap between global mafic rock volume and any realistically deployable subset; no practical near-term relevance.",
    "existing_activity": "None.",
-   "source": "General Kerguelen Plateau geology literature (Frey et al., Coffin & Eldholm LIP reviews); no CO2 storage study identified.",
+   "source": "General Kerguelen Plateau geology literature (Frey et al., Coffin & Eldholm LIP reviews)",
    "capacity_basis_research": "No CO2 storage capacity study identified; the Kerguelen Plateau is one of the largest Large Igneous Provinces on Earth by volume (oceanic plateau basalt), but it is remote, deep-water, and has no nearby CO2 point sources.",
    "depth_porosity_notes_research": "Submarine oceanic plateau basalt (Cretaceous), water depths mostly 1000-2000 m over the plateau itself; essentially unexplored for reservoir engineering purposes.",
-   "suitability_notes_research": "Included as a data-gap entry illustrating the scale mismatch between total global mafic rock volume and any realistically deployable subset; no practical near-term relevance."
+   "suitability_notes_research": "Included as a data-gap entry illustrating the scale mismatch between total global mafic rock volume and any realistically deployable subset; no practical near-term relevance.",
+   "source_research": "General Kerguelen Plateau geology literature (Frey et al., Coffin & Eldholm LIP reviews); no CO2 storage study identified."
   },
   {
    "name": "Harrat Al-Shaam / Arabian Harrat Basalt Fields (Saudi Arabia, Jordan)",

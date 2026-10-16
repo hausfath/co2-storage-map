@@ -145,15 +145,13 @@
   const ismRatio = Math.round(M.theoretical_gt / INJ_UPPER_GT);
   const fmtBig = (x) => Math.round(x).toLocaleString("en-US");
   // Plain-language tooltips; sources and caveats are in the methodology modal.
-  const geoTip = "The low end is a risk-screened limit on how much can be stored safely; the " +
-    "high end is the total of all catalogued storage sites, most of them not yet explored. " +
-    "The two answer different questions, so they are not added together. " +
+  const geoTip = "The low end is a risk-adjusted assessment of how much can be stored safely. " +
+    "The high end is the total of all catalogued storage sites, most of them not yet explored. " +
     "See Methodology for sources.";
-  const ismTip = "A theoretical ceiling from the volume and chemistry of reactive rock, far above " +
-    "any plausible need. The real limit is how fast storage can be built. " +
-    "See Methodology for sources.";
+  const ismTip = "This reflects the theoretical capacity based on the volume and chemistry of " +
+    "reactive rock. See Methodology for sources.";
   document.getElementById("stats").innerHTML = `
-    <div class="stat-tile geo"><div class="k">Sedimentary basin storage</div>
+    <div class="stat-tile geo"><div class="k">Injection in sedimentary basins</div>
       <div class="v">${G.operational_mtpa} Mt/yr</div>
       <div class="s">operating today, ${nOpGeo} sites</div>
       <div class="v2">1,290–14,300 Gt</div>
@@ -170,33 +168,42 @@
   function legend() {
     const rows = [];
     if (injOn()) {
-      rows.push(`<div class="lg-title">Sedimentary basin storage (Gt CO₂, ${injMode() === "basins" ? "per basin" : "per country"})</div>`);
+      rows.push(`<div class="lg-title">Sedimentary storage: capacity per ${injMode() === "basins" ? "basin" : "country"} (Gt CO₂)</div>`);
       const lab = ["0–150", "150–500", ">500"];
       lab.forEach((l, i) => rows.push(
         `<div class="lg-row"><span class="lg-sw" style="background:${css(RAMP[i])}"></span>${l}</div>`));
-      rows.push(`<div class="lg-row"><span class="lg-sw" style="background:${css("--inj-1")};opacity:.5;border:1.2px dashed ${css("--inj-4")}"></span>${injMode() === "basins" ? "known basin, capacity unquantified or theoretical only" : "theoretical/prospective estimate only"}</div>`);
+      rows.push(`<div class="lg-row"><span class="lg-sw" style="background:${css("--inj-1")};opacity:.5;border:1.2px dashed ${css("--inj-4")}"></span>${injMode() === "basins" ? "Known basin, capacity unquantified or theoretical only" : "Theoretical or prospective estimate only"}</div>`);
     }
     if (on("ly-ism")) {
-      rows.push(`<div class="lg-title">Reactive rock formations (mineralization)</div>`);
+      rows.push(`<div class="lg-title">Mineralization: type of reactive rock formation</div>`);
       Object.values(CAT).forEach((c) => rows.push(
         `<div class="lg-row"><span class="lg-sw" style="background:${css(c.v)}"></span>${c.label}</div>`));
-      rows.push(`<div class="lg-row"><small>mapped surface extent of reactive rock (see Methodology)</small></div>`);
     }
     if (on("ly-projects")) {
       rows.push(`<div class="lg-title">Storage sites</div>`);
-      rows.push(`<div class="lg-row"><span class="lg-sw round" style="background:${css("--proj-geo")}"></span>Sedimentary storage site</div>`);
-      rows.push(`<div class="lg-row"><span class="lg-sw round" style="background:${css("--proj-ism")}"></span>Mineralization site</div>`);
-      rows.push(`<div class="lg-row"><span class="lg-sw round" style="background:transparent;border:1.6px solid ${css("--proj-geo")}"></span>Planned / in permitting (hollow)</div>`);
-      rows.push(`<div class="lg-row"><small>Size ∝ capacity (Mtpa)</small></div>`);
+      rows.push(`<div class="lg-row"><span class="lg-sw round" style="background:${css("--proj-geo")}"></span>Sedimentary</div>`);
+      rows.push(`<div class="lg-row"><span class="lg-sw round" style="background:${css("--proj-ism")}"></span>Mineralization</div>`);
     }
     document.getElementById("legend-body").innerHTML = rows.join("");
   }
 
   // ---------- detail panel ----------
   const detail = document.getElementById("detail");
+  // Consistent units and notation in displayed text (link URLs untouched): CO2 -> CO₂
+  // (not inside names such as CO2StoP, CO2CRC, CO2 Lock), Mtpa -> Mt/yr, km2 -> km².
+  function tidyText(root) {
+    const w = document.createTreeWalker(root, NodeFilter.SHOW_TEXT);
+    for (let n = w.nextNode(); n; n = w.nextNode()) {
+      n.nodeValue = n.nodeValue
+        .replace(/\bCO2\b(?!\s?(Lock|Stored|StoP|CRC|Basalt|RE|-SCREEN)\b)/g, "CO₂")
+        .replace(/(\d)\s?Mtpa\b/g, "$1 Mt/yr").replace(/\bMtpa\b/g, "Mt/yr")
+        .replace(/\bkm2\b/g, "km²");
+    }
+  }
   function openDetail(title, html) {
     document.getElementById("detail-title").textContent = title;
     document.getElementById("detail-body").innerHTML = html;
+    tidyText(document.getElementById("detail-body"));
     detail.hidden = false;
     detail.scrollTop = 0;
   }
@@ -293,7 +300,7 @@
     out.push(cur);
     return out.map((x) => x.trim()).filter(Boolean);
   }
-  const SRC_DROP = /(not located|not found|not extracted|not recovered)\.?$|^(n\/a$|seed data$|none found|no [a-z ]*(study|studies|estimate|assessment|figure)|no isolated|see |secondary review|gt figure not extracted)/i;
+  const SRC_DROP = /(not located|not found|not extracted|not recovered)\.?$|^(n\/a$|seed data$|none found|no [a-z0-9 -]*(study|studies|estimate|assessment|figure)|no isolated|see |secondary review|gt figure not extracted)/i;
   const esc = (x) => x.replace(/&/g, "&amp;").replace(/</g, "&lt;");
   function cleanCite(x) {
     return x.replace(/\s+--\s.*$/, "")
@@ -351,7 +358,7 @@
       return d ? d.charAt(0).toUpperCase() + d.slice(1) : "Estimate";
     };
     return alts.length ? `<div class="lg-title">Other estimates</div>${alts.map((a) =>
-      `<div class="row"><span>${kind(a.tier)} <small>(${citations(a.source).map((c) => c.html).join("; ") || "source not stated"})</small></span>` +
+      `<div class="row"><span>${a.label || kind(a.tier)} <small>(${citations(a.source).map((c) => c.html).join("; ") || "source not stated"})</small></span>` +
       `<span class="v">${a.gt_label || fmtGt(a.gt) + " Gt"}</span></div>`).join("")}` : "";
   }
 
@@ -546,16 +553,18 @@
     ideal storage site depends on transport distance and cost from the CO₂ source, permitting and
     development time, and cost per ton stored.</p>
 
-    <h3>Kinds of capacity estimate: read before comparing numbers</h3>
+    <h3>Kinds of capacity estimates: read before comparing numbers</h3>
     <p>Every capacity number carries a label for the kind of estimate behind it:</p>
     <ul class="method-list">
-      <li><b>Theoretical</b>: the full pore volume of a reservoir, or the full volume and
-      chemistry of reactive rock, before any screening. An upper bound; drawn with dashed
-      outlines on the map.</li>
-      <li><b>Effective</b>: screened for depth, injectivity and reservoir quality, but not yet
+      <li><b>Theoretical</b>: The full pore volume of a reservoir, or the full volume and
+      chemistry of reactive rock, before any screening. It is an upper bound, illustrated with
+      dashed outlines on the map.</li>
+      <li><b>Effective</b>: Screened for depth, injectivity and reservoir quality, but not yet
       for access or economics. Includes the USGS "technically accessible" estimates.</li>
-      <li><b>Practical</b>: also screened for land access, economics and regulation.</li>
-      <li><b>Catalogued</b>: totals from the ${ln("https://www.ogci.com/ccus/co2-storage-catalogue/", "OGCI CO₂ Storage Resource Catalogue")},
+      <li><b>Practical</b>: Effective capacity reduced to reflect regulatory, land access, and
+      economic constraints.</li>
+      <li><b>Catalogued</b>: Identified sites at every stage of maturity, most of them not yet well
+      characterized. Totals come from the ${ln("https://www.ogci.com/ccus/co2-storage-catalogue/", "OGCI CO₂ Storage Resource Catalogue")},
       which classifies sites with the SPE Storage Resources Management System and adds up every
       maturity class, from sites already storing CO₂ to formations not yet explored. Globally,
       13,579 of its 14,256 Gt (95%) is in the least mature, undiscovered class
@@ -563,23 +572,26 @@
       This is the most common kind here: ${nCountryCat} of ${A.countries.length} countries and
       ${nBasinCat} basins.</li>
     </ul>
-    <p>Mapped basins with no capacity number are labeled <b>Not assessed</b>. One basin (Gulf of
-    Thailand), whose source does not say how its estimate was screened, is labeled
-    <b>Estimate</b>. The kinds answer different questions and are never added together.</p>
-    <p><b>Headline ranges.</b> Sedimentary: 1,290 Gt is the low end of the risk-screened
-    "prudent planetary limit" of ${ln("https://doi.org/10.1038/s41586-025-09423-y", "Gidden et al. 2025")}
-    (central ~1,460 Gt, range 1,290–2,710 Gt); ~14,300 Gt is the OGCI catalogue total; and
-    ~55,000 Gt is the top of the 8,000–55,000 Gt global range that
-    ${ln("https://doi.org/10.1016/j.egypro.2017.03.1603", "Kearns et al. 2017")} call "practically
-    accessible" storage capacity. Mineralization:
-    the theoretical ceiling is ~10⁶ Gt (${ln("https://doi.org/10.17226/25259", "NASEM 2019")};
-    ${ln("https://doi.org/10.1038/s43017-019-0011-8", "Snæbjörnsdóttir et al. 2020")}), far above
-    any plausible need. Deployment is the real limit: RMI's optimistic "success story" scenario
-    has in-situ mineralization storing up to ~1.2 Gt CO₂/yr by 2050
-    (${ln("https://rmi.org/insight/the-applied-innovation-roadmap-for-cdr", "RMI 2023")}).</p>
+    <p>Mapped basins with no capacity number are labeled <b>Not assessed</b>. Different kinds of
+    estimate are never added together.</p>
+
+    <h3>Context on headline capacities</h3>
+    <ul class="method-list">
+      <li><b>Sedimentary</b>: 1,290 Gt is the low end of the risk-screened "prudent planetary
+      limit" of ${ln("https://doi.org/10.1038/s41586-025-09423-y", "Gidden et al. 2025")} (central
+      ~1,460 Gt, range 1,290–2,710 Gt); ~14,300 Gt is the OGCI catalogue total; and ~55,000 Gt is
+      the top of the 8,000–55,000 Gt global range that
+      ${ln("https://doi.org/10.1016/j.egypro.2017.03.1603", "Kearns et al. 2017")} call "practically
+      accessible" storage capacity.</li>
+      <li><b>Mineralization</b>: The theoretical ceiling is ~10⁶ Gt
+      (${ln("https://doi.org/10.17226/25259", "NASEM 2019")};
+      ${ln("https://doi.org/10.1038/s43017-019-0011-8", "Snæbjörnsdóttir et al. 2020")}). In RMI's
+      optimistic scenario, in-situ mineralization stores up to ~1.2 Gt CO₂/yr by 2050
+      (${ln("https://rmi.org/insight/the-applied-innovation-roadmap-for-cdr", "RMI 2023")}).</li>
+    </ul>
 
     <h3>Sedimentary basin layer</h3>
-    <p>${basinsAll.length} basins are mapped, ${nBasinCap} with a capacity number. Outlines come
+    <p>Of the ${basinsAll.length} mapped basins, ${nBasinCap} have a capacity number. Outlines come
     from national surveys where they exist (USGS for the US, Geoscience Australia, ANP Brazil,
     USGS for China) and otherwise from the USGS World Petroleum Resources provinces. Each basin's
     number is its own published assessment.</p>
@@ -587,7 +599,7 @@
     ${ln("https://pubs.usgs.gov/circ/1386/", "USGS 2013 National Assessment")}: the number is USGS's
     basin total of technically accessible storage, with its 5th–95th percentile range
     (${ln("https://pubs.usgs.gov/ds/774/", "Data Series 774")}, Table 1). Other published estimates,
-    such as Teletzke et al. 2018's practicable figures, appear under "Other estimates". USGS
+    such as Teletzke et al. 2018's practical figures, appear under "Other estimates". USGS
     assessed ${nUsgsNq} basins without estimating capacity; they show as not assessed. Panels list
     each assessed formation with its mean estimate and most likely depth. USGS assessed
     each formation between 3,000 and 13,000 ft (~0.9–4 km); where rock below 13,000 ft looked
@@ -596,42 +608,43 @@
     <p><b>Europe.</b> ${nEuRecon} European basins with no open outline are drawn from the extent of
     the EU CO2StoP storage formations assigned to them, so the outline shows assessed extent,
     not a structural boundary. CO2StoP storage units outside any mapped basin are drawn like
-    other basins without a capacity number (dashed), and their panels say they come from CO2StoP (${ln("https://doi.org/10.5281/zenodo.15837736", "CO2StoP data")};
+    other basins without a capacity number (dashed;
+    ${ln("https://doi.org/10.5281/zenodo.15837736", "CO2StoP data")};
     ${ln("https://data.geus.dk/pure-pdf/30624_GEUS-R_2014_56_opt.pdf", "final report")}).</p>
     <p>The per-country view colors each of ${A.countries.length} countries by its most defensible
     national estimate; click a country for the alternatives.</p>
 
     <h3>Mineralization layer</h3>
-    <p>${A.formations.length} reactive-rock formations with literature capacity estimates, drawn
-    from large igneous province outlines
+    <p>${A.formations.length} reactive-rock formations have literature capacity estimates and are
+    drawn from large igneous province outlines
     (${ln("https://doi.org/10.1016/j.palaeo.2017.03.014", "Ernst &amp; Youbi 2017")}) and the
     UTIG PLATES global ophiolite compilation, with circles where no outline exists (rift and arc
     volcanics, offshore basalt). Another ${(window.GEO_ISM_OPH?.features || [])
       .filter((f) => !f.properties.matched).length.toLocaleString("en-US")} mapped ophiolite
     bodies are shown as uncharacterized.</p>
     <p><b>Why no depth screen.</b> Mineralization polygons show the mapped surface extent of
-    reactive rock, an upper bound on geographic availability, not screened storage resource.
-    The familiar ≥800 m criterion comes from conventional injection storage
+    reactive rock, which is an upper bound rather than a screened storage resource. While the
+    depth of the reactive rock is a determining factor in the practical storage capacity of a
+    given formation, no global thickness or depth dataset exists for basalt and ophiolite
+    bodies, so no depth screen is applied. Detail panels carry per-formation depth and thickness
+    notes where literature exists.</p>
+    <p>For context, conventional injection storage occurs at depths greater than about 800 m
     (${ln("https://www.ipcc.ch/report/carbon-dioxide-capture-and-storage/", "IPCC 2005")}: below
-    ~800 m CO₂ remains supercritical) and carries over to supercritical basalt storage (the Wallula
-    pilot injected at 828–887 m; NASEM 2019), but dissolved-phase injection (Carbfix,
-    Hellisheiði) operates at ~500 m, trading depth for substantial water demand, and engineered
-    peridotite concepts target ~3 km
-    (${ln("https://doi.org/10.1073/pnas.0805794105", "Kelemen &amp; Matter 2008")}). No global
-    thickness or depth dataset exists for basalt and ophiolite bodies, so no depth screen is
-    applied. Detail panels carry per-formation depth and thickness notes where literature
-    exists.</p>
+    ~800 m CO₂ remains supercritical), and supercritical basalt storage occurs at similar depths
+    (the Wallula pilot injected at 828–887 m; NASEM 2019). However, dissolved-phase injection
+    (Carbfix, Hellisheiði) operates at ~500 m, trading depth for substantial water demand, and
+    engineered peridotite mineralization targets injections at ~3,000 m
+    (${ln("https://doi.org/10.1073/pnas.0805794105", "Kelemen &amp; Matter 2008")}).</p>
 
     <h3>Storage sites</h3>
-    <p>${A.projects.length} dedicated-storage projects
+    <p>${A.projects.length} storage projects
     (${A.projects.filter((p) => p.mechanism === "geologic").length} sedimentary,
     ${A.projects.filter((p) => p.mechanism === "mineralization").length} mineralization) with
-    mid-2026 statuses, compiled from the
+    mid-2026 statuses are shown, compiled from the
     ${ln("https://www.globalccsinstitute.com/co2re/", "Global CCS Institute CO2RE database")},
     the ${ln("https://www.iea.org/data-and-statistics/data-product/ccus-projects-database", "IEA CCUS Projects Database")},
     the ${ln("https://www.epa.gov/uic/current-class-vi-projects-under-review-epa", "EPA Class VI tracker")},
-    operator disclosures, and press. ${A.projects.filter((p) => p.url).length} of
-    ${A.projects.length} site panels link a project page; all cite their sources.</p>
+    operator disclosures, and press. The site panel links to a project page if available.</p>
 
     <h3>Sources</h3>
     <p class="method-src"><b>Sedimentary capacity:</b>
@@ -671,6 +684,7 @@
     ${ln("https://doi.org/10.1016/j.palaeo.2017.03.014", "Ernst &amp; Youbi LIP outlines")};
     ${ln("http://www-udc.ig.utexas.edu/external/plates/data/ophiolites.zip", "UTIG PLATES ophiolites")}.</p>`;
 
+  tidyText(document.getElementById("method-body"));
   legend();
 
   // ---------- first-visit tour ----------
@@ -678,25 +692,25 @@
   // upper end matches the geoTip / methodology text (Kearns et al. 2017).
   const TOUR = [
     { el: "#stats", title: "Start with the headline numbers", html:
-      `Almost all CO₂ stored so far went into <b>sedimentary basins</b>: <b>${G.operational_mtpa} Mt/yr</b> ` +
-      `operating across ${nOpGeo} sites, versus <b>${M.operational_mtpa} Mt/yr</b> at ${nOpIsm} ` +
+      `Almost all CO₂ storage operating today is in <b>sedimentary basins</b>: <b>${G.operational_mtpa} Mt/yr</b> ` +
+      `across ${nOpGeo} sites, versus <b>${M.operational_mtpa} Mt/yr</b> at ${nOpIsm} ` +
       `<b>mineralization</b> sites. But the theoretical potential of mineralization in reactive ` +
       `rock (~${fmtBig(M.theoretical_gt)} Gt) is about ${ismRatio}× the upper end of global estimates ` +
       `for sedimentary storage (~${fmtBig(INJ_UPPER_GT)} Gt), and reactive rock reaches many ` +
       `regions with no good sedimentary option. Carbon removal at scale needs both.` },
-    { el: "#map", title: "Reading the map", html:
+    { el: "#map", title: "Look at the map’s colors to identify storage types", html:
       `<b>Blues</b> are sedimentary basins suited to CO₂ injection; darker means more ` +
       `assessed capacity, dashed means unquantified. <b>Warm colors and purple</b> are ` +
       `reactive rock (basalts, ophiolites) suited to mineralization.` },
     { el: "#map", title: "Explore the data", html:
-      `Hover any region for a quick number. Click a basin, formation, or storage site ` +
-      `for capacity estimates, tiers, and sources.` },
-    { el: "#layers", title: "Layers and the fine print", html:
+      `Hover over any region for its name and capacity. Click a basin, formation, or storage ` +
+      `site for detail on capacity estimates and sources.` },
+    { el: "#layers", title: "Toggle layers to switch between storage sites and types", html:
       `Toggle <b>storage sites</b> to see operating and proposed projects, and switch the ` +
-      `basin layer between per-basin and per-country views (mineralization stays on either ` +
-      `way). Capacity estimates come in different kinds (theoretical, effective, practical, ` +
-      `and catalogued resource totals) that answer different questions, so they are never ` +
-      `added together; see the ⓘ icons and Methodology.` },
+      `sedimentary basin layer between per-basin and per-country views. Basins and formations ` +
+      `may have different kinds of capacity estimate that answer different questions: ` +
+      `theoretical, effective, practical, and catalogued resource totals. See the ⓘ icons and ` +
+      `Methodology for more detail.` },
   ];
   const tourWrap = document.createElement("div");
   tourWrap.id = "tour";

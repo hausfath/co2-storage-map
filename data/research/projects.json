@@ -306,7 +306,7 @@
   "start_year": 2030,
   "onshore_offshore": "offshore (East Sea)",
   "source": "MOTIE (korea.kr, 2024-01-05); Asia Today (2025-08-25, 2025-11-20, 2026-09-16)",
-  "notes": "A planned 1.2 Mtpa demonstration that would store CO2 from Ulsan-area industry in the depleted Donghae-1 gas field, which stopped producing in 2021. Its government feasibility review was reportedly withdrawn, with a re-application planned for 2026, so KNOC's 2030 start target is uncertain.",
+  "notes": "A planned demonstration that would store CO2 from Ulsan-area industry in the depleted Donghae-1 gas field, which stopped producing in 2021. Its government feasibility review was reportedly withdrawn, with a re-application planned for 2026, so KNOC's 2030 start target is uncertain.",
   "url": "https://m.korea.kr/briefing/pressReleaseView.do?newsId=156609443&gubun=pressRelease&pageIndex=179",
   "notes_research": "Korea's first large-scale CCS; repurposed depleted Donghae-1 gas field (2004-2021); 1.2 Mtpa target 2025-2030, schedule slipping (still pre-FEED). || 2026-10-15 verification: KNOC 2025 ESG Highlights p.12: preliminary basic design for transport and storage complete; roadmap EPC 2027-28, operation 2030 (1.2 Mtpa). Yeta (preliminary feasibility) selected Jan 2024, KRW 2.95tn; withdrawal discussed Jul 2025 (Newsis); reported withdrawn, re-application targeted Q3 2026 (Asia Today, Mar 2026). No approval found as of Oct 2026.",
   "source_research": "KNOC, SLB, SCMP",
@@ -329,8 +329,8 @@
   "operator": "Petronas Carigali",
   "start_year": 2027,
   "onshore_offshore": "offshore (Sarawak, Bintulu)",
-  "source": "PETRONAS FID release (29 Nov 2022); PETRONAS Integrated Report 2022; MHB EPCIC release (29 Nov 2022); The Star (2 Apr 2026); Offshore Technology, Kasawari Gas Development Project (field ~200 km off Bintulu, block SK316; CO2 to depleted M1 field via 138 km pipeline)",
-  "notes": "Stores CO2 separated from Kasawari gas in the depleted M1 gas field, reached by a 138 km subsea pipeline, at up to 3.3 Mtpa. FID was taken in October 2022; the map location (Kasawari field, Central Luconia, about 200 km off Bintulu) is approximate.",
+  "source": "PETRONAS FID release (29 Nov 2022); PETRONAS Integrated Report 2022; MHB EPCIC release (29 Nov 2022); The Star (2 Apr 2026); Offshore Technology, Kasawari Gas Development Project",
+  "notes": "Stores CO2 separated from Kasawari gas in the depleted M1 gas field, reached by a 138 km subsea pipeline. FID was taken in October 2022; the map location (Kasawari field, Central Luconia, about 200 km off Bintulu) is approximate.",
   "url": "https://www.petronas.com/media/media-releases/petronas-carigali-reaches-final-investment-decision-kasawari-ccs-project",
   "notes_research": "One of the largest offshore CCS projects regionally; gas production began Aug 2024; injection accelerated to 2027. || 2026-10-15 verification: FID approved 20 Oct 2022 (PETRONAS release 29 Nov 2022). Storage: neighbouring depleted field (PETRONAS IR 2022), M1 field via 138 km pipeline, 71-76 Mt total (MHB contractor release). Start-year history: end-2025 (MHB 2022), 2026 (PETRONAS IR 2022, 2024 feature), 2029-2030 (Borneo Post via GeoExpro), 2027 target (The Star 2 Apr 2026, secondary). Coordinates need checking: 3.6N/110.5E is west of Kuching, not 200 km off Bintulu.",
   "storage_type_research": "saline",
@@ -496,13 +496,14 @@
   "status": "planned",
   "capacity_mtpa": null,
   "cumulative_stored_mt": 0,
-  "operator": "TBD (Kapuni JV)",
+  "operator": "Kapuni JV (operator not yet named)",
   "start_year": null,
   "onshore_offshore": "onshore (Taranaki)",
   "source": "MBIE",
   "notes": "A candidate storage site, pending CCS legislation expected in 2026; no project is sanctioned yet.",
   "url": "https://www.rnz.co.nz/news/business/561410/carbon-capture-pivotal-project-for-cutting-greenhouse-gas-emissions-looks-shaky",
-  "notes_research": "Prime NZ candidate pending CCS legislation (expected 2026); no sanctioned project yet."
+  "notes_research": "Prime NZ candidate pending CCS legislation (expected 2026); no sanctioned project yet.",
+  "operator_research": "TBD (Kapuni JV)"
  },
  {
   "name": "Carbfix Hellisheiði (CarbFix1/CarbFix2 + Orca/Mammoth DAC injection)",
@@ -675,12 +676,13 @@
   "status": "pilot",
   "capacity_mtpa": 0.001,
   "cumulative_stored_mt": 0.00046,
-  "operator": "Octavia Carbon (DAC) / Cella Mineral Storage",
+  "operator": "Octavia Carbon / Cella",
   "start_year": 2026,
   "onshore_offshore": "onshore",
   "source": "decarbonfuse.com May 2026; Carbon Herald; XPRIZE Octavia & Cella profile",
   "notes": "A DAC plus mineral storage project near Lake Elementaita; an injection test announced in May 2026 put about 460 kg of CO2 into basalt using water-alternating-gas injection.",
-  "notes_research": "First DAC+geologic mineral storage project in the Southern Hemisphere / Africa. First injection test May 2026: ~460 kg CO2 injected into basalt at ~9 kg/min using water-alternating-gas (WAG) technique adapted from EOR, near Lake Elementaita, Central Rift Valley. Targeting ~1,000 net tonnes removed/yr by end-2026 via 68 modular DAC units, powered by geothermal-adjacent grid."
+  "notes_research": "First DAC+geologic mineral storage project in the Southern Hemisphere / Africa. First injection test May 2026: ~460 kg CO2 injected into basalt at ~9 kg/min using water-alternating-gas (WAG) technique adapted from EOR, near Lake Elementaita, Central Rift Valley. Targeting ~1,000 net tonnes removed/yr by end-2026 via 68 modular DAC units, powered by geothermal-adjacent grid.",
+  "operator_research": "Octavia Carbon (DAC) / Cella Mineral Storage"
  },
  {
   "name": "Great Carbon Valley / Climeworks Kenya DAC+S (planned)",
@@ -710,14 +712,15 @@
   "status": "planned",
   "capacity_mtpa": null,
   "cumulative_stored_mt": null,
-  "operator": "RMI (lead), Carbfix, PNNL, Heirloom, Removr, Sustaera + 13-org consortium",
+  "operator": "RMI-led consortium (Carbfix, PNNL, Heirloom and others)",
   "start_year": null,
   "onshore_offshore": "onshore",
   "source": "DOE FOA 2735 award; RMI press release; SSRN Ankeron Hub paper 2024",
   "notes": "A DOE-funded ($3M) feasibility study for a Pacific Northwest hub pairing DAC with mineral storage in Columbia River basalt. No permits or injection yet; the map location near Wallula is approximate.",
   "url": "https://rmi.org/press-release/consortium-wins-3-million-in-federal-funding-to-study-the-feasibility-of-a-first-of-a-kind-hub-for-direct-air-capture-in-the-pacific-northwest/",
   "notes_research": "DOE-funded ($3M) feasibility/design study for a regional DAC + Columbia River Basalt mineral storage hub in eastern Washington/Pacific Northwest, combining multiple DAC technology developers with Carbfix/PNNL basalt-injection expertise. Feasibility study stage as of mid-2026; no injection yet. Coordinates approximate (Columbia River Basalt region near Wallula).",
-  "status_research": "in_permitting"
+  "status_research": "in_permitting",
+  "operator_research": "RMI (lead), Carbfix, PNNL, Heirloom, Removr, Sustaera + 13-org consortium"
  },
  {
   "name": "Deep Sky / Carbfix Thetford Mines Pilot Injection",
@@ -894,13 +897,14 @@
   "status": "in_permitting",
   "capacity_mtpa": 2.0,
   "cumulative_stored_mt": null,
-  "operator": "Broadwing Energy (ADM/Google-linked cogeneration)",
+  "operator": "Broadwing Energy",
   "start_year": 2030,
   "onshore_offshore": "onshore",
   "source": "IL EPA draft air permit Apr 2026; Global Energy Monitor; Modern Power Systems",
   "notes": "A 452 MW gas-fired cogeneration plant supplying ADM and Google, designed to capture about 90% of its CO2 for injection into ADM's existing Class VI wells. FID was targeted for Q2 2026 and commercial operation for 2030.",
   "url": "https://www.powermag.com/google-backs-first-u-s-gas-fired-power-plant-with-integrated-ccs-for-data-centers/",
-  "notes_research": "452 MW gas-fired cogeneration plant in Decatur, IL supplying ADM and Google; ~90% of CO2 emissions to be captured and injected into ADM's existing EPA Class VI wells (Mt. Simon Sandstone). Draft air construction permit issued Apr 2026 (comment period to Jun 2026); FID targeted Q2 2026; commercial operation targeted 2030."
+  "notes_research": "452 MW gas-fired cogeneration plant in Decatur, IL supplying ADM and Google; ~90% of CO2 emissions to be captured and injected into ADM's existing EPA Class VI wells (Mt. Simon Sandstone). Draft air construction permit issued Apr 2026 (comment period to Jun 2026); FID targeted Q2 2026; commercial operation targeted 2030.",
+  "operator_research": "Broadwing Energy (ADM/Google-linked cogeneration)"
  },
  {
   "name": "In Salah CCS (Algeria)",
@@ -1252,13 +1256,14 @@
   "status": "construction",
   "capacity_mtpa": 2.0,
   "cumulative_stored_mt": null,
-  "operator": "ExxonMobil (via Denbury acquisition)",
+  "operator": "ExxonMobil",
   "start_year": 2026,
   "onshore_offshore": "onshore",
   "source": "Rextag; OGJ 'ExxonMobil signs land deal for largest CO2 offshore storage site'",
   "notes": "An 8,500-acre saline storage site about 50 miles northeast of Baton Rouge, with at least 100 Mt of estimated capacity. First injection could come as early as 2026.",
   "url": "https://www.dce.louisiana.gov/page/class-vi-permits-and-applications",
-  "notes_research": "8,500-acre dedicated saline sequestration site ~50 miles NE of Baton Rouge, LA; estimated storage capacity of at least 100 Mt CO2; targeted to accept first injection as early as 2026, part of ExxonMobil's ~100 Mt Gulf Coast network ambition."
+  "notes_research": "8,500-acre dedicated saline sequestration site ~50 miles NE of Baton Rouge, LA; estimated storage capacity of at least 100 Mt CO2; targeted to accept first injection as early as 2026, part of ExxonMobil's ~100 Mt Gulf Coast network ambition.",
+  "operator_research": "ExxonMobil (via Denbury acquisition)"
  },
  {
   "name": "ExxonMobil Baytown Low-Carbon Hydrogen + CCS (Texas)",
@@ -1421,7 +1426,7 @@
   "start_year": 2028,
   "onshore_offshore": "onshore",
   "source": "Aramco release 4 Dec 2024; Oil & Gas News Sep 2026; Carbon Herald Feb 2025",
-  "notes": "Phase one is designed to store up to 9 Mtpa of CO2 in a saline aquifer, about 6 Mtpa from three Aramco gas plants and 3 Mtpa from other industrial emitters. Construction was due to finish by end-2027, and recent reporting puts completion in 2028.",
+  "notes": "Phase one is designed to store up to 9 Mtpa of CO2 in a saline aquifer, about 6 Mtpa from three Aramco gas plants and 3 Mtpa from other industrial emitters. Construction was due to finish by the end of 2027, and recent reporting puts completion in 2028.",
   "notes_research": "Flagship Saudi CCS hub targeting 9 Mtpa capacity by 2027 (6 Mtpa Aramco-allocated, 3 Mtpa for third-party/non-Aramco facilities), part of Saudi Arabia interim 44 Mtpa-by-2035 sequestration target. 2025 marked transition to execution: .5B EPC contract to Larsen & Toubro for CO2 processing/compression facilities; >.7B in contracts deployed in 2025. First phase includes 200+ km dense-phase CO2 pipeline network. On track for 2027 commissioning as of mid-2026. || 2026-10-15 verification: Primary (Aramco 4 Dec 2024): 9 Mtpa phase one; Aramco 60/Linde 20/SLB 20; CO2 from three Aramco gas plants + other industrial sources; saline aquifer sink; construction completion expected end-2027; later phases to expand. Secondary only: L&T EPC award ~$1.5B (Feb 2025, MEED/Carbon Herald; L&T confirmation not seen), Wood FEED, OGN Sep 2026 citing 2028 target, S&P 2023 citing 6 Mt Aramco contribution. Unverified and removed from public notes: 3 Mtpa third-party split, 200+ km pipeline, 'on track for 2027 as of mid-2026'. 44 Mtpa by 2035 is the national Saudi CCS target, not the hub's. || 2026-10-15 verification: Phase 1 up to 9 Mtpa (6 Aramco gas plants, 3 third-party), saline aquifer sink; Aramco 60%/Linde 20%/SLB 20% (Aramco release 4 Dec 2024, construction complete end-2027). Oil & Gas News (1 Sep 2026) reports JV target completion 2028. EPC: L&T Energy Hydrocarbon, reported ~$1.5bn (Carbon Herald/Enterprise AM/MEED, Feb 2025; not confirmed in an Aramco or L&T primary source). Earlier '>$1.7B in contracts in 2025' claim has no traceable source and was dropped. Saudi 44 Mtpa-by-2035 national target is secondary-only.",
   "operator_research": "Saudi Aramco (EPC: Larsen & Toubro; FEED: Wood)",
   "source_research": "JPT SPE; CCUS Hub OGCI; hydrogen-worldexpo.com 2026; MEES",
@@ -1513,13 +1518,14 @@
   "status": "pilot_concluded",
   "capacity_mtpa": null,
   "cumulative_stored_mt": 0.000131,
-  "operator": "KAUST (King Abdullah University of Science and Technology) with Saudi Aramco and University of Iceland scientists",
+  "operator": "KAUST with Saudi Aramco",
   "start_year": 2024,
   "onshore_offshore": "onshore",
   "source": "Nature, April 2026 (doi 10.1038/s41586-026-10130-5); KAUST Discovery",
   "notes": "A basalt mineralization field pilot injecting about 131 t of CO2 in carbonated water over about 10 months (2024-25). About 70% became solid carbonate within the study period (Nature, April 2026).",
   "url": "https://discovery.kaust.edu.sa/en/article/26672/carbon-sequestration-for-arid-regions-defies-water-constraints/",
-  "notes_research": "First basalt in-situ mineralization field pilot in the Arabian Peninsula, methodologically similar to Carbfix (CO2-charged water re-injected through two wells, several hundred meters deep, with groundwater recirculation), in the basalt of the Jizan Economic Complex/Red Sea coastal plain, SW Saudi Arabia. ~131 t CO2 injected over a ~10-month pilot (2024-25); ~70% trapped as solid carbonate minerals within the study period; results published in Nature Apr 2026. Regional basalt formation claimed to hold multi-Gt theoretical capacity, but no commercial scale-up site yet announced as of mid-2026 — pilot concluded, coordinates approximate (Jizan region)."
+  "notes_research": "First basalt in-situ mineralization field pilot in the Arabian Peninsula, methodologically similar to Carbfix (CO2-charged water re-injected through two wells, several hundred meters deep, with groundwater recirculation), in the basalt of the Jizan Economic Complex/Red Sea coastal plain, SW Saudi Arabia. ~131 t CO2 injected over a ~10-month pilot (2024-25); ~70% trapped as solid carbonate minerals within the study period; results published in Nature Apr 2026. Regional basalt formation claimed to hold multi-Gt theoretical capacity, but no commercial scale-up site yet announced as of mid-2026 — pilot concluded, coordinates approximate (Jizan region).",
+  "operator_research": "KAUST (King Abdullah University of Science and Technology) with Saudi Aramco and University of Iceland scientists"
  },
  {
   "name": "IISER Bhopal/CSIR-NGRI Deccan Traps CO2 Injection Well (DeCarbFaroe)",
@@ -1531,12 +1537,13 @@
   "status": "pilot",
   "capacity_mtpa": null,
   "cumulative_stored_mt": null,
-  "operator": "IISER Bhopal (Geodynamics and Petroleum Geology Lab) / CSIR-National Geophysical Research Institute, under the international DeCarbFaroe programme; funded by India's Dept. of Science and Technology",
+  "operator": "IISER Bhopal / CSIR-National Geophysical Research Institute",
   "start_year": 2025,
   "onshore_offshore": "onshore",
   "source": "IISER Bhopal news release Aug 6 2025 (news.iiserb.ac.in); cognitud.com coverage",
   "notes": "A CO2 storage well targeting in-situ mineralization, drilled into Deccan Traps basalt and launched August 6, 2025 as a research well with ongoing monitoring. The exact site is not public, so the map location is approximate.",
-  "notes_research": "Billed as India's first dedicated CO2-storage well targeting in-situ mineralization, drilled into the Deccan Traps flood-basalt province. Launched Aug 6 2025 as a research/characterization well (not commercial-scale); CO2 reacts with basalt/groundwater to form stable carbonates over a few years, monitoring ongoing. Exact well site not disclosed beyond \"Deccan Traps\" (formation spans ~500,000 sq km across west-central India); coordinates approximate (central Deccan Traps, Maharashtra/MP region) pending more precise public siting information. No capacity or scale-up figures published as of mid-2026."
+  "notes_research": "Billed as India's first dedicated CO2-storage well targeting in-situ mineralization, drilled into the Deccan Traps flood-basalt province. Launched Aug 6 2025 as a research/characterization well (not commercial-scale); CO2 reacts with basalt/groundwater to form stable carbonates over a few years, monitoring ongoing. Exact well site not disclosed beyond \"Deccan Traps\" (formation spans ~500,000 sq km across west-central India); coordinates approximate (central Deccan Traps, Maharashtra/MP region) pending more precise public siting information. No capacity or scale-up figures published as of mid-2026.",
+  "operator_research": "IISER Bhopal (Geodynamics and Petroleum Geology Lab) / CSIR-National Geophysical Research Institute, under the international DeCarbFaroe programme; funded by India's Dept. of Science and Technology"
  },
  {
   "name": "Repsol Sakakemang CCS (South Sumatra, Indonesia)",
@@ -1583,12 +1590,13 @@
   "status": "planned",
   "capacity_mtpa": 6.0,
   "cumulative_stored_mt": null,
-  "operator": "Eni UK (convening cooperation agreement)",
+  "operator": "Eni UK",
   "start_year": 2030,
   "onshore_offshore": "offshore",
   "source": "energycentral.com; nstauthority.co.uk cooperation-agreement announcements 2025-26",
   "notes": "Would store CO2 in the depleted Hewett gas field about 25 km off Norfolk, serving the Bacton and Thames Estuary industrial cluster. At pre-FEED stage, targeting 6 Mtpa rising to 10 Mtpa from about 2030.",
-  "notes_research": "Depleted Hewett gas field, ~25km off the Norfolk coast, southern North Sea, linked to the Bacton gas terminal/Thames Estuary industrial cluster. Cooperation agreement/pre-FEED stage as of mid-2026, convened by Eni UK; initial phase targeting 6 Mtpa rising to 10 Mtpa; target start ~2030."
+  "notes_research": "Depleted Hewett gas field, ~25km off the Norfolk coast, southern North Sea, linked to the Bacton gas terminal/Thames Estuary industrial cluster. Cooperation agreement/pre-FEED stage as of mid-2026, convened by Eni UK; initial phase targeting 6 Mtpa rising to 10 Mtpa; target start ~2030.",
+  "operator_research": "Eni UK (convening cooperation agreement)"
  },
  {
   "name": "Errai CCS (Horisont Energi/Neptune Energy, Norway)",
@@ -1617,12 +1625,13 @@
   "status": "in_permitting",
   "capacity_mtpa": 5.0,
   "cumulative_stored_mt": null,
-  "operator": "Harbour Energy (formerly Wintershall Dea) / CapeOmega",
+  "operator": "Harbour Energy / CapeOmega",
   "start_year": null,
   "onshore_offshore": "offshore",
   "source": "carbonherald.com; ocean-energyresources.com Norwegian CO2 storage license coverage 2025-26",
-  "notes": "A North Sea CO2 storage exploration license about 120 km west of Bergen, targeting up to 5 Mtpa. Still in exploration with no FID as of mid-2026; the map location is approximate.",
-  "notes_research": "Norwegian North Sea CO2 storage exploration license, ~120km west of Bergen, distinct from Equinor's Smeaheia license (already tracked). Targeting up to 5 Mtpa; exploration/licensing-phase as of mid-2026, no FID yet. Coordinates approximate."
+  "notes": "A North Sea CO2 storage exploration license about 120 km west of Bergen. Still in exploration with no FID as of mid-2026; the map location is approximate.",
+  "notes_research": "Norwegian North Sea CO2 storage exploration license, ~120km west of Bergen, distinct from Equinor's Smeaheia license (already tracked). Targeting up to 5 Mtpa; exploration/licensing-phase as of mid-2026, no FID yet. Coordinates approximate.",
+  "operator_research": "Harbour Energy (formerly Wintershall Dea) / CapeOmega"
  },
  {
   "name": "Havstjerne CO2 Storage License (Norway, North Sea)",
@@ -1634,12 +1643,13 @@
   "status": "in_permitting",
   "capacity_mtpa": 7.0,
   "cumulative_stored_mt": null,
-  "operator": "Harbour Energy (60%, having taken over Wintershall Dea's stake) / Altera Infrastructure",
+  "operator": "Harbour Energy / Altera Infrastructure",
   "start_year": null,
   "onshore_offshore": "offshore",
   "source": "alterainfra.com; carbonherald.com Norwegian CO2 storage license coverage 2025-26",
-  "notes": "A North Sea CO2 storage exploration license about 135 km southwest of Stavanger, where a test well reportedly showed promising injectivity. It targets up to 7 Mtpa, with no FID as of mid-2026.",
-  "notes_research": "Norwegian North Sea CO2 storage exploration license, ~135km SW of Stavanger, distinct from Smeaheia and Luna. Test well drilled with reportedly promising injectivity results; targeting up to 7 Mtpa. Still in exploration/licensing phase as of mid-2026, no FID yet. Coordinates approximate."
+  "notes": "A North Sea CO2 storage exploration license about 135 km southwest of Stavanger, where a test well reportedly showed promising injectivity. No FID had been taken as of mid-2026.",
+  "notes_research": "Norwegian North Sea CO2 storage exploration license, ~135km SW of Stavanger, distinct from Smeaheia and Luna. Test well drilled with reportedly promising injectivity results; targeting up to 7 Mtpa. Still in exploration/licensing phase as of mid-2026, no FID yet. Coordinates approximate.",
+  "operator_research": "Harbour Energy (60%, having taken over Wintershall Dea's stake) / Altera Infrastructure"
  },
  {
   "name": "Croatia Geothermal CCS (Bočkovac, Osijek-Baranja)",
@@ -1686,12 +1696,13 @@
   "status": "planned",
   "capacity_mtpa": 0.8,
   "cumulative_stored_mt": null,
-  "operator": "Heidelberg Materials (Devnya Cement Plant, capture) / storage partner TBD",
+  "operator": "Heidelberg Materials",
   "start_year": 2028,
   "onshore_offshore": "offshore (Black Sea)",
   "source": "heidelbergmaterials.com; anrav.bg; EU PCI list; €190M EU Innovation Fund award",
   "notes": "Would capture CO2 at Heidelberg Materials' Devnya cement plant and store it in the depleted Galata gas field offshore in the Black Sea. A pilot capture unit has run since October 2023; full-chain operation is targeted for 2028 at the earliest.",
-  "notes_research": "EU PCI-listed cement-CCS project; captures CO2 at Heidelberg Materials' Devnya cement plant near Varna for storage in the depleted Galata gas field, offshore Black Sea. ANRAV.beta pilot capture unit has been running at Devnya since Oct 2023; full-chain (capture + offshore storage) still in planning/permitting as of mid-2026, targeting operation as early as 2028. Capacity ~0.8 Mtpa capture rate."
+  "notes_research": "EU PCI-listed cement-CCS project; captures CO2 at Heidelberg Materials' Devnya cement plant near Varna for storage in the depleted Galata gas field, offshore Black Sea. ANRAV.beta pilot capture unit has been running at Devnya since Oct 2023; full-chain (capture + offshore storage) still in planning/permitting as of mid-2026, targeting operation as early as 2028. Capacity ~0.8 Mtpa capture rate.",
+  "operator_research": "Heidelberg Materials (Devnya Cement Plant, capture) / storage partner TBD"
  },
  {
   "name": "Medway Hub (Synergia Energy, Camelot License CS019, Southern North Sea)",
@@ -1703,12 +1714,13 @@
   "status": "in_permitting",
   "capacity_mtpa": 6.5,
   "cumulative_stored_mt": null,
-  "operator": "Synergia Energy (Wintershall Dea withdrew from the JV Nov 2024 following its acquisition by Harbour Energy; Synergia now seeking a new partner)",
+  "operator": "Synergia Energy",
   "start_year": 2032,
   "onshore_offshore": "offshore",
   "source": "oedigital.com; enerdata.net Medway Hub / CS019 Camelot coverage 2024-26",
   "notes": "The depleted Camelot gas field and nearby saline aquifers, with 70-100 Mt of estimated storage. Progress has stalled since partner Wintershall Dea exited in November 2024; first injection is targeted around 2032.",
-  "notes_research": "Depleted Camelot gas field plus associated saline aquifers, southern North Sea (storage license CS019); total storage potential estimated 70-100 Mt, target injection rate up to 6.5 Mtpa. Pre-FEED complete, but flagged higher-risk: anchor partner Wintershall Dea exited the JV in Nov 2024 amid the Harbour Energy acquisition, leaving Synergia Energy searching for a replacement partner as of mid-2026. Genuine named site and license, but commercial progress stalled pending new JV; target first injection ~2032."
+  "notes_research": "Depleted Camelot gas field plus associated saline aquifers, southern North Sea (storage license CS019); total storage potential estimated 70-100 Mt, target injection rate up to 6.5 Mtpa. Pre-FEED complete, but flagged higher-risk: anchor partner Wintershall Dea exited the JV in Nov 2024 amid the Harbour Energy acquisition, leaving Synergia Energy searching for a replacement partner as of mid-2026. Genuine named site and license, but commercial progress stalled pending new JV; target first injection ~2032.",
+  "operator_research": "Synergia Energy (Wintershall Dea withdrew from the JV Nov 2024 following its acquisition by Harbour Energy; Synergia now seeking a new partner)"
  },
  {
   "name": "Blue Flint CCS (Harvestone)",
@@ -1814,7 +1826,7 @@
   "start_year": 2027,
   "onshore_offshore": "onshore",
   "source": "Enhance Energy release 31 Jul 2025 (AER approval); Global News 9 Sep 2026",
-  "notes": "A saline aquifer storage hub near Clive, Alberta, connected to existing CO2 pipeline infrastructure, with initial capacity of up to 1.5 Mtpa. Construction began in September 2026 and operations are slated to start in January 2027.",
+  "notes": "A saline aquifer storage hub near Clive, Alberta, connected to existing CO2 pipeline infrastructure. Construction began in September 2026 and operations are slated to start in January 2027.",
   "url": "https://www.newswire.ca/news-releases/enhance-s-origins-ccs-hub-receives-regulatory-approval-811400616.html",
   "notes_research": "Enhance Energy's Origins saline aquifer CCS hub, AER Directive 065 approval Jul 2025 (Enhance release); groundbreaking 9 Sep 2026, initial up to 1.5 Mtpa, ops slated Jan 2027, initial CO2 from NWR Sturgeon Refinery and Nutrien Redwater (Global News). Distinct from Enhance's Clive CO2-EOR operation (ACTL destination, excluded). Coordinates approximate (Clive town); exact injection site not verified."
  }
