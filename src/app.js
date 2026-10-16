@@ -102,7 +102,9 @@
     { style: ismStyle, onEachFeature: ismEach });
 
   // ---------- projects ----------
-  const ST_SOLID = { operational: 1, construction: 0.75, approved: 0.75 };
+  // Two clearly distinct marker states: filled = operating, under construction or an active
+  // pilot; hollow ring = planned, in permitting, approved but not yet built, or concluded.
+  const ST_FILLED = new Set(["operational", "construction", "pilot"]);
   const STORAGE_LABEL = { saline: "Saline aquifer", depleted_og: "Depleted oil & gas field",
     basalt: "Basalt", peridotite: "Peridotite", serpentinite: "Serpentinite" };
   function projLayerBuild() {
@@ -110,13 +112,13 @@
     A.projects.forEach((p) => {
       if (p.lat == null || p.lon == null) return;
       const color = css(p.mechanism === "mineralization" ? "--proj-ism" : "--proj-geo");
-      const solid = ST_SOLID[p.status] || 0;
+      const filled = ST_FILLED.has(p.status);
       const r = 3 + Math.sqrt(Math.min(p.capacity_mtpa || 0.05, 12)) * 2.2;
-      const m = L.circleMarker([p.lat, p.lon], {
-        radius: r, color, weight: 1.6,
-        fillColor: color, fillOpacity: solid ? 0.55 * solid : 0.08,
-        pane: "markerPane",
-      });
+      const m = L.circleMarker([p.lat, p.lon], filled
+        ? { radius: r, color: css("--panel"), weight: 1, opacity: 0.9,
+            fillColor: color, fillOpacity: 0.9, pane: "markerPane" }
+        : { radius: r, color, weight: 2.4, opacity: 1,
+            fillColor: color, fillOpacity: 0, pane: "markerPane" });
       m.bindTooltip(`<b>${p.name}</b>${p.status.replace(/_/g, " ")}` +
         `${p.capacity_mtpa ? ` · ${p.capacity_mtpa} Mt/yr` : ""}` +
         `<small>${p.mechanism === "mineralization" ? "Mineralization" : "Sedimentary storage"}` +
@@ -183,6 +185,8 @@
       rows.push(`<div class="lg-title">Storage sites</div>`);
       rows.push(`<div class="lg-row"><span class="lg-sw round" style="background:${css("--proj-geo")}"></span>Sedimentary</div>`);
       rows.push(`<div class="lg-row"><span class="lg-sw round" style="background:${css("--proj-ism")}"></span>Mineralization</div>`);
+      rows.push(`<div class="lg-row"><span class="lg-sw round" style="background:${css("--ink-3")}"></span>Operating or under construction</div>`);
+      rows.push(`<div class="lg-row"><span class="lg-sw round" style="background:transparent;border:2.4px solid ${css("--ink-3")}"></span>Planned, permitting or concluded</div>`);
     }
     document.getElementById("legend-body").innerHTML = rows.join("");
   }
@@ -572,8 +576,7 @@
       This is the most common kind here: ${nCountryCat} of ${A.countries.length} countries and
       ${nBasinCat} basins.</li>
     </ul>
-    <p>Mapped basins with no capacity number are labeled <b>Not assessed</b>. Different kinds of
-    estimate are never added together.</p>
+    <p>Mapped basins with no capacity number are labeled <b>Not assessed</b>.</p>
 
     <h3>Context on headline capacities</h3>
     <ul class="method-list">
@@ -644,7 +647,10 @@
     ${ln("https://www.globalccsinstitute.com/co2re/", "Global CCS Institute CO2RE database")},
     the ${ln("https://www.iea.org/data-and-statistics/data-product/ccus-projects-database", "IEA CCUS Projects Database")},
     the ${ln("https://www.epa.gov/uic/current-class-vi-projects-under-review-epa", "EPA Class VI tracker")},
-    operator disclosures, and press. The site panel links to a project page if available.</p>
+    operator disclosures, and press. Projects that mainly use CO₂ for enhanced oil recovery are
+    excluded; projects that combine enhanced oil recovery with dedicated storage are included only
+    for their storage component, and their panels say so. The site panel links to a project page
+    if available.</p>
 
     <h3>Sources</h3>
     <p class="method-src"><b>Sedimentary capacity:</b>
@@ -692,8 +698,8 @@
   // upper end matches the geoTip / methodology text (Kearns et al. 2017).
   const TOUR = [
     { el: "#stats", title: "Start with the headline numbers", html:
-      `Almost all CO₂ storage operating today is in <b>sedimentary basins</b>: <b>${G.operational_mtpa} Mt/yr</b> ` +
-      `across ${nOpGeo} sites, versus <b>${M.operational_mtpa} Mt/yr</b> at ${nOpIsm} ` +
+      `Almost all CO₂ storage today happens in <b>sedimentary basins</b>: <b>${G.operational_mtpa} Mt/yr</b> ` +
+      `operating across ${nOpGeo} sites, versus <b>${M.operational_mtpa} Mt/yr</b> at ${nOpIsm} ` +
       `<b>mineralization</b> sites. But the theoretical potential of mineralization in reactive ` +
       `rock (~${fmtBig(M.theoretical_gt)} Gt) is about ${ismRatio}× the upper end of global estimates ` +
       `for sedimentary storage (~${fmtBig(INJ_UPPER_GT)} Gt), and reactive rock reaches many ` +

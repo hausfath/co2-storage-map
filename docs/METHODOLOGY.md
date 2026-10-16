@@ -306,7 +306,9 @@ pilot is at the SAM property ~50 km SW of Prince George, not Atlin.
 replaced by Enhance's dedicated Origins saline hub, under construction, 1.5 Mtpa), Summit Carbon
 Solutions (North Dakota storage permits voided March 2026; no named replacement site). Huaneng
 Zhengning counted at its 0.5 Mtpa dedicated saline share; ONGC Gandhar kept as a planned pilot.
-Status/date fixes: Ordos (pilot concluded, 2011-2015, coordinates moved ~300 km east), Donghae-1
+Mixed projects (Zhengning, Gandhar) now say in their panels why they are included, and the
+methodology modal states the rule: EOR-dominated projects excluded, mixed projects included only
+for their storage component (2026-10-16, in response to team review). Status/date fixes: Ordos (pilot concluded, 2011-2015, coordinates moved ~300 km east), Donghae-1
 (planned, 2030; coordinates moved to ~60 km SE of Ulsan), Kasawari (depleted gas field, not
 saline), Arthit (approved, 2028), Prinos (approved), Ankeron (planned), Jubail (start 2028),
 Tundra (approved, start year unknown), Northern Lights Phase 2 (adds ~3.5 Mtpa). Operating
@@ -329,8 +331,7 @@ global mid-ocean ridge entry has no map geometry (pre-existing).
 ## Colleague review (2026-10-16)
 Copy, legend and panel edits from the team's "Map edits" review were applied: new intro, tile
 title ("Injection in sedimentary basins"), simplified (i) tooltips, legend section titles,
-"Known basin", storage-site legend reduced to Sedimentary / Mineralization (filled vs hollow
-markers were not distinguishable), tour copy, and a rewritten methodology modal. Wording fixed
+"Known basin", tour copy, and a rewritten methodology modal. Wording fixed
 during review: storage occurs *deeper* than about 800 m (the draft said "less than"); RMI's
 1.2 Gt/yr is an optimistic scenario, not a projection; the Catalogued definition; and the tour no
 longer mixes cumulative storage with an annual rate or attributes kinds of estimate to sites.
@@ -341,6 +342,11 @@ labels (`alt_estimates[].label`, e.g. "Theoretical, Southern North Sea only"); 4
 items ("none found", working annotations) were removed from source lists and 15 citations
 trimmed; operator fields cleaned; country "Setting" phrasing standardized. Originals are kept in
 `*_research` fields.
+Storage-site markers: the review found filled and hollow markers hard to tell apart (they
+differed only in fill opacity, 0.08 vs 0.41-0.55). They now use two high-contrast states with
+their own legend items: filled (opaque fill, thin light outline) for operating, under
+construction or active pilots; hollow (no fill, thicker colored ring) for planned, in
+permitting, approved but not yet built, or concluded pilots.
 
 ## Source hyperlinks
 Detail-panel citations are linked at render time via `data/research/source_links.json`
