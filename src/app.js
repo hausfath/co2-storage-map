@@ -183,10 +183,13 @@
     }
     if (on("ly-projects")) {
       rows.push(`<div class="lg-title">Storage sites</div>`);
-      rows.push(`<div class="lg-row"><span class="lg-sw round" style="background:${css("--proj-geo")}"></span>Sedimentary</div>`);
-      rows.push(`<div class="lg-row"><span class="lg-sw round" style="background:${css("--proj-ism")}"></span>Mineralization</div>`);
-      rows.push(`<div class="lg-row"><span class="lg-sw round" style="background:${css("--ink-3")}"></span>Operating or under construction</div>`);
-      rows.push(`<div class="lg-row"><span class="lg-sw round" style="background:transparent;border:2.4px solid ${css("--ink-3")}"></span>Planned, permitting or concluded</div>`);
+      // filled = operating, under construction or active pilot; hollow ring = the rest
+      const site = (v, filled, label) => rows.push(`<div class="lg-row"><span class="lg-sw round" style="${filled
+        ? `background:${css(v)}` : `background:transparent;border:2.4px solid ${css(v)}`}"></span>${label}</div>`);
+      site("--proj-geo", true, "Sedimentary: operating or under construction");
+      site("--proj-geo", false, "Sedimentary: planned, permitted or concluded");
+      site("--proj-ism", true, "Mineralization: operating or under construction");
+      site("--proj-ism", false, "Mineralization: planned, permitted or concluded");
     }
     document.getElementById("legend-body").innerHTML = rows.join("");
   }

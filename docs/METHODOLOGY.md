@@ -346,7 +346,9 @@ Storage-site markers: the review found filled and hollow markers hard to tell ap
 differed only in fill opacity, 0.08 vs 0.41-0.55). They now use two high-contrast states with
 their own legend items: filled (opaque fill, thin light outline) for operating, under
 construction or active pilots; hollow (no fill, thicker colored ring) for planned, in
-permitting, approved but not yet built, or concluded pilots.
+permitting, approved but not yet built, or concluded pilots. The legend lists all four combinations
+(Sedimentary / Mineralization × operating or under construction / planned, permitted or
+concluded).
 
 ## Source hyperlinks
 Detail-panel citations are linked at render time via `data/research/source_links.json`
